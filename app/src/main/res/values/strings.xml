@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">LazyPlant</string>
+    <string name="title_search">Search</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_favourites">Favourites</string>
+    <string name="title_activity_plant_detail">PlantDetail</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+</resources>
