@@ -7,4 +7,10 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="title_activity_plant_details">PlantDetailsActivity</string>
+    <string name="Summer">summer</string>
+    <string name="All">all</string>
+    <string name="year">year</string>
+    <string name="Spring">spring</string>
+    <string name="Winter">winter</string>
+    <string name="Autumn">autumn</string>
 </resources>

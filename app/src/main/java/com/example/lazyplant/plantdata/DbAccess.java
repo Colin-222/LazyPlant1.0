@@ -87,9 +87,9 @@ public class DbAccess {
         return pi;
     }
 
-    public List<String> search(){
+    public List<String> search(String get, String table, String conditions){
         List<String> list = new ArrayList<>();
-        String command = "SELECT id FROM plant_data WHERE height_upper > 36";
+        String command = "SELECT " + get+ " FROM " + table + " WHERE " + conditions;
         Cursor cursor = database.rawQuery(command, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

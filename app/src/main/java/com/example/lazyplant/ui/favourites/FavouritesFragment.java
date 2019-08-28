@@ -35,8 +35,6 @@ public class FavouritesFragment extends Fragment {
 
     public static final String EXTRA_MESSAGE = "com.example.lazyplant.ui.favourites.MESSAGE";
 
-    private FavouritesViewModel favouritesViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_favourites, container, false);
@@ -44,14 +42,6 @@ public class FavouritesFragment extends Fragment {
                 .allowMainThreadQueries().build();
         FavouriteDAO favouriteDAO = database.getFavouriteDAO();
         List<Favourite> y = favouriteDAO.getFavourites();
-        /*DbAccess databaseAccess = DbAccess.getInstance(getContext());
-        databaseAccess.open();
-        List<PlantInfo> favourite_plants = new ArrayList<PlantInfo>();
-        for (int i=0; i<y.size(); i++) {
-            PlantInfo p = databaseAccess.getPlantInfo(y.get(i).getSpecies_id());
-            favourite_plants.add(p);
-        }
-        databaseAccess.close();*/
 
         //Get screen size
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -60,6 +50,11 @@ public class FavouritesFragment extends Fragment {
         int width = displayMetrics.widthPixels;
         
         //Draw ma plants
+        drawMaPlants(root, y, height, width);
+        return root;
+    }
+
+    private void drawMaPlants(View root, List<Favourite> y, int height, int width) {
         final int padding = 40;
         for (int i = 0; i < y.size(); i++) {
             Favourite pi = y.get(i);
@@ -78,7 +73,6 @@ public class FavouritesFragment extends Fragment {
             });
             myButton.setPadding(20, 0, 20, 0);
             RelativeLayout relativeLayout = (RelativeLayout) root.findViewById(R.id.linear_favourites);
-
             RelativeLayout.LayoutParams buttonParams = new RelativeLayout.LayoutParams((int)(Math.round(width*0.45)), height/5);
             if (i == 0) {
                 buttonParams.setMargins(width/padding, width/padding, width/padding, width/padding);
@@ -92,7 +86,6 @@ public class FavouritesFragment extends Fragment {
             }
             relativeLayout.addView(myButton, buttonParams);
         }
-        return root;
     }
 
 }
