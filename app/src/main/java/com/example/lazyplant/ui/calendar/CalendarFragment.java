@@ -36,7 +36,7 @@ public class CalendarFragment extends Fragment {
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
 
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < 20; i++) {
 
             final Button myButton = new Button(root.getContext());
             myButton.setText(Integer.toString(i+1));
@@ -50,7 +50,7 @@ public class CalendarFragment extends Fragment {
 
             myButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
             myButton.setTextSize(18);
-
+            myButton.setBackgroundResource(R.drawable.goodenia_ovata);
             myButton.setPadding(20, 0, 20, 0);
 
             RelativeLayout relativeLayout = (RelativeLayout) root.findViewById(R.id.linear_calendar);
