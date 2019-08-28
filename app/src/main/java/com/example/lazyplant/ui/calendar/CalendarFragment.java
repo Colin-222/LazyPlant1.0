@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,12 @@ public class CalendarFragment extends Fragment {
             final Button myButton = new Button(root.getContext());
             myButton.setText(Integer.toString(i+1));
             myButton.setId(i + 1);
-//            myButton.setOnClickListener(this);
+            final int finalI = i;
+            myButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Log.i("TAG", "The index is" + finalI);
+                }
+            });
 
             myButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
             myButton.setTextSize(18);
@@ -49,8 +55,7 @@ public class CalendarFragment extends Fragment {
 
             RelativeLayout relativeLayout = (RelativeLayout) root.findViewById(R.id.linear_calendar);
 
-            RelativeLayout.LayoutParams buttonParams = new RelativeLayout.LayoutParams((int)(Math.round(width*0.45)),
-height/5);
+            RelativeLayout.LayoutParams buttonParams = new RelativeLayout.LayoutParams((int)(Math.round(width*0.45)), height/5);
             if (i == 0) {
                 buttonParams.setMargins(width/40, width/40, width/40, width/40);
             } else if (i % 2 == 1) {
