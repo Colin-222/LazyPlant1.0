@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".PlantDetail"
-            android:label="@string/title_activity_plant_detail"
+            android:name=".PlantDetailsActivity"
+            android:label="@string/title_activity_plant_details"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".MainActivity"
