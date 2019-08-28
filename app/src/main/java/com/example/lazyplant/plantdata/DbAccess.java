@@ -87,9 +87,35 @@ public class DbAccess {
         return pi;
     }
 
+    public List<String> getIdByConditionPd(String table, String conditions){
+        List<String> list = new ArrayList<>();
+        String command = "SELECT DISTINCT id FROM " + table + " WHERE 0=1" + conditions;
+        Cursor cursor = database.rawQuery(command, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
+    }
+
+    public List<String> getIdByCondition(String table, String conditions){
+        List<String> list = new ArrayList<>();
+        String command = "SELECT DISTINCT species_id FROM " + table + " WHERE 0=1" + conditions;
+        Cursor cursor = database.rawQuery(command, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
+    }
+
     public List<String> search(String get, String table, String conditions){
         List<String> list = new ArrayList<>();
-        String command = "SELECT " + get+ " FROM " + table + " WHERE " + conditions;
+        String command = "SELECT DISTINCT " + get+ " FROM " + table + " WHERE " + conditions;
         Cursor cursor = database.rawQuery(command, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

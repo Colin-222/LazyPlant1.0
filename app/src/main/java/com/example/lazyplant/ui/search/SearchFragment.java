@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -86,7 +87,7 @@ public class SearchFragment extends Fragment {
                 EditText edit = getView().findViewById(R.id.search_name);
 
                 ChipGroup type_cg = getView().findViewById(R.id.type_chip_group);
-                List<String> type_search = new ArrayList<String>();
+                ArrayList<String> type_search = new ArrayList<String>();
                 if (((Chip) type_cg.findViewById(R.id.chip_tree)).isChecked()) {
                     type_search.add("Big tree");
                     type_search.add("Small tree");
@@ -115,7 +116,7 @@ public class SearchFragment extends Fragment {
                 }
 
                 ChipGroup shade_cg = getView().findViewById(R.id.shade_chip_group);
-                List<String> shade_search = new ArrayList<String>();
+                ArrayList<String> shade_search = new ArrayList<String>();
                 if (((Chip) shade_cg.findViewById(R.id.chip_sunny)).isChecked()) {
                     type_search.add("Sunny");
                 }
@@ -130,7 +131,7 @@ public class SearchFragment extends Fragment {
                 }
 
                 ChipGroup frost_cg = getView().findViewById(R.id.frost_chip_group);
-                List<String> frost_search = new ArrayList<String>();
+                ArrayList<String> frost_search = new ArrayList<String>();
                 if (((Chip) frost_cg.findViewById(R.id.chip_light_frost)).isChecked()) {
                     frost_search.add("Light");
                 }
@@ -142,7 +143,7 @@ public class SearchFragment extends Fragment {
                 }
 
                 ChipGroup zone_cg = getView().findViewById(R.id.zone_chip_group);
-                List<String> zone_search = new ArrayList<String>();
+                ArrayList<String> zone_search = new ArrayList<String>();
                 if (((Chip) zone_cg.findViewById(R.id.chip_cool_temperate)).isChecked()) {
                     zone_search.add("Cool temperate");
                 }
@@ -169,28 +170,41 @@ public class SearchFragment extends Fragment {
                 }
 
                 ChipGroup height_cg = getView().findViewById(R.id.height_chip_group);
-                List<String> height_search = new ArrayList<String>();
+                String height_search = "";
                 if (((Chip) height_cg.findViewById(R.id.chip_height_small)).isChecked()) {
-                    height_search.add("S");
+                    height_search = "S";
                 }
                 if (((Chip) height_cg.findViewById(R.id.chip_height_medium)).isChecked()) {
-                    height_search.add("M");
+                    height_search = "M";
                 }
                 if (((Chip) height_cg.findViewById(R.id.chip_height_large)).isChecked()) {
-                    height_search.add("L");
+                    height_search = "L";
                 }
 
                 ChipGroup width_cg = getView().findViewById(R.id.width_chip_group);
-                List<String> width_search = new ArrayList<String>();
+                String width_search = "";
                 if (((Chip) width_cg.findViewById(R.id.chip_width_small)).isChecked()) {
-                    width_search.add("S");
+                    width_search = "S";
                 }
                 if (((Chip) width_cg.findViewById(R.id.chip_width_medium)).isChecked()) {
-                    width_search.add("M");
+                    width_search = "M";
                 }
                 if (((Chip) width_cg.findViewById(R.id.chip_width_large)).isChecked()) {
-                    width_search.add("L");
+                    width_search = "L";
                 }
+
+                Bundle bundle = new Bundle();
+                bundle.putString("search_term",edit.getText().toString());
+                bundle.putStringArrayList("list", type_search);
+                bundle.putStringArrayList("shade", shade_search);
+                bundle.putStringArrayList("frost", frost_search);
+                bundle.putStringArrayList("zone", zone_search);
+                bundle.putString("height", height_search);
+                bundle.putString("width", width_search);
+                SearchResult sr = new SearchResult();
+                sr.setArguments(bundle);
+                getFragmentManager() .beginTransaction()
+                        .replace(R.id.nav_host_fragment, sr).commit();
 
             }
         });

@@ -15,6 +15,7 @@ import com.example.lazyplant.ui.plantDetailUI.main.DetailsFragment;
 import com.example.lazyplant.ui.plantDetailUI.main.DetailsSectionPagerAdapter;
 import com.example.lazyplant.ui.plantDetailUI.main.InfoFragment;
 import com.example.lazyplant.ui.plantDetailUI.main.PicsFragment;
+import com.example.lazyplant.ui.search.SearchResult;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -49,7 +50,10 @@ public class PlantDetailsActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        String message = intent.getStringExtra(CalendarFragment.EXTRA_MESSAGE);
+        String message;
+        message = intent.getStringExtra(CalendarFragment.EXTRA_MESSAGE);
+        message = intent.getStringExtra(FavouritesFragment.EXTRA_MESSAGE);
+        message = intent.getStringExtra(SearchResult.EXTRA_MESSAGE);
 
         DbAccess databaseAccess = DbAccess.getInstance(this.getApplicationContext());
         databaseAccess.open();
