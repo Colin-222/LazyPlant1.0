@@ -1,4 +1,4 @@
-package com.example.lazyplant;
+package com.example.lazyplant.plantdata;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
