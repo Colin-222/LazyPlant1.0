@@ -137,8 +137,6 @@ public class SearchFragment extends Fragment {
                     width_search.add("L");
                 }
 
-                edit = edit;
-
             }
         });
 

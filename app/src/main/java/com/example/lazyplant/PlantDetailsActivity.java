@@ -2,9 +2,11 @@ package com.example.lazyplant;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.lazyplant.ui.favourites.FavouritesFragment;
 import com.example.lazyplant.ui.plantDetailUI.main.DetailsFragment;
 import com.example.lazyplant.ui.plantDetailUI.main.DetailsSectionPagerAdapter;
 import com.example.lazyplant.ui.plantDetailUI.main.InfoFragment;
@@ -43,6 +45,11 @@ public class PlantDetailsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(FavouritesFragment.EXTRA_MESSAGE);
+        Log.i("INTENT-TAG", "message");
+
     }
 
     private void setupViewPager(ViewPager viewPage) {

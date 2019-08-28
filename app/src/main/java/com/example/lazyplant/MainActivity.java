@@ -3,6 +3,9 @@ package com.example.lazyplant;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.lazyplant.plantdata.AppDatabase;
+import com.example.lazyplant.plantdata.Favourite;
+import com.example.lazyplant.plantdata.FavouriteDAO;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +13,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.room.Room;
 
 import java.util.List;
 
@@ -43,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
                 .allowMainThreadQueries().build();
         FavouriteDAO favouriteDAO = database.getFavouriteDAO();
         Favourite fav = new Favourite();
-        //fav.setSpecies_id("aaaaaa");
-        //favouriteDAO.insert(fav);
-        favouriteDAO.deleteAll();
+        fav.setSpecies_id("Babingtonia virgata ‘Howie’s Sweet Midget’ – Heath Myrtle");
+        favouriteDAO.insert(fav);
+        //favouriteDAO.deleteAll();
         List<Favourite> y = favouriteDAO.getFavourites();
         for (int i=0; i<y.size(); i++) {
             Log.i("TEST-ROOM", y.get(i).getSpecies_id());
