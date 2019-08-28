@@ -35,8 +35,7 @@ public class PlantDetailsActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
         Button button= (Button) findViewById(R.id.detail_back_button);
-//        button.bringToFront();
-//        button.invalidate();
+
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
