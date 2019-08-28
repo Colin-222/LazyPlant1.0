@@ -1,4 +1,4 @@
-package com.example.lazyplant;
+package com.example.lazyplant.plantdata;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
