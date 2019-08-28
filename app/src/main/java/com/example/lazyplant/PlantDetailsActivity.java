@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.lazyplant.plantdata.AppDatabase;
 import com.example.lazyplant.plantdata.DbAccess;
+import com.example.lazyplant.plantdata.Favourite;
+import com.example.lazyplant.plantdata.FavouriteDAO;
 import com.example.lazyplant.plantdata.PlantInfo;
 import com.example.lazyplant.ui.calendar.CalendarFragment;
 import com.example.lazyplant.ui.favourites.FavouritesFragment;
@@ -23,6 +27,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.room.Room;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -52,13 +57,45 @@ public class PlantDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String message;
         message = intent.getStringExtra(CalendarFragment.EXTRA_MESSAGE);
-        message = intent.getStringExtra(FavouritesFragment.EXTRA_MESSAGE);
-        message = intent.getStringExtra(SearchResult.EXTRA_MESSAGE);
-
+        if (message == null){
+            message = intent.getStringExtra(FavouritesFragment.EXTRA_MESSAGE);
+            if (message == null){
+                message = intent.getStringExtra(SearchResult.EXTRA_MESSAGE);
+            }
+        }
         DbAccess databaseAccess = DbAccess.getInstance(this.getApplicationContext());
         databaseAccess.open();
         PlantInfo p = databaseAccess.getPlantInfo(message);
         databaseAccess.close();
+        final String pid = p.getId();
+
+        //Change switch if favourite'd already.
+        final Switch sw = (Switch) findViewById(R.id.details_favourite_switch);
+        AppDatabase database = Room.databaseBuilder(this.getApplication().getBaseContext(), AppDatabase.class, "db-favourites")
+                .allowMainThreadQueries().build();
+        FavouriteDAO favouriteDAO = database.getFavouriteDAO();
+        List<Favourite> favs = favouriteDAO.getFavourites();
+        sw.setChecked(checkIfFavourite(p.getId(), favs));
+
+        sw.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                AppDatabase database = Room.databaseBuilder(PlantDetailsActivity.this, AppDatabase.class, "db-favourites")
+                        .allowMainThreadQueries().build();
+                FavouriteDAO favouriteDAO = database.getFavouriteDAO();
+                List<Favourite> favs = favouriteDAO.getFavourites();
+                if (checkIfFavourite(pid, favs)){
+                    sw.setChecked(false);
+                    favouriteDAO.deleteFavourite(pid);
+                } else {
+                    sw.setChecked(true);
+                    Favourite x = new Favourite();
+                    x.setSpecies_id(pid);
+                    favouriteDAO.insert(x);
+                }
+            }
+        });
+
         if(p != null){
             TextView tmp;
             String x;
@@ -127,6 +164,15 @@ public class PlantDetailsActivity extends AppCompatActivity {
 
 
         }
+    }
+
+    boolean checkIfFavourite(String id, List<Favourite> favs){
+        for (Favourite i : favs){
+            if (i.getSpecies_id().equals(id)){
+                return true;
+            }
+        }
+        return false;
     }
 
 }
