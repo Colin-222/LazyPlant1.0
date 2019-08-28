@@ -126,6 +126,22 @@ public class DbAccess {
         return list;
     }
 
+    public List<String> getFromPlantData(String field){
+        List<String> list = new ArrayList<>();
+        String command = "SELECT " + field + " FROM plant_data";
+        Cursor cursor = database.rawQuery(command, null); cursor.moveToFirst();
+        while (!cursor.isAfterLast()) { list.add(cursor.getString(0));cursor.moveToNext(); }
+        cursor.close(); return list;
+    }
+
+    public List<String> getAltNames(){
+        List<String> list = new ArrayList<>();
+        String command = "SELECT name FROM alt_names";
+        Cursor cursor = database.rawQuery(command, null); cursor.moveToFirst();
+        while (!cursor.isAfterLast()) { list.add(cursor.getString(0));cursor.moveToNext(); }
+        cursor.close(); return list;
+    }
+
     private String getPlantDataField(String field, String table, String id){
         String data = "";
         String command = "SELECT " + field + " FROM " + table + " WHERE species_id = \"" + id + "\"";
