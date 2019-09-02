@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import com.example.lazyplant.ui.plantDetailUI.main.DetailsFragment;
 import com.example.lazyplant.ui.plantDetailUI.main.DetailsSectionPagerAdapter;
 import com.example.lazyplant.ui.plantDetailUI.main.InfoFragment;
 import com.example.lazyplant.ui.plantDetailUI.main.PicsFragment;
+import com.example.lazyplant.ui.plantDisplayHelper;
 import com.example.lazyplant.ui.search.SearchResult;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -162,8 +164,28 @@ public class PlantDetailsActivity extends AppCompatActivity {
                 tmp.setText(tmp.getText() + x + "-" + x2 + "m");
             }
 
+            ImageView image = (ImageView) findViewById(R.id.details_image_main);
+            plantDisplayHelper.displayImage(convertToImageName("Hymenosporum flavum ‘Gold Nugget’ – Native Frangipani"),image, this);
 
+            /*String image_name = convertToImageName("Hymenosporum flavum ‘Gold Nugget’ – Native Frangipani");
+            int image_id = this.getResources().getIdentifier(image_name,
+                    "drawable", this.getPackageName());
+            if (image_id == 0){
+                image_id = this.getResources().getIdentifier(image_name + "_1",
+                        "drawable", this.getPackageName());
+            }
+            image.setImageResource(image_id);*/
         }
+
+    }
+
+
+
+    String convertToImageName(String name){
+        String x = name;
+        x = x.replaceAll("[^a-zA-Z0-9]", "");
+        x = x.toLowerCase();
+        return x;
     }
 
     boolean checkIfFavourite(String id, List<Favourite> favs){
