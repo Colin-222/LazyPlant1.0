@@ -2,8 +2,11 @@
 <resources>
     <color name="colorPrimary">#08CE08</color>
     <color name="colorPrimaryDark">#11270B</color>
-    <color name="colorPrimaryLight">#7986cb</color>
+    <color name="colorPrimaryLight">#93a3b8</color>
     <color name="colorAccent">#4AAD52</color>
     <color name="colorButton">#168E20</color>
     <color name="colorStandBy">#3C5A14</color>
+    <color name="detailsTitleColor">#11270B</color>
+    <color name="detailsSubtitleColor">#93a3b8</color>
+    <color name="detailsTextColor">#01070B</color>
 </resources>

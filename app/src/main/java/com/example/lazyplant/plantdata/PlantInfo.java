@@ -2,6 +2,11 @@ package com.example.lazyplant.plantdata;
 
 import android.database.Cursor;
 
+import com.example.lazyplant.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class PlantInfo {
     public PlantInfo() {
     }
@@ -166,6 +171,41 @@ public class PlantInfo {
 
     public void setSoil_moisture(String soil_moisture) {
         this.soil_moisture = soil_moisture;
+    }
+
+    public List<String> getPlantDetailList(){
+        List<String> l = new ArrayList<>();
+        String x = this.getOther_names();
+        if (!x.equals("")){ l.add("Other names: " + x); }
+        x = this.getType();
+        if (!x.equals("")){ l.add("Type: " + x); }
+        x = this.getFlowering_period();
+        if (!x.equals("")){ l.add("Flowering period: " + x); }
+        x = this.getFrost_tolerance();
+        if (!x.equals("")){ l.add("Frost tolerance: " + x); }
+        x = this.getLight();
+        if (!x.equals("")){ l.add("Shade required: " + x); }
+        x = this.getHeight_lower();
+        String x2 = this.getHeight_upper();
+        if (x.equals("") && !x2.equals("")){
+            l.add("Height: " + x2 + "m");
+        } else if (!x.equals("") && x2.equals("")) {
+            l.add("Height: " + x + "m");
+        } else if (!x.equals("") && !x2.equals("")){
+            l.add("Height: " + x + "-" + x2 + "m");
+        }
+        x = this.getWidth_lower();
+        x2 = this.getWidth_upper();
+        if (x.equals("") && !x2.equals("")){
+            l.add("Height: " + x2 + "m");
+        } else if (!x.equals("") && x2.equals("")) {
+            l.add("Height: " + x + "m");
+        } else if (!x.equals("") && !x2.equals("")){
+            l.add("Height: " + x + "-" + x2 + "m");
+        }
+        x = this.getWildlife();
+        if (!x.equals("")){ l.add("Wildlife Attracted: " + x); }
+        return l;
     }
 
     private String scientific_name = "";

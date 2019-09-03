@@ -25,6 +25,8 @@ import com.example.lazyplant.ui.search.SearchResult;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -72,7 +74,7 @@ public class PlantDetailsActivity extends AppCompatActivity {
         final String pid = p.getId();
 
         //Change switch if favourite'd already.
-        final Switch sw = (Switch) findViewById(R.id.details_favourite_switch);
+        /*final Switch sw = (Switch) findViewById(R.id.details_favourite_switch);
         AppDatabase database = Room.databaseBuilder(this.getApplication().getBaseContext(), AppDatabase.class, "db-favourites")
                 .allowMainThreadQueries().build();
         FavouriteDAO favouriteDAO = database.getFavouriteDAO();
@@ -96,10 +98,24 @@ public class PlantDetailsActivity extends AppCompatActivity {
                     favouriteDAO.insert(x);
                 }
             }
-        });
+        });*/
 
         if(p != null){
-            TextView tmp;
+            ImageView image = findViewById(R.id.details_image_main);
+            plantDisplayHelper.displayDetailsPageImage(convertToImageName(
+                    "Hymenosporum flavum ‘Gold Nugget’ – Native Frangipani"), image, this, 0.4);
+            plantDisplayHelper.displayPlantTitle(p, (ConstraintLayout) findViewById(R.id.details_constraint_layout), image, this);
+            plantDisplayHelper.displayPlantDetails(p, (ConstraintLayout) findViewById(R.id.details_constraint_layout), image, this);
+
+            /*TextView title = new TextView(this);
+            title.setId(View.generateViewId());
+            title.setText(p.getCommon_name());
+            title.setTextSize(26);
+            title.setTextColor(ContextCompat.getColor(this, R.color.detailsTitleColor));
+            ConstraintLayout cl = (ConstraintLayout) findViewById(R.id.details_constraint_layout);
+            cl.addView(title);
+            plantDisplayHelper.setViewConstraints((View) title, cl, (View) cl, (View) cl, image, 16, 16);
+            /*TextView tmp;
             String x;
             tmp = findViewById(R.id.details_name);
             tmp.setText(p.getCommon_name());
@@ -162,10 +178,7 @@ public class PlantDetailsActivity extends AppCompatActivity {
                 tmp.setText(tmp.getText() + x + "m");
             } else if (!x.equals("") && !x2.equals("")){
                 tmp.setText(tmp.getText() + x + "-" + x2 + "m");
-            }
-
-            ImageView image = (ImageView) findViewById(R.id.details_image_main);
-            plantDisplayHelper.displayImage(convertToImageName("Hymenosporum flavum ‘Gold Nugget’ – Native Frangipani"),image, this);
+            }*/
 
             /*String image_name = convertToImageName("Hymenosporum flavum ‘Gold Nugget’ – Native Frangipani");
             int image_id = this.getResources().getIdentifier(image_name,
