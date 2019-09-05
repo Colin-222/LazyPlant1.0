@@ -75,7 +75,6 @@ public class plantDisplayHelper {
     }
 
     static public void displayPlantDetails(PlantInfo p, ConstraintLayout cl, View top_ref, Context context){
-        View top = top_ref;
         List<String> details = p.getPlantDetailList();
         View last = top_ref;
         for(String x : details){
@@ -95,7 +94,9 @@ public class plantDisplayHelper {
         tv.setTextColor(color);
     }
 
-    static private void setViewConstraints(View v, ConstraintLayout cl, View left_ref,View top_ref,
+
+
+    static public void setViewConstraints(View v, ConstraintLayout cl, View left_ref,View top_ref,
                                            int h_margin, int v_margin){
         ConstraintLayout.LayoutParams tv_params = (ConstraintLayout.LayoutParams) v.getLayoutParams();
         ConstraintSet constraintSet = new ConstraintSet();
@@ -108,7 +109,7 @@ public class plantDisplayHelper {
         constraintSet.applyTo(cl);
     }
 
-    static private void setViewConstraints(View v, ConstraintLayout cl, View left_ref,
+    static public void setViewConstraints(View v, ConstraintLayout cl, View left_ref,
                                            View right_ref, View top_ref, int h_margin, int v_margin){
         ConstraintLayout.LayoutParams tv_params = (ConstraintLayout.LayoutParams) v.getLayoutParams();
         ConstraintSet constraintSet = new ConstraintSet();

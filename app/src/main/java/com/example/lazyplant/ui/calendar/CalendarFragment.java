@@ -85,7 +85,7 @@ public class CalendarFragment extends Fragment {
 
         DbAccess databaseAccess = DbAccess.getInstance(getContext());
         databaseAccess.open();
-        List<String> x = databaseAccess.search("species_id", "flower_time",
+        List<String> x = databaseAccess.searchOnCondition("species_id", "flower_time",
                 "flowering_period = \"" + season + "\" or flowering_period = \"All year\"");
         databaseAccess.close();
 

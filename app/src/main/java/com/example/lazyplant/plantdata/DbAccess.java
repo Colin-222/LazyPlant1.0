@@ -87,9 +87,24 @@ public class DbAccess {
         return pi;
     }
 
-    public List<String> getIdByConditionPd(String table, String conditions){
+    private String getConditions(String category, List<String> checks){
+        String conditions = "";
+        boolean first = true;
+        for (String i : checks){
+            if(first){
+                first = false;
+                conditions += category + "=\"" + i + "\"";
+            }else{
+                conditions += " OR " + category + "=\"" + i + "\"";
+            }
+        }
+        return conditions;
+    }
+
+    public List<String> searchOnConditions(String get, String table, String category, List<String> checks){
         List<String> list = new ArrayList<>();
-        String command = "SELECT DISTINCT id FROM " + table + " WHERE 0=1" + conditions;
+        String command = "SELECT DISTINCT " + get+ " FROM " + table + " WHERE " +
+                getConditions(category, checks);
         Cursor cursor = database.rawQuery(command, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -100,20 +115,7 @@ public class DbAccess {
         return list;
     }
 
-    public List<String> getIdByCondition(String table, String conditions){
-        List<String> list = new ArrayList<>();
-        String command = "SELECT DISTINCT species_id FROM " + table + " WHERE 0=1" + conditions;
-        Cursor cursor = database.rawQuery(command, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            list.add(cursor.getString(0));
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return list;
-    }
-
-    public List<String> search(String get, String table, String conditions){
+    public List<String> searchOnCondition(String get, String table, String conditions){
         List<String> list = new ArrayList<>();
         String command = "SELECT DISTINCT " + get+ " FROM " + table + " WHERE " + conditions;
         Cursor cursor = database.rawQuery(command, null);
@@ -125,6 +127,22 @@ public class DbAccess {
         cursor.close();
         return list;
     }
+
+    public List<String> searchGetBetweenValues(String get, String table, String field,
+                                               String lower_bound, String upper_bound){
+        List<String> list = new ArrayList<>();
+        String command = "SELECT DISTINCT " + get + " FROM " + table + " WHERE " + field +
+                " >= " + lower_bound + " AND " + field + " < " + upper_bound;
+        Cursor cursor = database.rawQuery(command, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            list.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
+    }
+
 
     public List<String> getFromPlantData(String field){
         List<String> list = new ArrayList<>();

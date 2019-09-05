@@ -197,11 +197,11 @@ public class PlantInfo {
         x = this.getWidth_lower();
         x2 = this.getWidth_upper();
         if (x.equals("") && !x2.equals("")){
-            l.add("Height: " + x2 + "m");
+            l.add("Width: " + x2 + "m");
         } else if (!x.equals("") && x2.equals("")) {
-            l.add("Height: " + x + "m");
+            l.add("Width: " + x + "m");
         } else if (!x.equals("") && !x2.equals("")){
-            l.add("Height: " + x + "-" + x2 + "m");
+            l.add("Width: " + x + "-" + x2 + "m");
         }
         x = this.getWildlife();
         if (!x.equals("")){ l.add("Wildlife Attracted: " + x); }

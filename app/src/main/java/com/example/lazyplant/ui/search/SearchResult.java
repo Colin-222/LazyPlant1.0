@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -44,55 +45,46 @@ public class SearchResult extends Fragment {
 
         //Get search term data
         Bundle bundle = this.getArguments();
-        String search_term = bundle.getString("search_term");
-        ArrayList<String> type_search = bundle.getStringArrayList("list");
-        ArrayList<String> shade_search = bundle.getStringArrayList("shade");
-        ArrayList<String> frost_search = bundle.getStringArrayList("frost");
-        ArrayList<String> zone_search = bundle.getStringArrayList("zone");
-        String height_search = bundle.getString("height");
-        String width_search = bundle.getString("width");
-        //Construct sql query
-        //Get union select within filter categories
-        String conditions = "";
+        ArrayList<String> curr_options_selected = bundle.getStringArrayList(FilterOptionSelector.CATEGORY_LABEL);
+        ArrayList<String> curr_search_tables = bundle.getStringArrayList(FilterOptionSelector.TABLE_LABEL);
+        ArrayList<String> curr_search_fields = bundle.getStringArrayList(FilterOptionSelector.FIELD_LABEL);
+        List<List<String>> curr_selected_filters = new ArrayList<>();
+        for (String i : curr_options_selected){
+            curr_selected_filters.add(bundle.getStringArrayList(i));
+        }
+        int current_display_option = Integer.parseInt(bundle.getString(FilterDisplayHelper.CURRENT_DISPLAY_LABEL));
+
+        //Search through database with each filter
         DbAccess databaseAccess = DbAccess.getInstance(getContext());
         databaseAccess.open();
-        List<String> l_type = databaseAccess.getIdByCondition("type",
-                getConditions("type", type_search));
-        List<String> l_shade = databaseAccess.getIdByCondition("light",
-                getConditions("light_required", shade_search));
-        List<String> l_frost = databaseAccess.getIdByCondition("frost",
-                getConditions("frost_tolerance", frost_search));
-        List<String> l_zone = databaseAccess.getIdByCondition("zone",
-                getConditions("climate_zone", zone_search));
-        List<String> l_height = new ArrayList<>();
-        if(height_search.equals("S")){
-            l_height = databaseAccess.getIdByConditionPd("plant_data", " OR height_upper < 1");
-        }else if(height_search.equals("M")){
-            l_height = databaseAccess.getIdByConditionPd("plant_data",
-                    " OR (height_upper >= 1 AND height_upper < 10)");
-        }else if(height_search.equals("L")){
-            l_height = databaseAccess.getIdByConditionPd("plant_data", " OR height_upper >= 10");
-        }
-        List<String> l_width = new ArrayList<>();
-        if(width_search.equals("S")){
-            l_width = databaseAccess.getIdByConditionPd("plant_data", " OR width_upper < 1");
-        }else if(width_search.equals("M")){
-            l_width = databaseAccess.getIdByConditionPd("plant_data",
-                    " OR (width_upper >= 1 AND width_upper < 10)");
-        }else if(width_search.equals("L")){
-            l_width = databaseAccess.getIdByConditionPd("plant_data", " OR width_upper >= 10");
-        }
+        List<String> found = FilterDisplayHelper.searchPlantDatabase(databaseAccess, "species_id",
+                curr_options_selected, curr_search_tables, curr_search_fields, curr_selected_filters);
         databaseAccess.close();
-        //AND results
-        List<List<String>> join_lists = new ArrayList<List<String>>();
-        if(type_search.size() != 0){ join_lists.add(l_type); }
-        if(shade_search.size() != 0){ join_lists.add(l_shade); }
-        if(frost_search.size() != 0){ join_lists.add(l_frost); }
-        if(zone_search.size() != 0){ join_lists.add(l_zone); }
-        if(!height_search.equals("")) { join_lists.add(l_height); }
-        if(!width_search.equals("")) { join_lists.add(l_width); }
-        List<String> found = new ArrayList<>();
-        if(join_lists.size() == 0){
+
+        //Get next filter
+        current_display_option = FilterDisplayHelper.getNextFilter(current_display_option);
+
+        //Process results
+        if(found.size() == 0) {
+            // No result found screen
+            Toast.makeText(getActivity(), "Yo yo yo! Sorry bro! We didn't find nothing",
+                    Toast.LENGTH_LONG).show();
+        } else if (current_display_option == FilterDisplayHelper.FN_END) {
+            // All filters used
+            drawMaPlants(root, found, height, width);
+        } else if (found.size() > FilterDisplayHelper.MAX_NUM_SEARCHES_DISPLAY) {
+            // More filters, change to show more searches
+            bundle.putString(FilterDisplayHelper.CURRENT_DISPLAY_LABEL, String.valueOf(current_display_option));
+            SearchFragment sf = new SearchFragment();
+            sf.setArguments(bundle);
+            getFragmentManager() .beginTransaction().replace(R.id.nav_host_fragment, sf).commit();
+        } else {
+                // Display options
+                drawMaPlants(root, found, height, width);
+        }
+
+        //check for name
+        /*if(join_lists.size() == 0){
             //text only
             DbAccess da = DbAccess.getInstance(getContext());
             da.open();
@@ -108,17 +100,9 @@ public class SearchResult extends Fragment {
                 //filter and text, else if skipped it's just filter
                 found = searchForName(found, search_term);
             }
-        }
-        drawMaPlants(root, found, height, width);
-        return root;
-    }
+        }*/
 
-    private String getConditions(String category, List<String> checks){
-        String conditions = "";
-        for (String i : checks){
-            conditions += " OR " + category + "=\"" + i + "\"";
-        }
-        return conditions;
+        return root;
     }
 
     private void drawMaPlants(View root, List<String> ids, int height, int width) {
@@ -161,17 +145,17 @@ public class SearchResult extends Fragment {
         databaseAccess.open();
         for (String i : databaseAccess.getFromPlantData("scientific_name")){
             if(namesSimilar(search_term, i)){
-            e.add(databaseAccess.search("id", "plant_data",
+            e.add(databaseAccess.searchOnCondition("id", "plant_data",
                     "scientific_name = \"" + i + "\"").get(0)); }
         }
         for (String i : databaseAccess.getFromPlantData("common_name")){
             if(namesSimilar(search_term, i)){
-                e.add(databaseAccess.search("id", "plant_data",
+                e.add(databaseAccess.searchOnCondition("id", "plant_data",
                         "common_name = \"" + i + "\"").get(0)); }
         }
         for (String i : databaseAccess.getAltNames()){
             if(namesSimilar(search_term, i)){
-                e.add(databaseAccess.search("species_id", "alt_names",
+                e.add(databaseAccess.searchOnCondition("species_id", "alt_names",
                         "name = \"" + i + "\"").get(0)); }
         }
         databaseAccess.close();
