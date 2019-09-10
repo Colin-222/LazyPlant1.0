@@ -7,6 +7,9 @@ import androidx.room.Query;
 
 import java.util.List;
 
+/**
+ * Contains functions that can be used to access the Favourites database.
+ */
 @Dao
 public interface FavouriteDAO {
 

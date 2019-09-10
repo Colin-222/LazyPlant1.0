@@ -2,40 +2,23 @@ package com.example.lazyplant;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Switch;
-import android.widget.TextView;
 
-import com.example.lazyplant.plantdata.AppDatabase;
 import com.example.lazyplant.plantdata.DbAccess;
 import com.example.lazyplant.plantdata.Favourite;
-import com.example.lazyplant.plantdata.FavouriteDAO;
-import com.example.lazyplant.plantdata.PlantInfo;
+import com.example.lazyplant.plantdata.PlantInfoEntity;
 import com.example.lazyplant.ui.calendar.CalendarFragment;
 import com.example.lazyplant.ui.favourites.FavouritesFragment;
-import com.example.lazyplant.ui.plantDetailUI.main.DetailsFragment;
 import com.example.lazyplant.ui.plantDetailUI.main.DetailsSectionPagerAdapter;
-import com.example.lazyplant.ui.plantDetailUI.main.InfoFragment;
-import com.example.lazyplant.ui.plantDetailUI.main.PicsFragment;
 import com.example.lazyplant.ui.plantDisplayHelper;
 import com.example.lazyplant.ui.search.SearchResult;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.room.Room;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PlantDetailsActivity extends AppCompatActivity {
@@ -69,7 +52,7 @@ public class PlantDetailsActivity extends AppCompatActivity {
         }
         DbAccess databaseAccess = DbAccess.getInstance(this.getApplicationContext());
         databaseAccess.open();
-        PlantInfo p = databaseAccess.getPlantInfo(message);
+        PlantInfoEntity p = databaseAccess.getPlantInfo(message);
         databaseAccess.close();
         final String pid = p.getId();
 

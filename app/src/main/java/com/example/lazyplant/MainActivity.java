@@ -33,27 +33,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        /*DbAccess databaseAccess = DbAccess.getInstance(this);
-        databaseAccess.open();
-        List<String> x = databaseAccess.search();
-        for (int i=0; i<x.size(); i++) {
-            Log.i("TEST-DB", x.get(i));
-        }
-        PlantInfo p = databaseAccess.getPlantInfo("Alloxylon flameum – Tree Waratah");
-        Log.i("TEST-DB", p.getType());
-        databaseAccess.close();
-
-        AppDatabase database = Room.databaseBuilder(this, AppDatabase.class, "db-favourites")
-                .allowMainThreadQueries().build();
-        FavouriteDAO favouriteDAO = database.getFavouriteDAO();
-        Favourite fav = new Favourite();
-        fav.setSpecies_id("Babingtonia virgata ‘Howie’s Sweet Midget’ – Heath Myrtle");
-        favouriteDAO.insert(fav);
-        //favouriteDAO.deleteAll();
-        List<Favourite> y = favouriteDAO.getFavourites();
-        for (int i=0; i<y.size(); i++) {
-            Log.i("TEST-ROOM", y.get(i).getSpecies_id());
-        }*/
     }
 
 }

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +13,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.room.Room;
 
 import com.example.lazyplant.PlantDetailsActivity;
 import com.example.lazyplant.R;
-import com.example.lazyplant.plantdata.AppDatabase;
 import com.example.lazyplant.plantdata.DbAccess;
-import com.example.lazyplant.plantdata.Favourite;
-import com.example.lazyplant.plantdata.FavouriteDAO;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -45,20 +40,16 @@ public class SearchResult extends Fragment {
 
         //Get search term data
         Bundle bundle = this.getArguments();
-        ArrayList<String> curr_options_selected = bundle.getStringArrayList(FilterOptionSelector.CATEGORY_LABEL);
-        ArrayList<String> curr_search_tables = bundle.getStringArrayList(FilterOptionSelector.TABLE_LABEL);
-        ArrayList<String> curr_search_fields = bundle.getStringArrayList(FilterOptionSelector.FIELD_LABEL);
-        List<List<String>> curr_selected_filters = new ArrayList<>();
-        for (String i : curr_options_selected){
-            curr_selected_filters.add(bundle.getStringArrayList(i));
-        }
+        SelectedFiltersEntity selected_filters = (SelectedFiltersEntity) bundle.getSerializable(SelectedFiltersEntity.TAG);
         int current_display_option = Integer.parseInt(bundle.getString(FilterDisplayHelper.CURRENT_DISPLAY_LABEL));
 
         //Search through database with each filter
         DbAccess databaseAccess = DbAccess.getInstance(getContext());
         databaseAccess.open();
-        List<String> found = FilterDisplayHelper.searchPlantDatabase(databaseAccess, "species_id",
-                curr_options_selected, curr_search_tables, curr_search_fields, curr_selected_filters);
+        List<String> found = databaseAccess.searchPlantDatabase("species_id",
+                selected_filters.getOptions_selected(), selected_filters.getSearch_tables(),
+                selected_filters.getSearch_fields(), selected_filters.getSelected_filters(),
+                FilterDisplayHelper.HEIGHT, FilterDisplayHelper.WIDTH);
         databaseAccess.close();
 
         //Get next filter
@@ -82,25 +73,6 @@ public class SearchResult extends Fragment {
                 // Display options
                 drawMaPlants(root, found, height, width);
         }
-
-        //check for name
-        /*if(join_lists.size() == 0){
-            //text only
-            DbAccess da = DbAccess.getInstance(getContext());
-            da.open();
-            List<String> all_id = da.getFromPlantData("id");
-            da.close();
-            found = searchForName(all_id, search_term);
-        } else {
-            found = new ArrayList<>(join_lists.get(0));
-            for (int i = 0; i < join_lists.size(); i++){
-                found.retainAll(join_lists.get(i));
-            }
-            if(!search_term.equals("")){
-                //filter and text, else if skipped it's just filter
-                found = searchForName(found, search_term);
-            }
-        }*/
 
         return root;
     }
@@ -143,17 +115,17 @@ public class SearchResult extends Fragment {
         Set<String> e = new HashSet<String>();
         DbAccess databaseAccess = DbAccess.getInstance(getContext());
         databaseAccess.open();
-        for (String i : databaseAccess.getFromPlantData("scientific_name")){
+        for (String i : databaseAccess.getAllFieldFromTable("scientific_name", "plant_data")){
             if(namesSimilar(search_term, i)){
             e.add(databaseAccess.searchOnCondition("id", "plant_data",
                     "scientific_name = \"" + i + "\"").get(0)); }
         }
-        for (String i : databaseAccess.getFromPlantData("common_name")){
+        for (String i : databaseAccess.getAllFieldFromTable("common_name", "plant_data")){
             if(namesSimilar(search_term, i)){
                 e.add(databaseAccess.searchOnCondition("id", "plant_data",
                         "common_name = \"" + i + "\"").get(0)); }
         }
-        for (String i : databaseAccess.getAltNames()){
+        for (String i : databaseAccess.getAllFieldFromTable("name", "alt_names")){
             if(namesSimilar(search_term, i)){
                 e.add(databaseAccess.searchOnCondition("species_id", "alt_names",
                         "name = \"" + i + "\"").get(0)); }

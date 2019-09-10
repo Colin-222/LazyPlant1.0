@@ -1,11 +1,9 @@
 package com.example.lazyplant.ui.search;
 
-import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +16,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.lazyplant.PlantDetailsActivity;
 import com.example.lazyplant.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -26,7 +23,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -35,12 +31,8 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 public class SearchFragment extends Fragment {
 
     private FusedLocationProviderClient client;
-    private ArrayList<String> curr_options_selected = new ArrayList<>();
-    private ArrayList<String> curr_search_tables = new ArrayList<>();
-    private ArrayList<String> curr_search_fields = new ArrayList<>();
-    private ArrayList<ArrayList<String>> curr_selected_filters = new ArrayList<>();
-    private ArrayList<ArrayList<String>> curr_filters = new ArrayList<>();
     private Integer current_display_option;
+    private SelectedFiltersEntity selected_filters = new SelectedFiltersEntity();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -78,13 +70,7 @@ public class SearchFragment extends Fragment {
         Bundle bundle = this.getArguments();
         current_display_option = FilterDisplayHelper.FN_TYPE;
         if (bundle != null){
-            curr_options_selected = bundle.getStringArrayList(FilterOptionSelector.CATEGORY_LABEL);
-            curr_search_tables = bundle.getStringArrayList(FilterOptionSelector.TABLE_LABEL);
-            curr_search_fields = bundle.getStringArrayList(FilterOptionSelector.FIELD_LABEL);
-            curr_filters = new ArrayList<>();
-            for (String i : curr_options_selected){
-                curr_selected_filters.add(bundle.getStringArrayList(i));
-            }
+            selected_filters = (SelectedFiltersEntity) bundle.getSerializable(SelectedFiltersEntity.TAG);
             current_display_option = Integer.parseInt(bundle.getString(FilterDisplayHelper.CURRENT_DISPLAY_LABEL));
         }
 
@@ -92,8 +78,6 @@ public class SearchFragment extends Fragment {
         final List<FilterOptionSelector> filters = new ArrayList<>();
         View top = (View) root.findViewById(R.id.hint_location);
         ConstraintLayout cl = (ConstraintLayout) root.findViewById(R.id.search_constraint_layout);
-
-        Log.i("TAG", current_display_option.toString());
 
         //Display filters
         switch(current_display_option) {
@@ -125,26 +109,10 @@ public class SearchFragment extends Fragment {
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putString(FilterDisplayHelper.CURRENT_DISPLAY_LABEL, current_display_option.toString());
-                ArrayList<String> options_selected = new ArrayList<>(curr_options_selected);
-                ArrayList<String> search_tables = new ArrayList<>(curr_search_tables);
-                ArrayList<String> search_fields = new ArrayList<>(curr_search_fields);
-                for (int i = 0; i < options_selected.size(); i++){
-                    bundle.putStringArrayList(options_selected.get(i), curr_selected_filters.get(i));
-                }
-                for (FilterOptionSelector fos : filters){
-                    ArrayList<String> x = (ArrayList) fos.getSearchOptions();
-                    if(x.size() > 0){ //Make sure there's at least one option selected
-                        options_selected.add(fos.getCategory());
-                        search_tables.add(fos.getSearch_table());
-                        search_fields.add(fos.getField());
-                        bundle.putStringArrayList(fos.getCategory(), x);
-                    }
-                }
+                boolean something_selected = selected_filters.addOptionsFromFilter(filters);
                 //Determine whether to send intent or not depending if any option is selected
-                if (options_selected.size() > 0){
-                    bundle.putStringArrayList(FilterOptionSelector.CATEGORY_LABEL, options_selected);
-                    bundle.putStringArrayList(FilterOptionSelector.TABLE_LABEL, search_tables);
-                    bundle.putStringArrayList(FilterOptionSelector.FIELD_LABEL, search_fields);
+                if (something_selected){
+                    bundle.putSerializable(SelectedFiltersEntity.TAG, selected_filters);
                     //Send out stuff
                     SearchResult sr = new SearchResult();
                     sr.setArguments(bundle);

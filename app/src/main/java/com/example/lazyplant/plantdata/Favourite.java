@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+/**
+ * Favourite entity. It's used with Room.
+ */
 @Entity(tableName = "favourites")
 public class Favourite {
     @NonNull

@@ -37,9 +37,6 @@ public class CalendarFragment extends Fragment {
 
     public static final String EXTRA_MESSAGE = "com.example.lazyplant.ui.calendar.MESSAGE";
 
-
-    private CalendarViewModel calendarViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_calendar, container, false);

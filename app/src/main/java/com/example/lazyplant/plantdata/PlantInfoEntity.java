@@ -7,8 +7,11 @@ import com.example.lazyplant.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlantInfo {
-    public PlantInfo() {
+/**
+ * Entity to store plant information. Mainly provides setters and getters for each field in the plant database.
+ */
+public class PlantInfoEntity {
+    public PlantInfoEntity() {
     }
 
     private String id;
@@ -173,6 +176,10 @@ public class PlantInfo {
         this.soil_moisture = soil_moisture;
     }
 
+    /**
+     * This gets all the plants details into a list. It can then be used for display to the user.
+     * @return List containing plant details.
+     */
     public List<String> getPlantDetailList(){
         List<String> l = new ArrayList<>();
         String x = this.getOther_names();
