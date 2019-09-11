@@ -56,33 +56,6 @@ public class PlantDetailsActivity extends AppCompatActivity {
         databaseAccess.close();
         final String pid = p.getId();
 
-        //Change switch if favourite'd already.
-        /*final Switch sw = (Switch) findViewById(R.id.details_favourite_switch);
-        AppDatabase database = Room.databaseBuilder(this.getApplication().getBaseContext(), AppDatabase.class, "db-favourites")
-                .allowMainThreadQueries().build();
-        FavouriteDAO favouriteDAO = database.getFavouriteDAO();
-        List<Favourite> favs = favouriteDAO.getFavourites();
-        sw.setChecked(checkIfFavourite(p.getId(), favs));
-
-        sw.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                AppDatabase database = Room.databaseBuilder(PlantDetailsActivity.this, AppDatabase.class, "db-favourites")
-                        .allowMainThreadQueries().build();
-                FavouriteDAO favouriteDAO = database.getFavouriteDAO();
-                List<Favourite> favs = favouriteDAO.getFavourites();
-                if (checkIfFavourite(pid, favs)){
-                    sw.setChecked(false);
-                    favouriteDAO.deleteFavourite(pid);
-                } else {
-                    sw.setChecked(true);
-                    Favourite x = new Favourite();
-                    x.setSpecies_id(pid);
-                    favouriteDAO.insert(x);
-                }
-            }
-        });*/
-
         if(p != null){
             ImageView image = findViewById(R.id.details_image_main);
             plantDisplayHelper.displayDetailsPageImage(convertToImageName(

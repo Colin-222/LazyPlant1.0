@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 
+import com.example.lazyplant.Constants;
 import com.example.lazyplant.PlantDetailsActivity;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.AppDatabase;
@@ -29,7 +30,7 @@ public class FavouritesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_favourites, container, false);
-        AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, "db-favourites")
+        AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, Constants.GARDEN_DB_NAME)
                 .allowMainThreadQueries().build();
         FavouriteDAO favouriteDAO = database.getFavouriteDAO();
         List<Favourite> y = favouriteDAO.getFavourites();
