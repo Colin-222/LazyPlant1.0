@@ -96,14 +96,6 @@ public class PlantInfoEntity {
         this.other_names = other_names;
     }
 
-    public String getFlower_color() {
-        return flower_color;
-    }
-
-    public void setFlower_color(String flower_color) {
-        this.flower_color = flower_color;
-    }
-
     public String getFlowering_period() {
         return flowering_period;
     }
@@ -118,14 +110,6 @@ public class PlantInfoEntity {
 
     public void setFrost_tolerance(String frost_tolerance) {
         this.frost_tolerance = frost_tolerance;
-    }
-
-    public String getLifespan() {
-        return lifespan;
-    }
-
-    public void setLifespan(String lifespan) {
-        this.lifespan = lifespan;
     }
 
     public String getLight() {
@@ -225,10 +209,8 @@ public class PlantInfoEntity {
 
     private String type = "";
     private String other_names = "";
-    private String flower_color = "";
     private String flowering_period = "";
     private String frost_tolerance = "";
-    private String lifespan = "";
     private String light = "";
     private String wildlife = "";
     private String zone = "";

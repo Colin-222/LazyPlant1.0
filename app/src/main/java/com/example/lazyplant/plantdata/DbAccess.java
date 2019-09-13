@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.lazyplant.Constants;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -63,12 +65,12 @@ public class DbAccess {
      */
     public PlantInfoEntity getPlantInfo(String id){
         PlantInfoEntity pi = new PlantInfoEntity();
-        String command = "SELECT * FROM plant_data WHERE id = \"" + id + "\"";
+        String command = "SELECT * FROM plant_data WHERE species_id = \"" + id + "\"";
         Cursor cursor = database.rawQuery(command, null);
         if(cursor!=null && cursor.getCount()==1){
             //Get all data
             cursor.moveToFirst();
-            pi.setId(cursor.getString(cursor.getColumnIndex("id")));
+            pi.setId(cursor.getString(cursor.getColumnIndex(Constants.SPECIES_ID_FIELD)));
             pi.setScientific_name(cursor.getString(cursor.getColumnIndex("scientific_name")));
             pi.setCommon_name(cursor.getString(cursor.getColumnIndex("common_name")));
             pi.setFamily(cursor.getString(cursor.getColumnIndex("family")));
@@ -79,10 +81,8 @@ public class DbAccess {
 
             pi.setType(getSinglePlantDataDatum("type", "type", id));
             pi.setOther_names(getSinglePlantDataDatum("name", "alt_names", id));
-            pi.setFlower_color(getSinglePlantDataDatum("color", "flower_color", id));
             pi.setFlowering_period(getSinglePlantDataDatum("flowering_period", "flower_time", id));
             pi.setFrost_tolerance(getSinglePlantDataDatum("frost_tolerance", "frost", id));
-            pi.setLifespan(getSinglePlantDataDatum("lifespan", "lifespan", id));
             pi.setLight(getSinglePlantDataDatum("light_required", "light", id));
             pi.setZone(getSinglePlantDataDatum("climate_zone", "zone", id));
             pi.setWildlife(getSinglePlantDataDatum("wildlife_attracted", "wildlife", id));
@@ -258,7 +258,7 @@ public class DbAccess {
                     if(mj.find()) {
                         String lower_size = mj.group(1);
                         String upper_size = mj.group(2);
-                        List<String> tmp = this.searchOnConditionBetweenValues("id", //id_name,
+                        List<String> tmp = this.searchOnConditionBetweenValues(id_name, //id_name,
                                 search_tables.get(i), search_fields.get(i), lower_size, upper_size);
                         found_or.add(tmp);
                     }else{

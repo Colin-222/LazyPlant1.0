@@ -44,6 +44,12 @@ public class GardenPlant {
     public void setLast_watering(@NonNull Calendar last_watering) { this.last_watering = last_watering; }
 
     @NonNull
+    private boolean rain_exposed;
+    @NonNull
+    public boolean getRain_exposed() { return rain_exposed; }
+    public void setRain_exposed(boolean rain_exposed) { this.rain_exposed = rain_exposed; }
+
+    @NonNull
     private boolean active;
     @NonNull
     public boolean getActive() { return active; }

@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.lazyplant.Constants;
 import com.example.lazyplant.PlantDetailsActivity;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.DbAccess;
@@ -46,7 +47,7 @@ public class SearchResult extends Fragment {
         //Search through database with each filter
         DbAccess databaseAccess = DbAccess.getInstance(getContext());
         databaseAccess.open();
-        List<String> found = databaseAccess.searchPlantDatabase("species_id",
+        List<String> found = databaseAccess.searchPlantDatabase(Constants.SPECIES_ID_FIELD,
                 selected_filters.getOptions_selected(), selected_filters.getSearch_tables(),
                 selected_filters.getSearch_fields(), selected_filters.getSelected_filters(),
                 FilterDisplayHelper.HEIGHT, FilterDisplayHelper.WIDTH);
@@ -117,17 +118,17 @@ public class SearchResult extends Fragment {
         databaseAccess.open();
         for (String i : databaseAccess.getAllFieldFromTable("scientific_name", "plant_data")){
             if(namesSimilar(search_term, i)){
-            e.add(databaseAccess.searchOnCondition("id", "plant_data",
+            e.add(databaseAccess.searchOnCondition(Constants.SPECIES_ID_FIELD, "plant_data",
                     "scientific_name = \"" + i + "\"").get(0)); }
         }
         for (String i : databaseAccess.getAllFieldFromTable("common_name", "plant_data")){
             if(namesSimilar(search_term, i)){
-                e.add(databaseAccess.searchOnCondition("id", "plant_data",
+                e.add(databaseAccess.searchOnCondition(Constants.SPECIES_ID_FIELD, "plant_data",
                         "common_name = \"" + i + "\"").get(0)); }
         }
         for (String i : databaseAccess.getAllFieldFromTable("name", "alt_names")){
             if(namesSimilar(search_term, i)){
-                e.add(databaseAccess.searchOnCondition("species_id", "alt_names",
+                e.add(databaseAccess.searchOnCondition(Constants.SPECIES_ID_FIELD, "alt_names",
                         "name = \"" + i + "\"").get(0)); }
         }
         databaseAccess.close();

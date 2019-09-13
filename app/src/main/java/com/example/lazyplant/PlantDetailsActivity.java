@@ -58,8 +58,7 @@ public class PlantDetailsActivity extends AppCompatActivity {
 
         if(p != null){
             ImageView image = findViewById(R.id.details_image_main);
-            plantDisplayHelper.displayDetailsPageImage(convertToImageName(
-                    "Hymenosporum flavum ‘Gold Nugget’ – Native Frangipani"), image, this, 0.4);
+            plantDisplayHelper.displayDetailsPageImage(convertToImageName(p.getId()), image, this, 0.4);
             plantDisplayHelper.displayPlantTitle(p, (ConstraintLayout) findViewById(R.id.details_constraint_layout), image, this);
             plantDisplayHelper.displayPlantDetails(p, (ConstraintLayout) findViewById(R.id.details_constraint_layout), image, this);
 
