@@ -15,9 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.lazyplant.Constants;
-import com.example.lazyplant.PlantDetailsActivity;
+import com.example.lazyplant.ui.plantDetails.PlantDetailsActivity;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.DbAccess;
+import com.example.lazyplant.ui.plantDetails.PlantDetailsFragment;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -90,9 +91,12 @@ public class SearchResult extends Fragment {
             myButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     //open details page with id
-                    Intent intent = new Intent(getActivity(), PlantDetailsActivity.class);
-                    intent.putExtra(EXTRA_MESSAGE, bid);
-                    startActivity(intent);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.PLANT_DETAILS_BUNDLE_TAG, bid);
+                    PlantDetailsFragment pdf = new PlantDetailsFragment();
+                    pdf.setArguments(bundle);
+                    getFragmentManager() .beginTransaction().replace(R.id.nav_host_fragment, pdf).commit();
+
                 }
             });
             myButton.setPadding(20, 0, 20, 0);

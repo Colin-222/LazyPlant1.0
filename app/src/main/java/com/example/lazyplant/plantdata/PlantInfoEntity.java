@@ -170,12 +170,6 @@ public class PlantInfoEntity {
         if (!x.equals("")){ l.add("Other names: " + x); }
         x = this.getType();
         if (!x.equals("")){ l.add("Type: " + x); }
-        x = this.getFlowering_period();
-        if (!x.equals("")){ l.add("Flowering period: " + x); }
-        x = this.getFrost_tolerance();
-        if (!x.equals("")){ l.add("Frost tolerance: " + x); }
-        x = this.getLight();
-        if (!x.equals("")){ l.add("Shade required: " + x); }
         x = this.getHeight_lower();
         String x2 = this.getHeight_upper();
         if (x.equals("") && !x2.equals("")){
@@ -194,8 +188,14 @@ public class PlantInfoEntity {
         } else if (!x.equals("") && !x2.equals("")){
             l.add("Width: " + x + "-" + x2 + "m");
         }
+        x = this.getFrost_tolerance();
+        if (!x.equals("")){ l.add("Frost tolerance: " + x); }
+        x = this.getLight();
+        if (!x.equals("")){ l.add("Shade required: " + x); }
         x = this.getWildlife();
         if (!x.equals("")){ l.add("Wildlife Attracted: " + x); }
+        x = this.getFlowering_period();
+        if (!x.equals("")){ l.add("Flowering period: " + x); }
         return l;
     }
 

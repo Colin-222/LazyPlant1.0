@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">LazyPlant</string>
+    <string name="title_home">Home</string>
+    <string name="title_reminder">Reminder</string>
+    <string name="title_browse">Browse</string>
     <string name="title_search">Search</string>
     <string name="title_calendar">Calendar</string>
     <string name="title_favourites">Favourites</string>

@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".PlantDetailsActivity"
+            android:name=".ui.plantDetails.PlantDetailsActivity"
             android:label="@string/title_activity_plant_details"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity

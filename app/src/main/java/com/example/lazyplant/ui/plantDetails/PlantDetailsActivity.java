@@ -1,4 +1,4 @@
-package com.example.lazyplant;
+package com.example.lazyplant.ui.plantDetails;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,13 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.lazyplant.MainActivity;
+import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.DbAccess;
 import com.example.lazyplant.plantdata.Favourite;
 import com.example.lazyplant.plantdata.PlantInfoEntity;
 import com.example.lazyplant.ui.calendar.CalendarFragment;
 import com.example.lazyplant.ui.favourites.FavouritesFragment;
-import com.example.lazyplant.ui.plantDetailUI.main.DetailsSectionPagerAdapter;
-import com.example.lazyplant.ui.plantDisplayHelper;
+import com.example.lazyplant.ui.plantDetailsDisplayHelper;
 import com.example.lazyplant.ui.search.SearchResult;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -24,7 +25,6 @@ import java.util.List;
 public class PlantDetailsActivity extends AppCompatActivity {
 
     public  static  final String TAG = "PlantDetailsActivity";
-    private DetailsSectionPagerAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;
 
     @Override
@@ -58,9 +58,9 @@ public class PlantDetailsActivity extends AppCompatActivity {
 
         if(p != null){
             ImageView image = findViewById(R.id.details_image_main);
-            plantDisplayHelper.displayDetailsPageImage(convertToImageName(p.getId()), image, this, 0.4);
-            plantDisplayHelper.displayPlantTitle(p, (ConstraintLayout) findViewById(R.id.details_constraint_layout), image, this);
-            plantDisplayHelper.displayPlantDetails(p, (ConstraintLayout) findViewById(R.id.details_constraint_layout), image, this);
+            plantDetailsDisplayHelper.displayDetailsPageImage(convertToImageName(p.getId()), image, this, 0.4);
+            plantDetailsDisplayHelper.displayPlantTitle(p, (ConstraintLayout) findViewById(R.id.details_constraint_layout), image, this);
+            plantDetailsDisplayHelper.displayPlantDetails(p, (ConstraintLayout) findViewById(R.id.details_constraint_layout), image, this);
 
         }
 

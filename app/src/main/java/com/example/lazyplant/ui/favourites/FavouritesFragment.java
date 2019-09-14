@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 
 import com.example.lazyplant.Constants;
-import com.example.lazyplant.PlantDetailsActivity;
+import com.example.lazyplant.ui.plantDetails.PlantDetailsActivity;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.AppDatabase;
 import com.example.lazyplant.plantdata.Favourite;
