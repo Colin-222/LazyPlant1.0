@@ -1,7 +1,5 @@
 package com.example.lazyplant.ui.plantDetails;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +15,8 @@ import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.DbAccess;
 import com.example.lazyplant.plantdata.PlantInfoEntity;
-import com.example.lazyplant.ui.calendar.CalendarFragment;
-import com.example.lazyplant.ui.favourites.FavouritesFragment;
 import com.example.lazyplant.ui.plantDetailsDisplayHelper;
 import com.example.lazyplant.ui.plantListDisplayHelper;
-import com.example.lazyplant.ui.search.SearchResult;
 
 import java.util.List;
 

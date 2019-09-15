@@ -14,7 +14,7 @@ import com.example.lazyplant.plantdata.PlantInfoEntity;
 import com.example.lazyplant.ui.calendar.CalendarFragment;
 import com.example.lazyplant.ui.favourites.FavouritesFragment;
 import com.example.lazyplant.ui.plantDetailsDisplayHelper;
-import com.example.lazyplant.ui.search.SearchResult;
+import com.example.lazyplant.ui.search.SearchResultFragment;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -47,7 +47,7 @@ public class PlantDetailsActivity extends AppCompatActivity {
         if (message == null){
             message = intent.getStringExtra(FavouritesFragment.EXTRA_MESSAGE);
             if (message == null){
-                message = intent.getStringExtra(SearchResult.EXTRA_MESSAGE);
+                message = intent.getStringExtra(SearchResultFragment.EXTRA_MESSAGE);
             }
         }
         DbAccess databaseAccess = DbAccess.getInstance(this.getApplicationContext());

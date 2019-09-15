@@ -114,7 +114,7 @@ public class SearchFragment extends Fragment {
                 if (something_selected){
                     bundle.putSerializable(SelectedFiltersEntity.TAG, selected_filters);
                     //Send out stuff
-                    SearchResult sr = new SearchResult();
+                    SearchResultFragment sr = new SearchResultFragment();
                     sr.setArguments(bundle);
                     getFragmentManager() .beginTransaction()
                             .replace(R.id.nav_host_fragment, sr).commit();

@@ -6,4 +6,5 @@ public class Constants {
     public final static String SPECIES_ID_FIELD = "species_id";
     public final static String PLANT_IMAGES_FOLDER = "drawable";
     public final static String PLANT_DETAILS_BUNDLE_TAG = "plant_details_bundle_tag";
+    public final static String NAME_SEARCH_TAG = "name_search";
 }
