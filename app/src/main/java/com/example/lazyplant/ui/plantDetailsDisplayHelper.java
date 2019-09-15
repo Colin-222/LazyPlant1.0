@@ -54,7 +54,6 @@ public class plantDetailsDisplayHelper extends DisplayHelper {
                     break;
                 }
             }
-
         }
         iv.setImageResource(image_id);
     }
@@ -94,13 +93,6 @@ public class plantDetailsDisplayHelper extends DisplayHelper {
         tv.setText(text);
         tv.setTextSize(size);
         tv.setTextColor(color);
-    }
-
-    static private String convertToImageName(String name){
-        String x = name;
-        x = x.replaceAll("[^a-zA-Z0-9]", "");
-        x = x.toLowerCase();
-        return x;
     }
 
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,6 +20,7 @@ import com.example.lazyplant.plantdata.PlantInfoEntity;
 import com.example.lazyplant.ui.calendar.CalendarFragment;
 import com.example.lazyplant.ui.favourites.FavouritesFragment;
 import com.example.lazyplant.ui.plantDetailsDisplayHelper;
+import com.example.lazyplant.ui.plantListDisplayHelper;
 import com.example.lazyplant.ui.search.SearchResult;
 
 import java.util.List;
@@ -45,6 +47,8 @@ public class PlantDetailsFragment extends Fragment {
             List<TextView> l = plantDetailsDisplayHelper.displayPlantTitle(p, cl, image, this.getContext());
             List<TextView> l2 = plantDetailsDisplayHelper.displayPlantDetails(p, cl,
                     l.get(l.size()-1), this.getContext());
+            ToggleButton tb = (ToggleButton) root.findViewById(R.id.plant_details_button_favorite);
+            plantListDisplayHelper.createToggleButton(tb, this.getContext(), pid);
         } else {
             TextView tv = root.findViewById(R.id.plant_details_message);
             tv.setText("Sorry we ran into an error and did not find the plant.");

@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.lazyplant.Constants;
@@ -19,6 +20,7 @@ import com.example.lazyplant.ui.plantDetails.PlantDetailsActivity;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.DbAccess;
 import com.example.lazyplant.ui.plantDetails.PlantDetailsFragment;
+import com.example.lazyplant.ui.plantListDisplayHelper;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -72,15 +74,18 @@ public class SearchResult extends Fragment {
             sf.setArguments(bundle);
             getFragmentManager() .beginTransaction().replace(R.id.nav_host_fragment, sf).commit();
         } else {
-                // Display options
-                drawMaPlants(root, found, height, width);
+            // Display options
+            ConstraintLayout cl = (ConstraintLayout) root.findViewById(R.id.search_result_constraint_layout);
+
+            plantListDisplayHelper.drawPlantList(root,this, cl, found);
+            //drawMaPlants(root, found, height, width);
         }
 
         return root;
     }
 
     private void drawMaPlants(View root, List<String> ids, int height, int width) {
-        final int padding = 40;
+        /*final int padding = 40;
         for (int i = 0; i < ids.size(); i++) {
             String pid = ids.get(i);
             final Button myButton = new Button(root.getContext());
@@ -95,7 +100,7 @@ public class SearchResult extends Fragment {
                     bundle.putString(Constants.PLANT_DETAILS_BUNDLE_TAG, bid);
                     PlantDetailsFragment pdf = new PlantDetailsFragment();
                     pdf.setArguments(bundle);
-                    getFragmentManager() .beginTransaction().replace(R.id.nav_host_fragment, pdf).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, pdf).commit();
 
                 }
             });
@@ -113,7 +118,7 @@ public class SearchResult extends Fragment {
                 buttonParams.setMargins(width/padding, width/padding, width/padding, width/padding);
             }
             relativeLayout.addView(myButton, buttonParams);
-        }
+        }*/
     }
 
     private List<String> searchForName(List<String> search_space, String search_term) {

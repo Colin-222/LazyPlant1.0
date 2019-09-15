@@ -36,5 +36,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ToggleButton
+            android:id="@+id/plant_details_button_favorite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_button_favourite"
+            android:checked="false"
+            android:text=""
+            android:textOff=""
+            android:textOn=""
+            android:layout_marginRight="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="@id/plant_details_image_main"
+            app:layout_constraintRight_toRightOf="@id/plant_details_image_main"
+            app:layout_constraintTop_toBottomOf="@id/plant_details_image_main"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
