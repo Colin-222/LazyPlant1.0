@@ -78,7 +78,6 @@ public class DbAccess {
             pi.setHeight_upper(cursor.getString(cursor.getColumnIndex("height_upper")));
             pi.setWidth_lower(cursor.getString(cursor.getColumnIndex("width_lower")));
             pi.setWidth_upper(cursor.getString(cursor.getColumnIndex("width_upper")));
-            pi.setWatering_interval(cursor.getString(cursor.getColumnIndex("watering_interval")));
 
             pi.setType(getSinglePlantDataDatum("type", "type", id));
             pi.setOther_names(getSinglePlantDataDatum("name", "alt_names", id));

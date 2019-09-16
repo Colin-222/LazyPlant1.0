@@ -71,12 +71,12 @@ public class SearchResultFragment extends Fragment {
             bundle.putString(FilterDisplayHelper.CURRENT_DISPLAY_LABEL, String.valueOf(current_display_option));
             SearchFragment sf = new SearchFragment();
             sf.setArguments(bundle);
-            getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, sf).commit();
+            getFragmentManager() .beginTransaction().replace(R.id.nav_host_fragment, sf).commit();
         } else {
             // Display options
             plantListDisplayHelper.drawPlantList(root,this, cl, found);
         }
-        
+
         return root;
     }
 
