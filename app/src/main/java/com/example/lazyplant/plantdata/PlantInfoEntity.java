@@ -160,6 +160,10 @@ public class PlantInfoEntity {
         this.soil_moisture = soil_moisture;
     }
 
+    public String getWatering_interval() { return watering_interval; }
+
+    public void setWatering_interval(String watering_interval) { this.watering_interval = watering_interval; }
+
     /**
      * This gets all the plants details into a list. It can then be used for display to the user.
      * @return List containing plant details.
@@ -217,6 +221,6 @@ public class PlantInfoEntity {
     private String soil_type = "";
     private String soil_pH = "";
     private String soil_moisture = "";
-
+    private String watering_interval = "";
     
 }

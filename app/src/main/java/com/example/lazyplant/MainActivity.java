@@ -1,11 +1,16 @@
 package com.example.lazyplant;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.example.lazyplant.plantdata.AppDatabase;
 import com.example.lazyplant.plantdata.Favourite;
 import com.example.lazyplant.plantdata.FavouriteDAO;
+import com.example.lazyplant.ui.reminder.ReminderFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +20,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        if(getIntent().getExtras() != null) {
+            String message = getIntent().getExtras().getString(Constants.NOTIFICATION_TAG);
+            if (message != null) {
+                navController.navigate(R.id.action_navigation_home_to_navigation_reminder);
+            }
+        }
+
+        //AlarmBroadcastReceiver.startAlarmBroadcastReceiver(this);
 
 
 
