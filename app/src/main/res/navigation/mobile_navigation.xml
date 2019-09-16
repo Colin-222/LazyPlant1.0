@@ -30,9 +30,10 @@
         android:name="com.example.lazyplant.ui.plantDetails.PlantDetailsFragment"
         android:label="@string/title_activity_plant_details"
         tools:layout="@layout/fragment_plant_details" />
+
     <fragment
         android:id="@+id/navigation_browse"
-        android:name="com.example.lazyplant.ui.search.SearchFragment"
+        android:name="com.example.lazyplant.ui.search.BrowseFragment"
         android:label="@string/title_browse"
         tools:layout="@layout/fragment_search" >
         <action

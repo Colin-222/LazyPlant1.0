@@ -14,9 +14,17 @@ import com.example.lazyplant.Constants;
  */
 abstract public class DisplayHelper {
 
+    static private int dpToPx(int dp, Context context) {
+        float density = context.getResources()
+                .getDisplayMetrics()
+                .density;
+        return Math.round((float) dp * density);
+    }
+
     static public void setViewConstraints(View v, ConstraintLayout cl, View left_ref,
-                                          View right_ref, View top_ref, int h_margin, int v_margin){
-        ConstraintLayout.LayoutParams tv_params = (ConstraintLayout.LayoutParams) v.getLayoutParams();
+                                          View right_ref, View top_ref, int hori_margin, int vert_margin){
+        int h_margin = dpToPx(hori_margin, v.getContext());
+        int v_margin = dpToPx(vert_margin, v.getContext());
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(cl);
         constraintSet.connect(v.getId(), ConstraintSet.START, left_ref.getId(), ConstraintSet.START, h_margin);
@@ -30,8 +38,9 @@ abstract public class DisplayHelper {
     }
 
     static public void setViewConstraints(View v, ConstraintLayout cl, View left_ref,View top_ref,
-                                          int h_margin, int v_margin){
-        ConstraintLayout.LayoutParams tv_params = (ConstraintLayout.LayoutParams) v.getLayoutParams();
+                                          int hori_margin, int vert_margin){
+        int h_margin = dpToPx(hori_margin, v.getContext());
+        int v_margin = dpToPx(vert_margin, v.getContext());
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(cl);
         constraintSet.connect(v.getId(), ConstraintSet.START, left_ref.getId(), ConstraintSet.START, h_margin);
@@ -42,8 +51,9 @@ abstract public class DisplayHelper {
         constraintSet.applyTo(cl);
     }
 
-    static public void setViewConstraints(View v, ConstraintLayout cl, int h_margin, int v_margin){
-        ConstraintLayout.LayoutParams tv_params = (ConstraintLayout.LayoutParams) v.getLayoutParams();
+    static public void setViewConstraints(View v, ConstraintLayout cl, int hori_margin, int vert_margin){
+        int h_margin = dpToPx(hori_margin, v.getContext());
+        int v_margin = dpToPx(vert_margin, v.getContext());
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(cl);
         constraintSet.connect(v.getId(), ConstraintSet.START, cl.getId(), ConstraintSet.START, h_margin);

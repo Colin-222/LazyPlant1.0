@@ -34,7 +34,7 @@ public class FavouritesFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_favourites, container, false);
         AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, Constants.GARDEN_DB_NAME)
-                .allowMainThreadQueries().build();
+                .fallbackToDestructiveMigration().allowMainThreadQueries().build();
         FavouriteDAO favouriteDAO = database.getFavouriteDAO();
         List<Favourite> favs = favouriteDAO.getFavourites();
 

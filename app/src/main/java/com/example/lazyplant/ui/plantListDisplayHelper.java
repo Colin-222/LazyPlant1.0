@@ -88,7 +88,7 @@ public class plantListDisplayHelper extends DisplayHelper {
 
     public static void createToggleButton(final ToggleButton tb, final Context context, final String pid){
         AppDatabase database = Room.databaseBuilder(context, AppDatabase.class, Constants.GARDEN_DB_NAME)
-                .allowMainThreadQueries().build();
+                .fallbackToDestructiveMigration().allowMainThreadQueries().build();
         FavouriteDAO favouriteDAO = database.getFavouriteDAO();
         List<Favourite> favs = favouriteDAO.getFavourites();
         database.close();
