@@ -93,8 +93,6 @@ public class CalendarFragment extends Fragment {
             String pid = x.get(i);
             final Button myButton = new Button(root.getContext());
             myButton.setText(pid);
-            myButton.setTextColor(getResources().getColor(R.color.colorRed));
-            myButton.setBackgroundResource(R.drawable.goodenia_ovata);
             final String bid = pid;
             myButton.setId(i+1);
             final String id = pid;
