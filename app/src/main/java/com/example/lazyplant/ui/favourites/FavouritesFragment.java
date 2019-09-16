@@ -4,29 +4,24 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.room.Room;
 
-import com.example.lazyplant.PlantDetailsActivity;
+import com.example.lazyplant.Constants;
+import com.example.lazyplant.ui.plantDetails.PlantDetailsActivity;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.AppDatabase;
-import com.example.lazyplant.plantdata.DbAccess;
 import com.example.lazyplant.plantdata.Favourite;
 import com.example.lazyplant.plantdata.FavouriteDAO;
-import com.example.lazyplant.plantdata.PlantInfo;
-import com.example.lazyplant.ui.plantDetailUI.main.DetailsFragment;
+import com.example.lazyplant.ui.plantListDisplayHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +33,10 @@ public class FavouritesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_favourites, container, false);
-        AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, "db-favourites")
+        AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, Constants.GARDEN_DB_NAME)
                 .allowMainThreadQueries().build();
         FavouriteDAO favouriteDAO = database.getFavouriteDAO();
-        List<Favourite> y = favouriteDAO.getFavourites();
+        List<Favourite> favs = favouriteDAO.getFavourites();
 
         //Get screen size
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -50,42 +45,18 @@ public class FavouritesFragment extends Fragment {
         int width = displayMetrics.widthPixels;
         
         //Draw ma plants
-        drawMaPlants(root, y, height, width);
+        ConstraintLayout cl = (ConstraintLayout) root.findViewById(R.id.favourites_constraint_layout);
+        plantListDisplayHelper.drawPlantList(root,this, cl, favouriteToId(favs));
         return root;
     }
 
-    private void drawMaPlants(View root, List<Favourite> y, int height, int width) {
-        final int padding = 40;
-        for (int i = 0; i < y.size(); i++) {
-            Favourite pi = y.get(i);
-            final Button myButton = new Button(root.getContext());
-            myButton.setText(pi.getSpecies_id());
-            final String bid = pi.getSpecies_id();
-            myButton.setId(i+1);
-            final String id = pi.getSpecies_id();
-            myButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    //open details page with id
-                    Intent intent = new Intent(getActivity(), PlantDetailsActivity.class);
-                    intent.putExtra(EXTRA_MESSAGE, bid);
-                    startActivity(intent);
-                }
-            });
-            myButton.setPadding(20, 0, 20, 0);
-            RelativeLayout relativeLayout = (RelativeLayout) root.findViewById(R.id.linear_favourites);
-            RelativeLayout.LayoutParams buttonParams = new RelativeLayout.LayoutParams((int)(Math.round(width*0.45)), height/5);
-            if (i == 0) {
-                buttonParams.setMargins(width/padding, width/padding, width/padding, width/padding);
-            } else if (i % 2 == 1) {
-                buttonParams.addRule(RelativeLayout.RIGHT_OF, i);
-                buttonParams.addRule(RelativeLayout.BELOW, i - 1);
-                buttonParams.setMargins(width/padding, width/padding, width/padding, width/padding);
-            } else if (i % 2 == 0) {
-                buttonParams.addRule(RelativeLayout.BELOW, i - 1);
-                buttonParams.setMargins(width/padding, width/padding, width/padding, width/padding);
-            }
-            relativeLayout.addView(myButton, buttonParams);
+    private List<String> favouriteToId(List<Favourite> favs){
+        List<String> fav_ids = new ArrayList<>();
+        for (Favourite f : favs){
+            fav_ids.add(f.getSpecies_id());
         }
+        return fav_ids;
     }
+
 
 }

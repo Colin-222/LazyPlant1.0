@@ -7,6 +7,9 @@ import androidx.room.Query;
 
 import java.util.List;
 
+/**
+ * Contains functions that can be used to access the Favourites database.
+ */
 @Dao
 public interface FavouriteDAO {
 
@@ -15,6 +18,9 @@ public interface FavouriteDAO {
 
     @Delete
     void delete(Favourite favourites);
+
+    @Query("SELECT * FROM favourites WHERE species_id=:id")
+    Favourite getFavourite(String id);
 
     @Query("SELECT * FROM favourites")
     List<Favourite> getFavourites();
@@ -27,6 +33,9 @@ public interface FavouriteDAO {
 
     @Query("DELETE FROM favourites WHERE species_id=:id ")
     void deleteFavourite(String id);
+
+    @Query("SELECT COUNT(*) FROM favourites WHERE species_id=:id")
+    int checkIfFavourties(String id);
 
 }
 

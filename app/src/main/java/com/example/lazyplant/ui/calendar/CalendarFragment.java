@@ -2,33 +2,20 @@ package com.example.lazyplant.ui.calendar;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.room.Room;
 
-import com.example.lazyplant.PlantDetailsActivity;
+import com.example.lazyplant.ui.plantDetails.PlantDetailsActivity;
 import com.example.lazyplant.R;
-import com.example.lazyplant.plantdata.AppDatabase;
 import com.example.lazyplant.plantdata.DbAccess;
-import com.example.lazyplant.plantdata.Favourite;
-import com.example.lazyplant.plantdata.FavouriteDAO;
-import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
@@ -36,9 +23,6 @@ import java.util.List;
 public class CalendarFragment extends Fragment {
 
     public static final String EXTRA_MESSAGE = "com.example.lazyplant.ui.calendar.MESSAGE";
-
-
-    private CalendarViewModel calendarViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -85,7 +69,7 @@ public class CalendarFragment extends Fragment {
 
         DbAccess databaseAccess = DbAccess.getInstance(getContext());
         databaseAccess.open();
-        List<String> x = databaseAccess.search("species_id", "flower_time",
+        List<String> x = databaseAccess.searchOnCondition("species_id", "flower_time",
                 "flowering_period = \"" + season + "\" or flowering_period = \"All year\"");
         databaseAccess.close();
 
