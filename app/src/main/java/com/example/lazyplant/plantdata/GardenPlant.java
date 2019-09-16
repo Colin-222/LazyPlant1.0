@@ -19,10 +19,6 @@ public class GardenPlant {
     }
     public void setPlant_id(@NonNull String plant) { this.plant_id = plant; }
 
-    private String name;
-    public String getName() {return name;}
-    public void setName(String name) { this.name = name; }
-
     private String species_id;
     public String getSpecies_id() {
         return species_id;
@@ -52,5 +48,11 @@ public class GardenPlant {
     @NonNull
     public boolean getRain_exposed() { return rain_exposed; }
     public void setRain_exposed(boolean rain_exposed) { this.rain_exposed = rain_exposed; }
+
+    @NonNull
+    private boolean active;
+    @NonNull
+    public boolean getActive() { return active; }
+    public void setActive(@NonNull boolean active) { this.active = active; }
 
 }

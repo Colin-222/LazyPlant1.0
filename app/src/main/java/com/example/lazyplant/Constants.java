@@ -7,7 +7,4 @@ public class Constants {
     public final static String PLANT_IMAGES_FOLDER = "drawable";
     public final static String PLANT_DETAILS_BUNDLE_TAG = "plant_details_bundle_tag";
     public final static String NAME_SEARCH_TAG = "name_search";
-    public final static String NOTIFICATION_TAG = "notification_yay";
-    public final static String REMINDER = "reminder";
-    public final static String WATERING = "watering";
 }

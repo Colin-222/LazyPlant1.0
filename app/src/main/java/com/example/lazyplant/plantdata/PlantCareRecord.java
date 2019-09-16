@@ -16,14 +16,6 @@ public class PlantCareRecord {
 
     @NonNull
     @PrimaryKey
-    private String watering_id;
-    @NonNull
-    public String getWatering_id() {
-        return watering_id;
-    }
-    public void setWatering_id(@NonNull String watering_id) { this.watering_id = watering_id; }
-
-    @NonNull
     private String plant_id;
     @NonNull
     public String getPlant_id() {
