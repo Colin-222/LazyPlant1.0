@@ -67,7 +67,7 @@ public class SearchFragment extends Fragment {
                         try {
                             List<Address> addresses = mGeocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                             String zipcode = addresses.get(0).getPostalCode();
-                            postcodeText.setText(zipcode);
+                            postcodeText.setText("My Postcode is: " + zipcode);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

@@ -19,9 +19,9 @@
 
             <Button
                 android:id="@+id/detail_back_button"
-                android:layout_width="59dp"
+                android:layout_width="100dp"
                 android:layout_height="59dp"
-                android:text="B"
+                android:text="Back"
                 android:textSize="20dp"
                 android:translationZ="30dp"
                 app:layout_anchorGravity="center" />
@@ -30,7 +30,6 @@
                 android:id="@+id/title_plant_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:minHeight="?actionBarSize"
                 android:padding="@dimen/appbar_padding"
                 android:text="@string/app_name"
