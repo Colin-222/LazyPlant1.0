@@ -10,8 +10,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -37,7 +35,7 @@
             android:name=".shopmap.ShopMapsActivity"
             android:label="@string/title_activity_shop_maps"></activity>
         <activity
-            android:name=".ui.plantDetails.PlantDetailsActivity"
+            android:name=".PlantDetailsActivity"
             android:label="@string/title_activity_plant_details"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -49,8 +47,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".AlarmBroadcastReceiver" >
-        </receiver>
     </application>
 
 </manifest>
