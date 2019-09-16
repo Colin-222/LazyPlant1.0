@@ -127,6 +127,8 @@ public class SearchResult extends Fragment {
             String pid = ids.get(i);
             final Button myButton = new Button(root.getContext());
             myButton.setText(pid);
+            myButton.setTextColor(getResources().getColor(R.color.colorRed));
+            myButton.setBackgroundResource(R.drawable.goodenia_ovata);
             final String bid = pid;
             myButton.setId(i+1);
             final String id = pid;
