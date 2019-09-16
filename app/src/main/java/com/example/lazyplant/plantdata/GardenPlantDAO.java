@@ -24,11 +24,8 @@ public interface GardenPlantDAO {
     @Query("SELECT * FROM gardenPlants")
     List<GardenPlant> getGardenPlants();
 
-    @Query("SELECT * FROM gardenPlants WHERE active=1")
-    List<GardenPlant> getActiveGardenPlants();
-
-    @Query("SELECT * FROM gardenPlants WHERE active=1 AND rain_exposed=1")
-    List<GardenPlant> getActiveAndExposedGardenPlants();
+    @Query("SELECT * FROM gardenPlants WHERE rain_exposed=1")
+    List<GardenPlant> getExposedGardenPlants();
 
     @Query("SELECT * FROM gardenPlants WHERE plant_id=:id LIMIT 1")
     List<GardenPlant> getGardenPlant(String id);
