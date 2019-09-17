@@ -80,7 +80,7 @@ public class SearchFragment extends Fragment {
         ConstraintLayout cl = (ConstraintLayout) root.findViewById(R.id.search_constraint_layout);
 
         //Display filters
-        switch(current_display_option) {
+        /*switch(current_display_option) {
             case FilterDisplayHelper.FN_TYPE:
                 FilterOptionSelector type_fos = FilterDisplayHelper.createTypeFilter(filters,
                         top, cl, false, this.getContext());
@@ -100,7 +100,7 @@ public class SearchFragment extends Fragment {
                         top, cl, false, this.getContext());
                 break;
             default:
-        }
+        }*/
 
         //Set search button behaviour
         Button button = (Button) root.findViewById(R.id.search_button);

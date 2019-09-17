@@ -59,6 +59,27 @@ public class DbAccess {
     }
 
     /**
+     * Gets some info on a single plant from the database.
+     * @param id The id of the plant whose information we want to retrieve.
+     * @return An object that contains all the stored information on a plant.
+     */
+    public PlantInfoEntity getShortPlantInfo(String id){
+        PlantInfoEntity pi = new PlantInfoEntity();
+        String command = "SELECT * FROM plant_data WHERE species_id = \"" + id + "\"";
+        Cursor cursor = database.rawQuery(command, null);
+        if(cursor!=null && cursor.getCount()==1){
+            //Get all data
+            cursor.moveToFirst();
+            pi.setId(cursor.getString(cursor.getColumnIndex(Constants.SPECIES_ID_FIELD)));
+            pi.setScientific_name(cursor.getString(cursor.getColumnIndex("scientific_name")));
+            pi.setCommon_name(cursor.getString(cursor.getColumnIndex("common_name")));
+        } else {
+            return null;
+        }
+        return pi;
+    }
+
+    /**
      * Gets a single plants information from the database.
      * @param id The id of the plant whose information we want to retrieve.
      * @return An object that contains all the stored information on a plant.
@@ -139,7 +160,8 @@ public class DbAccess {
             list.add(cursor.getString(0));
             cursor.moveToNext();
         }
-        cursor.close();
+        if(cursor != null)
+            cursor.close();
         return list;
     }
 
@@ -159,7 +181,8 @@ public class DbAccess {
             list.add(cursor.getString(0));
             cursor.moveToNext();
         }
-        cursor.close();
+        if(cursor != null)
+            cursor.close();
         return list;
     }
 
@@ -184,7 +207,8 @@ public class DbAccess {
             list.add(cursor.getString(0));
             cursor.moveToNext();
         }
-        cursor.close();
+        if(cursor != null)
+            cursor.close();
         return list;
     }
 
@@ -200,7 +224,9 @@ public class DbAccess {
         String command = "SELECT " + field + " FROM " + table;
         Cursor cursor = database.rawQuery(command, null); cursor.moveToFirst();
         while (!cursor.isAfterLast()) { list.add(cursor.getString(0));cursor.moveToNext(); }
-        cursor.close(); return list;
+        if(cursor != null)
+            cursor.close();
+        return list;
     }
 
     /**
@@ -226,6 +252,8 @@ public class DbAccess {
             data += cursor.getString(0);
             cursor.moveToNext();
         }
+        if(cursor != null)
+            cursor.close();
         return data;
     }
 
@@ -246,37 +274,43 @@ public class DbAccess {
                                                    List<String> search_tables, List<String> search_fields,
                                                    List<List<String>> selected_filters,
                                                    String height, String width){
-        List<List<String>> found_or = new ArrayList<>();
-        Pattern p = Pattern.compile("^(" + height + "|" + width + ")_[a-zA-z]*$");
-        Pattern pj = Pattern.compile("^([0-9]*)-([0-9]*)$");
-        //Search through database with each filter
-        for (int i = 0; i < options_selected.size(); i++){
-            Matcher m = p.matcher(search_fields.get(i));
-            if (m.find()) {
-                //Size field, making numerical comparison here, size is in format 'x_x'
-                for (int j = 0; j < selected_filters.get(i).size(); j++) {
-                    Matcher mj = pj.matcher(selected_filters.get(i).get(j));
-                    if(mj.find()) {
-                        String lower_size = mj.group(1);
-                        String upper_size = mj.group(2);
-                        List<String> tmp = this.searchOnConditionBetweenValues(id_name, //id_name,
-                                search_tables.get(i), search_fields.get(i), lower_size, upper_size);
-                        found_or.add(tmp);
-                    }else{
-                        throw new IllegalStateException("Something wrong with getting lower and upper bounds. Regex not working.");
+        List<String> found = new ArrayList<>();
+        //Return all if nothing is selected
+        if(options_selected.size() == 0){
+            found = this.getAllFieldFromTable(Constants.SPECIES_ID_FIELD, "plant_data");
+        }else {
+            List<List<String>> found_or = new ArrayList<>();
+            Pattern p = Pattern.compile("^(" + height + "|" + width + ")_[a-zA-z]*$");
+            Pattern pj = Pattern.compile("^([0-9]*)-([0-9]*)$");
+            //Search through database with each filter
+            for (int i = 0; i < options_selected.size(); i++) {
+                Matcher m = p.matcher(search_fields.get(i));
+                if (m.find()) {
+                    //Size field, making numerical comparison here, size is in format 'x_x'
+                    for (int j = 0; j < selected_filters.get(i).size(); j++) {
+                        Matcher mj = pj.matcher(selected_filters.get(i).get(j));
+                        if (mj.find()) {
+                            String lower_size = mj.group(1);
+                            String upper_size = mj.group(2);
+                            List<String> tmp = this.searchOnConditionBetweenValues(id_name, //id_name,
+                                    search_tables.get(i), search_fields.get(i), lower_size, upper_size);
+                            found_or.add(tmp);
+                        } else {
+                            throw new IllegalStateException("Something wrong with getting lower and upper bounds. Regex not working.");
+                        }
                     }
+                } else {
+                    //Other fields, checking if it belongs to a group
+                    List<String> tmp = this.searchOnConditions(id_name,
+                            search_tables.get(i), search_fields.get(i), selected_filters.get(i));
+                    found_or.add(tmp);
                 }
-            }else{
-                //Other fields, checking if it belongs to a group
-                List<String> tmp = this.searchOnConditions(id_name,
-                        search_tables.get(i), search_fields.get(i), selected_filters.get(i));
-                found_or.add(tmp);
             }
-        }
-        //Combine result AND-wise
-        List<String> found = new ArrayList<>(found_or.get(0));
-        for (int i = 0; i < found_or.size(); i++){
-            found.retainAll(found_or.get(i));
+            //Combine result AND-wise
+            found = new ArrayList<>(found_or.get(0));
+            for (int i = 0; i < found_or.size(); i++) {
+                found.retainAll(found_or.get(i));
+            }
         }
         return found;
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -67,7 +68,7 @@ public class plantListDisplayHelper extends DisplayHelper {
         DbAccess databaseAccess = DbAccess.getInstance(root.getContext());
         databaseAccess.open();
         for (String id : ids) {
-            plant_list.add(databaseAccess.getPlantInfo(id));
+            plant_list.add(databaseAccess.getShortPlantInfo(id));
         }
         databaseAccess.close();
         boolean first = true;
