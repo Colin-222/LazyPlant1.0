@@ -10,4 +10,8 @@ public class Constants {
     public final static String NOTIFICATION_TAG = "notification_yay";
     public final static String REMINDER = "reminder";
     public final static String WATERING = "watering";
+    public final static String SHARED_PREFERENCE = "shared_preferences_a74j";
+    public final static String DEFAULT_POSTCODE = "default_postcode";
+    public final static String REMINDER_HOUR = "reminder_hour";
+    public final static String REMINDER_MINUTE = "reminder_minute";
 }

@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.PlantInfoEntity;
@@ -55,7 +56,7 @@ public class plantDetailsDisplayHelper extends DisplayHelper {
                 }
             }
         }
-        iv.setImageResource(image_id);
+        setImage(name, iv, context);
     }
 
     static public List<TextView> displayPlantTitle(PlantInfoEntity p, ConstraintLayout cl, View im, Context context){

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
+import com.bumptech.glide.Glide;
 import com.example.lazyplant.Constants;
 
 /**
@@ -75,7 +76,7 @@ abstract public class DisplayHelper {
         String image_name = convertToImageName(name);
         int image_id = context.getResources().getIdentifier(image_name,
                 Constants.PLANT_IMAGES_FOLDER, context.getPackageName());
-        iv.setImageResource(image_id);
+        Glide.with(context).load(image_id).into(iv);
     }
 
 }

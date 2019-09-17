@@ -52,6 +52,8 @@ public class SearchFragment extends Fragment {
                     public void onSuccess(Location location) {
                         Geocoder mGeocoder = new Geocoder(getContext(), Locale.ENGLISH);
                         try {
+
+
                             List<Address> addresses = mGeocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                             String zipcode = addresses.get(0).getPostalCode();
                             postcodeText.setText(zipcode);

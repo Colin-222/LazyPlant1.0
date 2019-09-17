@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -48,7 +49,17 @@ public class MainActivity extends AppCompatActivity {
 
         //AlarmBroadcastReceiver.startAlarmBroadcastReceiver(this);
 
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
 
+        /*SharedPreferences.Editor editor = pref.edit();
+        editor.putString(Constants.DEFAULT_POSTCODE, "2190");
+        editor.putInt(Constants.REMINDER_HOUR, 8);
+        editor.putInt(Constants.REMINDER_MINUTE, 12);
+        editor.commit();*/
+
+        /*pref.getString(Constants.DEFAULT_POSTCODE, null);
+        pref.getInt(Constants.REMINDER_HOUR, -1);
+        pref.getInt(Constants.REMINDER_MINUTE, -1);*/
 
     }
 
