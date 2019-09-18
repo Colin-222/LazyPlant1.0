@@ -1,12 +1,14 @@
 package com.example.lazyplant.ui;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
 
 import com.bumptech.glide.Glide;
@@ -83,6 +85,8 @@ public class plantDetailsDisplayHelper extends DisplayHelper {
         for(String x : details){
             final TextView i = new TextView(cl.getRootView().getContext());
             configureTextView(i, x, DESC_SIZE, ContextCompat.getColor(context, R.color.detailsTextColor));
+            Typeface a = ResourcesCompat.getFont(context, R.font.source_sans_pro_bold);
+            i.setTypeface(a);
             cl.addView(i);
             setViewConstraintsLeft(i, cl, cl, last, DESC_H_MARGIN, DESC_V_MARGIN);
             last = i;
