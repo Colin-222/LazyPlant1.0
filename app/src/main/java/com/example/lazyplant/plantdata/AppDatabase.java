@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 @Database(entities = {Favourite.class, PlantCareRecord.class, GardenPlant.class,
-PlantNotes.class}, version = 5)
+PlantNotes.class}, version = 6)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 

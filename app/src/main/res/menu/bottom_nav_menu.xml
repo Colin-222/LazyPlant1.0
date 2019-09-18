@@ -22,8 +22,8 @@
         android:title="@string/title_search" />
 
     <item
-        android:id="@+id/navigation_reminder"
+        android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_reminder"
-        android:title="@string/title_reminder" />
+        android:title="@string/title_profile" />
 
 </menu>

@@ -1,11 +1,9 @@
 package com.example.lazyplant.ui.reminder;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -23,7 +21,6 @@ import com.example.lazyplant.plantdata.PlantCareRecord;
 import com.example.lazyplant.plantdata.PlantCareRecordDAO;
 import com.example.lazyplant.plantdata.PlantInfoEntity;
 import com.example.lazyplant.ui.search.FilterDisplayHelper;
-import com.example.lazyplant.ui.shopmap.ShopsMapActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,15 +36,6 @@ public class ReminderFragment extends Fragment {
         this.root = inflater.inflate(R.layout.fragment_reminder, container, false);
         
 
-        Button shopMapButton = (Button) root.findViewById(R.id.shop_map_button);
-        shopMapButton.setOnClickListener( new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ShopsMapActivity.class);
-                startActivity(intent);
-            }
-        });
         return this.root;
     }
 

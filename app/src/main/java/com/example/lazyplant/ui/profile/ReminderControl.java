@@ -1,4 +1,4 @@
-package com.example.lazyplant.ui.reminder;
+package com.example.lazyplant.ui.profile;
 
 import android.content.Context;
 
@@ -30,7 +30,7 @@ public class ReminderControl {
     /**
      * Adds a plant that is in the user's garden. It sets watering_interval to value found in plant database.
      * last_watering is today, rain_exposed is false by default.
-     * If no plant is found a default of 30 days is used for watering_interval.
+     * If no plant is found a default of 14 days is used for watering_interval.
      * @param species_id ID of species of plant to add. Can be null.
      * @param name Name of plant that user gives.
      * @return ID of newly created plant.
@@ -127,6 +127,21 @@ public class ReminderControl {
     }
 
     /**
+     * Get the next date a plant needs to be watered.
+     * @param plant_id ID of the plant whose next watering date we want to find.
+     * @return Date of next watering as a Calendar.
+     */
+    public Calendar getNextWatering(String plant_id){
+        AppDatabase database = Room.databaseBuilder(context, AppDatabase.class, db_name)
+                .allowMainThreadQueries().build();
+        GardenPlantDAO dao = database.getGardenPlantDAO();
+        GardenPlant gp = dao.getGardenPlant(plant_id).get(0);
+        Calendar c = gp.getLast_watering();
+        c.add(Calendar.DATE, gp.getWatering_interval());
+        return c;
+    }
+
+    /**
      * Get a list of plants to water for a certain day.
      * @param date Date which we should get the plants that need to be watered.
      * @return List of plants that need to be watered.
@@ -140,10 +155,16 @@ public class ReminderControl {
         database.close();
         for (GardenPlant gp : plants) {
             Calendar c = gp.getLast_watering();
-            c.add(Calendar.DATE, gp.getWatering_interval());
-            if ((c.get(Calendar.DAY_OF_YEAR) == date.get(Calendar.DAY_OF_YEAR)) &&
-                    (c.get(Calendar.YEAR) == date.get(Calendar.YEAR))){
-                plants_to_water.add(gp);
+            int wi = gp.getWatering_interval();
+            c.add(Calendar.DATE, wi);
+            if(wi>0){
+                if ((c.get(Calendar.DAY_OF_YEAR) == date.get(Calendar.DAY_OF_YEAR)) &&
+                        (c.get(Calendar.YEAR) == date.get(Calendar.YEAR))){
+                    plants_to_water.add(gp);
+                }
+                if (c.before(date)){
+                    plants_to_water.add(gp);
+                }
             }
         }
         return plants_to_water;

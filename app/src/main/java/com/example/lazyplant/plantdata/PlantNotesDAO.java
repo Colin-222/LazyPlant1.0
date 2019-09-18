@@ -23,14 +23,23 @@ public interface PlantNotesDAO {
     @Update
     void update(PlantNotes... plant_notes);
 
+    @Query("SELECT * FROM plant_notes ")
+    List<PlantNotes> getAll();
+
+    @Query("SELECT * FROM plant_notes WHERE species_id=:id")
+    PlantNotes getPlantNotes(String id);
+
     @Query("SELECT notes FROM plant_notes WHERE species_id=:id")
-    String getPlantNotes(String id);
+    String getNotes(String id);
 
     @Query("DELETE FROM plant_notes")
     void deleteAll();
 
     @Query("SELECT COUNT(*) FROM plant_notes WHERE species_id=:id")
-    int checkIfFavourties(String id);
+    int checkIfExists(String id);
+
+    @Query("SELECT * FROM plant_notes ORDER BY last_edit")
+    List<PlantNotes> getNotesRecent();
 
 }
 
