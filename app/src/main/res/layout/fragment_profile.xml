@@ -12,8 +12,8 @@
         android:id="@+id/profile_light"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="@color/colorHomeLight"
-        android:layout_marginTop="30dp">
+        android:background="@color/colorLightT"
+        android:layout_marginTop="40dp">
 
         <View
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:minHeight="?actionBarSize"
-            android:textColor="@color/colorLazyGreen"
+            android:textColor="@color/darkGreen"
             android:textSize="44sp"
             android:text="WELCOME"
             android:fontFamily="@font/american_typewriter_bold"
@@ -51,23 +51,21 @@
         android:layout_height="120dp"
         android:background="@drawable/ic_rounded_rect"
         android:layout_below="@id/profile_light"
-        android:layout_marginTop="30dp"
-        android:layout_toLeftOf="@+id/profile_button_plants"
-        android:layout_marginRight="15dp"
-        android:layout_marginEnd="15dp">
+        android:layout_marginTop="40dp"
+        android:layout_toLeftOf="@+id/profile_button_notes"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp">
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/water_history"
-            android:scaleType="fitCenter"
-            android:padding="4dp"
+            android:src="@drawable/ic_watering_history"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="5dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,42 +73,42 @@
             android:textColor="@color/dGray"
             android:textSize="16sp"
             android:text="Watering\n History"
+            android:fontFamily="@font/imprima"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="2dp"/>
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/profile_button_plants"
+        android:id="@+id/profile_button_notes"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:background="@drawable/ic_rounded_rect"
         android:layout_below="@id/profile_light"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:layout_centerInParent="true">
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/all_plants"
-            android:scaleType="fitCenter"
-            android:padding="4dp"
+            android:src="@drawable/ic_all_notes"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="5dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textColor="@color/dGray"
             android:textSize="16sp"
-            android:text="   All\nPlants"
+            android:text="   All\nNotes"
+            android:fontFamily="@font/imprima"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="4dp"/>
+            android:layout_marginBottom="2dp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -119,23 +117,18 @@
         android:layout_height="120dp"
         android:background="@drawable/ic_rounded_rect"
         android:layout_below="@id/profile_light"
-        android:layout_marginTop="30dp"
-        android:layout_toRightOf="@+id/profile_button_plants"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp">
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@+id/profile_button_notes"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp">
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/reminders"
-            android:scaleType="fitCenter"
-            android:padding="4dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:src="@drawable/ic_watering_reminder"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="2dp" />
+            android:layout_marginTop="5dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -143,46 +136,13 @@
             android:textColor="@color/dGray"
             android:textSize="16sp"
             android:text="Reminders"
+            android:fontFamily="@font/imprima"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="10dp"/>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/profile_button_notes"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:background="@drawable/ic_rounded_rect"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@+id/profile_button_history"
-        android:layout_marginLeft="0dp"
-        android:layout_marginStart="0dp"
-        android:layout_below="@+id/profile_button_plants">
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/all_notes"
-            android:scaleType="fitCenter"
-            android:padding="4dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="2dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="16dp"
-            android:text="All Notes"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-            android:textColor="@color/dGray"
-            android:textSize="16sp" />
-    </RelativeLayout>
 
 
 

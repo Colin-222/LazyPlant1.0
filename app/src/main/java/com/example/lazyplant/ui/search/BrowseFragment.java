@@ -186,8 +186,6 @@ public class BrowseFragment extends Fragment {
     private void updateResults(){
         DbAccess databaseAccess = DbAccess.getInstance(getContext());
         databaseAccess.open();
-
-
         List<String> found = databaseAccess.searchPlantDatabase(Constants.SPECIES_ID_FIELD,
                 this.selected_filters.getOptions_selected(), this.selected_filters.getSearch_tables(),
                 this.selected_filters.getSearch_fields(), this.selected_filters.getSelected_filters(),
