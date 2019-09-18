@@ -39,10 +39,11 @@ public class PlantDetailsFragment extends Fragment {
             ImageView image = root.findViewById(R.id.plant_details_image_main);
             ConstraintLayout cl = (ConstraintLayout) root.findViewById(R.id.plant_details_constraint_layout);
             plantDetailsDisplayHelper.displayDetailsPageImage(pid, image, this.getContext(), 0.4);
-            List<TextView> l = plantDetailsDisplayHelper.displayPlantTitle(p, cl, image, this.getContext());
+            View top_wo_nerae = (View) root.findViewById(R.id.plants_details_top);
+            List<TextView> l = plantDetailsDisplayHelper.displayPlantTitle(p, cl, top_wo_nerae, this.getContext());
             List<TextView> l2 = plantDetailsDisplayHelper.displayPlantDetails(p, cl,
-                    l.get(l.size()-1), this.getContext());
-            ToggleButton tb = (ToggleButton) root.findViewById(R.id.plant_details_button_favorite);
+                    image, this.getContext());
+            ToggleButton tb = (ToggleButton) root.findViewById(R.id.plant_details_button_favourites);
             plantListDisplayHelper.createToggleButton(tb, this.getContext(), pid);
         } else {
             TextView tv = root.findViewById(R.id.plant_details_message);

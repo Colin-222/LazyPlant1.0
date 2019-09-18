@@ -35,8 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class plantListDisplayHelper extends DisplayHelper {
-    final static private int DESC_H_MARGIN = 8;
-    final static private int DESC_V_MARGIN = 12;
+    final static private int DESC_H_MARGIN = 12;
+    final static private int DESC_V_MARGIN = 6;
 
     private static View createSinglePlantDisplay(PlantInfoEntity plant, Context context, Fragment fragment){
         final String pid = plant.getId();

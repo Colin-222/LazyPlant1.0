@@ -169,6 +169,9 @@ public class FilterOptionSelector extends ChipGroup{
             ChipGroup.LayoutParams params = new ChipGroup.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             params.setMargins(this.h_margin, this.v_margin, this.h_margin, this.v_margin);
             x.setText(i);
+            x.setCheckedIconVisible(false);
+            x.setBackgroundTintList(getResources().getColorStateList(R.color.filter_chip_bg));
+            x.setTextColor(getResources().getColorStateList(R.color.chip_text));
             x.setOnClickListener(on_click);
             this.addView(x, params);
         }

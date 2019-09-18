@@ -58,7 +58,7 @@ public class BrowseFragment extends Fragment {
     final private int H_MARGIN = 8;
     final private int V_MARGIN = 2;
     final private int HEIGHT_CLOSED = 40;
-    final private int HEIGHT_OPEN = 200;
+    final private int HEIGHT_OPEN = 150;
     final private String HEIGHT = "height";
     final private String WIDTH = "width";
 

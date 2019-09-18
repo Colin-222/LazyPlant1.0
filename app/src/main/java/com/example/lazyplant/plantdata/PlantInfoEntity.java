@@ -195,7 +195,7 @@ public class PlantInfoEntity {
         x = this.getFrost_tolerance();
         if (!x.equals("")){ l.add("Frost tolerance: " + x); }
         x = this.getLight();
-        if (!x.equals("")){ l.add("Shade required: " + x); }
+        if (!x.equals("")){ l.add("Shade: " + x); }
         x = this.getWildlife();
         if (!x.equals("")){ l.add("Wildlife Attracted: " + x); }
         x = this.getFlowering_period();

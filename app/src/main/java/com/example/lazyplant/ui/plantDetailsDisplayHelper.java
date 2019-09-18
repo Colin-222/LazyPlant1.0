@@ -24,7 +24,9 @@ import java.util.List;
 public class plantDetailsDisplayHelper extends DisplayHelper {
 
     final static private int TITLE_H_MARGIN = 16;
-    final static private int TITLE_V_MARGIN = 16;
+    final static private int TITLE_V_MARGIN = 5;
+    final static private int SUBTITLE_H_MARGIN = 16;
+    final static private int SUBTITLE_V_MARGIN = 0;
     private static final int TITLE_SIZE = 26;
     private static final int SUBTITLE_SIZE = 14;
     final static private int DESC_H_MARGIN = 16;
@@ -82,7 +84,7 @@ public class plantDetailsDisplayHelper extends DisplayHelper {
             final TextView i = new TextView(cl.getRootView().getContext());
             configureTextView(i, x, DESC_SIZE, ContextCompat.getColor(context, R.color.detailsTextColor));
             cl.addView(i);
-            setViewConstraints(i, cl, cl, last, DESC_H_MARGIN, DESC_V_MARGIN);
+            setViewConstraintsLeft(i, cl, cl, last, DESC_H_MARGIN, DESC_V_MARGIN);
             last = i;
             l.add(i);
         }
