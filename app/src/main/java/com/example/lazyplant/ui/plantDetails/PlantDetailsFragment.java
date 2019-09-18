@@ -2,6 +2,7 @@ package com.example.lazyplant.ui.plantDetails;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.example.lazyplant.plantdata.PlantNotesDAO;
 import com.example.lazyplant.ui.plantDetailsDisplayHelper;
 import com.example.lazyplant.ui.plantListDisplayHelper;
 import com.example.lazyplant.ui.profile.ReminderControl;
+import com.example.lazyplant.ui.shopmap.ShopsMapActivity;
 
 import java.util.Calendar;
 import java.util.List;
@@ -96,6 +98,8 @@ public class PlantDetailsFragment extends Fragment {
     private View.OnClickListener shoppingListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            Intent intent = new Intent(getActivity(), ShopsMapActivity.class);
+            startActivity(intent);
 
         }
     };
