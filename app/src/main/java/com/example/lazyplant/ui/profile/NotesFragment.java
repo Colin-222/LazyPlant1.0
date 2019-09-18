@@ -44,32 +44,6 @@ public class NotesFragment extends Fragment {
         adapter = new NotesAdapter(pn);
         this.notes.setAdapter(adapter);
 
-        /*final ImageButton edit = (ImageButton) root.findViewById(R.id.notes_edit);
-        final ImageButton delete = (ImageButton) root.findViewById(R.id.notes_delete);
-
-        edit.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //edit text
-            }
-        });
-
-        delete.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(delete.getContext());
-                alert.setTitle("Are you sure you want to delete this note?");
-                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-
-                    }
-                });
-                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                    }
-                });
-                alert.show();
-            }
-        });*/
-
         return this.root;
     }
 

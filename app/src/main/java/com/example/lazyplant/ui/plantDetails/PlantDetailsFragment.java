@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 
 import com.example.lazyplant.Constants;
+import com.example.lazyplant.DialogHelper;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.AppDatabase;
 import com.example.lazyplant.plantdata.DbAccess;
@@ -38,7 +39,7 @@ import java.util.List;
 
 public class PlantDetailsFragment extends Fragment {
 
-    PlantInfoEntity p;
+    private PlantInfoEntity p;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -91,7 +92,7 @@ public class PlantDetailsFragment extends Fragment {
     private View.OnClickListener notesListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            openNotesPopup();
+            DialogHelper.openNotesPopup(p, getContext());
         }
     };
 
@@ -119,42 +120,6 @@ public class PlantDetailsFragment extends Fragment {
         });
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) { }
-        });
-        alert.show();
-    }
-
-    private void openNotesPopup(){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this.getContext());
-        alert.setTitle("Add notes for: " + p.getCommon_name());
-
-        final EditText input = new EditText(this.getContext());
-        AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, Constants.GARDEN_DB_NAME)
-                .fallbackToDestructiveMigration().allowMainThreadQueries().build();
-        final PlantNotesDAO dao = database.getPlantNotesDAO();
-        final String current = dao.getNotes(p.getId());
-        final PlantNotes x = dao.getPlantNotes(p.getId());
-        alert.setView(input);
-        if(current != null) { input.setText(current); }
-
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                if(current == null){
-                    PlantNotes n = new PlantNotes();
-                    n.setSpecies_id(p.getId());
-                    n.setNotes(input.getText().toString());
-                    n.setLast_edit(Calendar.getInstance());
-                    dao.insert(n);
-                }else{
-                    x.setNotes(input.getText().toString());
-                    x.setLast_edit(Calendar.getInstance());
-                    dao.update(x);
-                }
-            }
-        });
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                Toast.makeText(getActivity(), "Note Not Saved.", Toast.LENGTH_SHORT).show();
-            }
         });
         alert.show();
     }
