@@ -22,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 
+import com.example.lazyplant.AlarmBroadcastReceiver;
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.AppDatabase;
@@ -71,12 +72,12 @@ public class HomeFragment extends Fragment {
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
+
                 client.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
                         Geocoder mGeocoder = new Geocoder(getContext(), Locale.ENGLISH);
                         SharedPreferences pref = getContext().getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
-
                         try {
                             List<Address> addresses = mGeocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                             postcode = addresses.get(0).getPostalCode();

@@ -9,5 +9,21 @@
         android:fontStyle="normal"
         android:fontWeight="400"
         android:font="@font/american_typewriter_bold" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/highland_gothic_light_flf" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/highland_gothic_elf_bold" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/source_sans_pro_semibold" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/source_sans_pro_bold" />
 
 </font-family>
