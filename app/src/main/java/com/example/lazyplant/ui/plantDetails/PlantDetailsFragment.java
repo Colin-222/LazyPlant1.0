@@ -20,6 +20,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 
+import com.example.lazyplant.AlarmBroadcastReceiver;
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.DialogHelper;
 import com.example.lazyplant.R;
@@ -117,6 +118,8 @@ public class PlantDetailsFragment extends Fragment {
                 String namae = input.getText().toString();
                 rc.addGardenPlant(namae, p.getId());
                 Toast.makeText(getActivity(), "New plant \'" + namae + "\' added.", Toast.LENGTH_SHORT).show();
+                AlarmBroadcastReceiver.startAlarmBroadcastReceiver(getContext(),
+                        rc.getGardenPlant(p.getId()).getWatering_interval());
             }
         });
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

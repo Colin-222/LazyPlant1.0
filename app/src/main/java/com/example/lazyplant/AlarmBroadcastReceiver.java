@@ -56,23 +56,19 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         mNotificationManager.notify(1, mBuilder.build());
     }
 
-    public static void startAlarmBroadcastReceiver(Context context) {
+    public static void startAlarmBroadcastReceiver(Context context, int days_from_now) {
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent _intent = new Intent(context, AlarmBroadcastReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, _intent, 0);
         Calendar time = Calendar.getInstance();
         time.setTimeInMillis(System.currentTimeMillis());
-        time.add(Calendar.SECOND, 5);
+        time.add(Calendar.DATE, days_from_now);
         alarmManager.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
-
-//        alarmManager.cancel(pendingIntent);
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeInMillis(System.currentTimeMillis() + 1000);
-        /*calendar.set(Calendar.HOUR_OF_DAY, 22);
-        calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 0);*/
-//        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        // Room database of pendingIntent, check through each one to see if there are duplicates
+        // alarmManager.cancel
     }
+
+
 
     public static void cancelAlarmBroadcastReceiver(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

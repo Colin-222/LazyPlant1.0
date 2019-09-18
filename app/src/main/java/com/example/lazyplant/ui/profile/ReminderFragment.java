@@ -44,12 +44,12 @@ public class ReminderFragment extends Fragment {
         GardenPlantDAO dao = database.getGardenPlantDAO();
         ReminderControl rc = new ReminderControl(getContext(), Constants.GARDEN_DB_NAME);
         Calendar today = Calendar.getInstance();
-        today.add(Calendar.DATE, 50);
+        today.add(Calendar.DATE, 100);//test
         List<GardenPlant> to_water = rc.getPlantsToWater(today);
         this.thirsty_plants = (RecyclerView) root.findViewById(R.id.reminder_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         this.thirsty_plants.setLayoutManager(mLayoutManager);
-        adapter = new AllPlantsAdapter(to_water);
+        adapter = new ReminderAdapter(to_water);
         this.thirsty_plants.setAdapter(adapter);
 
         return this.root;

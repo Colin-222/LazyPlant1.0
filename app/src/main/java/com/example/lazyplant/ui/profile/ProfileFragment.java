@@ -24,6 +24,7 @@ public class ProfileFragment extends Fragment {
         RelativeLayout button_history = (RelativeLayout)root.findViewById(R.id.profile_button_history);
         RelativeLayout button_reminder = (RelativeLayout)root.findViewById(R.id.profile_button_reminder);
         RelativeLayout button_notes = (RelativeLayout)root.findViewById(R.id.profile_button_notes);
+        //RelativeLayout button_backup = (RelativeLayout)root.findViewById(R.id.profile_button_backup);
 
         button_history.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -45,6 +46,13 @@ public class ProfileFragment extends Fragment {
                 f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, f).commit();
             }
         });
+
+        /*button_backup.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                BackupFragment f = new BackupFragment();
+                f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, f).commit();
+            }
+        });*/
 
         return this.root;
     }
