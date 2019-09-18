@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+//        getSupportActionBar().hide();
 
         if(getIntent().getExtras() != null) {
             String message = getIntent().getExtras().getString(Constants.NOTIFICATION_TAG);

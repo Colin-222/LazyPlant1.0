@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -62,6 +63,8 @@ public class BrowseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         this.root = inflater.inflate(R.layout.fragment_browse, container, false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+
         this.current_filter = this.FILTER_OPTIONS.get(0);
         this.filter_cl = (ConstraintLayout) this.root.findViewById(R.id.browse_filter_area);
         //this.results_cl = (ConstraintLayout) this.root.findViewById(R.id.browse_results_layout);

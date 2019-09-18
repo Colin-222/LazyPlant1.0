@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.lazyplant.Constants;
@@ -26,7 +27,7 @@ public class NameSearchFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_name_search, container, false);
-
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         //Set search button behaviour
         final EditText et = (EditText) root. findViewById(R.id.name_search_edit);
         ImageButton button = (ImageButton) root.findViewById(R.id.name_search_go);
@@ -42,7 +43,7 @@ public class NameSearchFragment extends Fragment {
                     getFragmentManager() .beginTransaction()
                             .replace(R.id.nav_host_fragment, nsrf).commit();
                 } else {
-                    Toast.makeText(getActivity(), "Stop kidding around. Type something in.", Toast.LENGTH_SHORT).show();
+                    et.setError("Please Enter a Valid Plant Name");
                 }
             }
         });
