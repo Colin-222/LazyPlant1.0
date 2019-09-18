@@ -23,7 +23,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         showNotification(context);
     }
 
-    void showNotification(Context context) {
+    public static void showNotification(Context context) {
         String CHANNEL_ID = "LazyPlantChannel";// The id of the channel.
         CharSequence name = context.getResources().getString(R.string.app_name);// The user-visible name of the channel.
         NotificationCompat.Builder mBuilder;
@@ -57,16 +57,30 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     public static void startAlarmBroadcastReceiver(Context context) {
+        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent _intent = new Intent(context, AlarmBroadcastReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, _intent, 0);
-        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.cancel(pendingIntent);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis() + 1000);
+        Calendar time = Calendar.getInstance();
+        time.setTimeInMillis(System.currentTimeMillis());
+        time.add(Calendar.SECOND, 5);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
+
+//        alarmManager.cancel(pendingIntent);
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeInMillis(System.currentTimeMillis() + 1000);
         /*calendar.set(Calendar.HOUR_OF_DAY, 22);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 0);*/
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+//        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+    }
+
+    public static void cancelAlarmBroadcastReceiver(Context context) {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent _intent = new Intent(context, AlarmBroadcastReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context, 1, _intent, 0);
+
+        alarmManager.cancel(pendingIntent);
     }
 
 
