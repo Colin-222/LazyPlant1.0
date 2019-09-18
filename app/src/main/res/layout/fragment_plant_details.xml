@@ -57,11 +57,12 @@
 
             <ImageButton
                 android:id="@+id/plant_details_button_add"
-                android:src="@drawable/ic_add"
-                android:backgroundTint="@color/colorLazyGreen"
+                android:src="@drawable/water_button"
+                android:backgroundTint="@color/vpi__bright_foreground_holo_light"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:scaleType="center"
+                android:padding="1mm"
+                android:scaleType="fitCenter"
                 android:layout_marginRight="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_toLeftOf="@+id/plant_details_button_shopping"
