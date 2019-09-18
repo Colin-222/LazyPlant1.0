@@ -32,9 +32,11 @@ import java.util.List;
 public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder> {
 
     private List<PlantInfoEntity> plant_list;
+    private Fragment fragment;
 
-    public BrowseAdapter(List<PlantInfoEntity> plant_list) {
+    public BrowseAdapter(List<PlantInfoEntity> plant_list, Fragment fragment) {
         this.plant_list = plant_list;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -55,9 +57,9 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
         int image_id = context.getResources().getIdentifier(image_name,
                 Constants.PLANT_IMAGES_FOLDER, context.getPackageName());
         Glide.with(context).load(image_id).into(holder.image);
+        plantListDisplayHelper.createToggleButton(holder.favourite_button, context, pid);
 
-        final FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
-
+        final Fragment f_fragment = fragment;
         holder.image.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //open details page with id
@@ -65,10 +67,14 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
                 bundle.putString(Constants.PLANT_DETAILS_BUNDLE_TAG, pid);
                 PlantDetailsFragment pdf = new PlantDetailsFragment();
                 pdf.setArguments(bundle);
-                manager.beginTransaction().replace(R.id.nav_host_fragment, pdf).commit();
+                f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, pdf).commit();
             }
         });
-        plantListDisplayHelper.createToggleButton(holder.favourite_button, context, pid);
+
+    }
+
+    private void setImageClickable(){
+
     }
 
     @Override

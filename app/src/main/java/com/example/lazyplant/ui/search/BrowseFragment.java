@@ -202,7 +202,7 @@ public class BrowseFragment extends Fragment {
         this.result_view = (RecyclerView) root.findViewById(R.id.browse_result_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         this.result_view.setLayoutManager(mLayoutManager);
-        adapter = new BrowseAdapter(plant_list);
+        adapter = new BrowseAdapter(plant_list, this);
         this.result_view.setAdapter(adapter);
 
         /*this.results_cl.removeAllViews();

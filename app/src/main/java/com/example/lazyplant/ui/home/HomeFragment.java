@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment {
                 f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, f).commit();
             }
         });
-        
+
         return root;
     }
 
