@@ -100,15 +100,7 @@ public class HomeFragment extends Fragment {
                 f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, f).commit();
             }
         });
-
-
-        Button shopLocationButton = (Button) root.findViewById(R.id.shop_location_button);
-        shopLocationButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ShopMapActivity.class);
-                startActivity(intent);
-            }
-        });
+        
         return root;
     }
 
