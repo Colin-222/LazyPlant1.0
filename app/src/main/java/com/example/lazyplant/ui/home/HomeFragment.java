@@ -101,6 +101,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
         Button shopLocationButton = (Button) root.findViewById(R.id.shop_location_button);
         shopLocationButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
