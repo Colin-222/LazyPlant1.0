@@ -27,6 +27,8 @@ import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.AppDatabase;
 import com.example.lazyplant.plantdata.Favourite;
 import com.example.lazyplant.plantdata.FavouriteDAO;
+import com.example.lazyplant.shopmap.ShopMapActivity;
+import com.example.lazyplant.shopmap.StoreMap;
 import com.example.lazyplant.ui.plantDetails.PlantDetailsActivity;
 import com.example.lazyplant.ui.profile.NotesFragment;
 import com.example.lazyplant.ui.search.BrowseFragment;
@@ -99,6 +101,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        Button shopLocationButton = (Button) getView().findViewById(R.id.shop_location_button);
+        shopLocationButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ShopMapActivity.class);
+                startActivity(intent);
+            }
+        });
         return root;
     }
 
