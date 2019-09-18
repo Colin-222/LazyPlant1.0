@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.room.Room;
@@ -46,6 +47,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        ((AppCompatActivity)this.getActivity()).getSupportActionBar().hide();
 
         final TextView location_tv = (TextView) root.findViewById(R.id.home_location_text);
         SharedPreferences pref = this.getContext().getApplicationContext()
