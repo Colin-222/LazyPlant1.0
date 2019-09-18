@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +33,7 @@ public class ReminderFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         this.root = inflater.inflate(R.layout.fragment_reminder, container, false);
-
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         TextView tv = root.findViewById(R.id.reminder_date);
         Date date = (Calendar.getInstance()).getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");

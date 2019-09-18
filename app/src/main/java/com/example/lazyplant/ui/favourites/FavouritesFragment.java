@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.room.Room;
@@ -33,6 +34,8 @@ public class FavouritesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_favourites, container, false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+
         AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, Constants.GARDEN_DB_NAME)
                 .fallbackToDestructiveMigration().allowMainThreadQueries().build();
         FavouriteDAO favouriteDAO = database.getFavouriteDAO();
