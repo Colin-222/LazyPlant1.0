@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
 
         SharedPreferences.Editor editor = pref.edit();
-        editor.putString(Constants.DEFAULT_POSTCODE, "2190");
+        editor.putString(Constants.DEFAULT_POSTCODE, "3000");
         editor.putInt(Constants.REMINDER_HOUR, 8);
         editor.putInt(Constants.REMINDER_MINUTE, 12);
         editor.commit();

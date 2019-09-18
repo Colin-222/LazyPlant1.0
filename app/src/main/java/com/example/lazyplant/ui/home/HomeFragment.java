@@ -75,10 +75,17 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onSuccess(Location location) {
                         Geocoder mGeocoder = new Geocoder(getContext(), Locale.ENGLISH);
+                        SharedPreferences pref = getContext().getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
+
                         try {
                             List<Address> addresses = mGeocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                            String postcode = addresses.get(0).getPostalCode();
+                            postcode = addresses.get(0).getPostalCode();
                             location_tv.setText(LOCATION_TEXT + postcode);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putString(Constants.DEFAULT_POSTCODE, postcode);
+                            editor.putInt(Constants.REMINDER_HOUR, 8);
+                            editor.putInt(Constants.REMINDER_MINUTE, 12);
+                            editor.commit();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
