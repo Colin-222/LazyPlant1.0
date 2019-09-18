@@ -17,4 +17,5 @@
     <string name="Winter">winter</string>
     <string name="Autumn">autumn</string>
     <string name="search_categories">categories</string>
+    <string name="title_activity_shops_map">Map</string>
 </resources>
