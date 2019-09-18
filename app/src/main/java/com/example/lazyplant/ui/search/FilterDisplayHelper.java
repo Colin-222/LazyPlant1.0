@@ -50,24 +50,15 @@ public class FilterDisplayHelper extends DisplayHelper {
 
     /**
      * This creates a filter option selector and displays it in a ConstraintLayout.
-     * @param filters A list of currently created filters. The new filter will be added to this.
-     * @param top_ref The filter option selector will be below this View.
-     * @param cl The ConstraintLayout to show the filter options is.
      * @param fo This is an entity that stores the data on the filter option to create.
-     * @param single_selection Whether only a single filter option should be selectable or not.
      * @param context Context this should be displayed in. Should use 'this.getContext()' in
      *                fragments to get this value.
      * @return The created filter option selector.
      */
-    public static FilterOptionSelector createFilter(List<FilterOptionSelector> filters, View top_ref,
-                                                    ConstraintLayout cl, FilterOptionEntity fo,
-                                                    boolean single_selection, Context context){
+    public static FilterOptionSelector createFilter(FilterOptionEntity fo, Context context){
         final FilterOptionSelector x = new FilterOptionSelector(fo.getCategory(),
                 fo.getDescription(), fo.getOptions(), fo.getOption_descriptions(), fo.getSearch_table(),
-                fo.getField(), H_MARGIN, V_MARGIN, single_selection, context);
-        cl.addView(x);
-        DisplayHelper.setViewConstraints(x, cl, cl, cl, top_ref, H_MARGIN, V_MARGIN);
-        filters.add(x);
+                fo.getField(), H_MARGIN, V_MARGIN, false, context);
         return x;
     }
 
@@ -148,6 +139,13 @@ public class FilterDisplayHelper extends DisplayHelper {
         FilterOptionEntity fo = new FilterOptionEntity("Width", "Width of a plant.",
                 Arrays.asList("Small (0-1m)", "Medium (1-10m)", "Large(10+m)"),
                 Arrays.asList("0-1", "1-10", "10-1000"), "plant_data", "width_upper");
+        return fo;
+    }
+
+    public static FilterOptionEntity createZoneFilter(){
+        FilterOptionEntity fo = new FilterOptionEntity("Zone", "Hardiness zone a plant can grow in.",
+                Arrays.asList("1", "2", "3", "4", "5", "6", "7"),
+                Arrays.asList("1", "2", "3", "4", "5", "6", "7"), "zone", "climate_zone");
         return fo;
     }
 

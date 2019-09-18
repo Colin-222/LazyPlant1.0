@@ -2,6 +2,7 @@ package com.example.lazyplant.ui.search;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -24,6 +25,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
+import com.example.lazyplant.plantdata.ClimateZoneGetter;
 import com.example.lazyplant.plantdata.DbAccess;
 import com.example.lazyplant.plantdata.PlantInfoEntity;
 import com.example.lazyplant.ui.DisplayHelper;
@@ -42,6 +44,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.content.Context.MODE_PRIVATE;
 
 public class BrowseFragment extends Fragment {
     private View root;
@@ -58,7 +61,7 @@ public class BrowseFragment extends Fragment {
     final private int H_MARGIN = 8;
     final private int V_MARGIN = 2;
     final private int HEIGHT_CLOSED = 40;
-    final private int HEIGHT_OPEN = 150;
+    final private int HEIGHT_OPEN = 165;
     final private String HEIGHT = "height";
     final private String WIDTH = "width";
 
@@ -72,8 +75,33 @@ public class BrowseFragment extends Fragment {
 
         ImageButton filters_button = (ImageButton) root.findViewById(R.id.browse_display_filters);
         filters_button.setOnClickListener(filterButtonListener);
+        updateLocation(null);
         updateResults();
+
         return this.root;
+    }
+
+    private boolean updateLocation(String postcode){
+        String location = null;
+        if (postcode == null) {
+            SharedPreferences pref = this.getContext().getApplicationContext()
+                    .getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
+            location = pref.getString(Constants.DEFAULT_POSTCODE, null);
+        } else {
+            location = postcode;
+        }
+        if (location == null){ return false; }
+        ClimateZoneGetter czg = new ClimateZoneGetter();
+        int zone = czg.getZone(location);
+        FilterOptionEntity fo = FilterDisplayHelper.createZoneFilter();
+        FilterOptionSelector location_fos = FilterDisplayHelper.createFilter(fo, getContext());
+        if(zone >= 1 && zone <= 7){
+            ((Chip)location_fos.getChildAt(zone - 1)).setChecked(true);
+            this.selected_filters.editSelectedOptions(location_fos);
+        }else{
+            return false;
+        }
+        return true;
     }
 
     private void configure_filter_display(){

@@ -20,6 +20,7 @@ import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 
+import com.bumptech.glide.Glide;
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.AppDatabase;
@@ -35,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class plantListDisplayHelper extends DisplayHelper {
-    final static private int DESC_H_MARGIN = 12;
+    final static private int DESC_H_MARGIN = 6;
     final static private int DESC_V_MARGIN = 6;
 
     private static View createSinglePlantDisplay(PlantInfoEntity plant, Context context, Fragment fragment){

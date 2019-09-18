@@ -196,10 +196,13 @@ public class PlantInfoEntity {
         if (!x.equals("")){ l.add("Frost tolerance: " + x); }
         x = this.getLight();
         if (!x.equals("")){ l.add("Shade: " + x); }
+        x = this.getZone();
+        if (!x.equals("")){ l.add("Hardiness Zone: " + x); }
         x = this.getWildlife();
         if (!x.equals("")){ l.add("Wildlife Attracted: " + x); }
         x = this.getFlowering_period();
         if (!x.equals("")){ l.add("Flowering period: " + x); }
+
         return l;
     }
 
