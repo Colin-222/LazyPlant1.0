@@ -1,49 +1,39 @@
 package com.example.lazyplant.ui.search;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
+import com.example.lazyplant.plantdata.AppDatabase;
 import com.example.lazyplant.plantdata.ClimateZoneGetter;
 import com.example.lazyplant.plantdata.DbAccess;
+import com.example.lazyplant.plantdata.GardenPlant;
+import com.example.lazyplant.plantdata.GardenPlantDAO;
 import com.example.lazyplant.plantdata.PlantInfoEntity;
 import com.example.lazyplant.ui.DisplayHelper;
 import com.example.lazyplant.ui.plantListDisplayHelper;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.lazyplant.ui.profile.AllPlantsAdapter;
 import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.content.Context.MODE_PRIVATE;
 
 public class BrowseFragment extends Fragment {
@@ -56,6 +46,8 @@ public class BrowseFragment extends Fragment {
     private SelectedFiltersEntity selected_filters = new SelectedFiltersEntity();
     private ConstraintLayout results_cl;
     final private String LOCATION_TEXT = "Plants for postcode: ";
+    private RecyclerView result_view;
+    private RecyclerView.Adapter adapter;
 
     final private List<String> FILTER_OPTIONS = Arrays.asList("Type", "Height", "Width", "Shade", "Frost");
     final private int CHIP_SPACING = 8;
@@ -72,7 +64,7 @@ public class BrowseFragment extends Fragment {
         this.root = inflater.inflate(R.layout.fragment_browse, container, false);
         this.current_filter = this.FILTER_OPTIONS.get(0);
         this.filter_cl = (ConstraintLayout) this.root.findViewById(R.id.browse_filter_area);
-        this.results_cl = (ConstraintLayout) this.root.findViewById(R.id.browse_results_layout);
+        //this.results_cl = (ConstraintLayout) this.root.findViewById(R.id.browse_results_layout);
 
         ImageButton filters_button = (ImageButton) root.findViewById(R.id.browse_display_filters);
         filters_button.setOnClickListener(filterButtonListener);
@@ -194,13 +186,27 @@ public class BrowseFragment extends Fragment {
     private void updateResults(){
         DbAccess databaseAccess = DbAccess.getInstance(getContext());
         databaseAccess.open();
+
+
         List<String> found = databaseAccess.searchPlantDatabase(Constants.SPECIES_ID_FIELD,
                 this.selected_filters.getOptions_selected(), this.selected_filters.getSearch_tables(),
                 this.selected_filters.getSearch_fields(), this.selected_filters.getSelected_filters(),
                 HEIGHT, WIDTH);
+        List<PlantInfoEntity> plant_list = new ArrayList<>();
+        for (String id : found) {
+            plant_list.add(databaseAccess.getShortPlantInfo(id));
+        }
         databaseAccess.close();
-        this.results_cl.removeAllViews();
-        plantListDisplayHelper.drawPlantList(root,this, this.results_cl, found);
+
+        if(this.result_view != null){ this.result_view.removeAllViews(); }
+        this.result_view = (RecyclerView) root.findViewById(R.id.browse_result_view);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        this.result_view.setLayoutManager(mLayoutManager);
+        adapter = new BrowseAdapter(plant_list);
+        this.result_view.setAdapter(adapter);
+
+        /*this.results_cl.removeAllViews();
+        plantListDisplayHelper.drawPlantList(root,this, this.results_cl, found);*/
     }
 
     private void setCurrentFilter(String current) { this.current_filter=current; }
