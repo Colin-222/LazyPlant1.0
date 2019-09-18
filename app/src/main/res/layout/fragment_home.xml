@@ -67,8 +67,8 @@
             android:minHeight="?actionBarSize"
             android:textColor="@color/colorLazyGreen"
             android:textSize="28sp"
-            android:text="NO TIME FOR\nGARDENING?!?\nPLANT NATIVE"
-
+            android:text="NO TIME FOR\nGARDENING?!?\n\nPLANT NATIVE"
+            android:fontFamily="@font/american_typewriter_bold"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:layout_below="@id/home_title"
             android:layout_marginTop="-30dp"/>
@@ -82,6 +82,7 @@
             android:textColor="@color/colorLazyGreen"
             android:textSize="18sp"
             android:text="The NATIVE plant recommender app that’s designed for your low maintainence life"
+            android:fontFamily="@font/american_typewriter_bold"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:layout_below="@id/home_intro_text"
             android:layout_marginTop="0dp"/>
@@ -116,6 +117,7 @@
         android:gravity="center"
         android:minHeight="?actionBarSize"
         android:text="BROWSE FOR PLANTS"
+        android:fontFamily="@font/american_typewriter_bold"
         android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
         android:textColor="#FFFFFF"
         android:textSize="25sp" />
@@ -149,9 +151,10 @@
             android:gravity="center"
             android:padding="@dimen/appbar_padding"
             android:text="Get Current Location"
+            android:fontFamily="@font/andale_mono"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:textColor="#000000"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/home_browse_go"
