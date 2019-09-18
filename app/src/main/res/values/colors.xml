@@ -11,4 +11,5 @@
     <color name="detailsTextColor">#01070B</color>
     <color name="colorHomeLight">#80FFFFFF</color>
     <color name="colorLazyGreen">#205E36</color>
+    <color name="dGray">#95212128</color>
 </resources>

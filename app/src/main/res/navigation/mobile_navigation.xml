@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_reminder"
-            app:destination="@id/navigation_reminder" />
+            app:destination="@id/navigation_profile" />
     </fragment>
 
     <fragment
@@ -52,9 +52,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_reminder"
-        android:name="com.example.lazyplant.ui.reminder.ReminderFragment"
-        android:label="@string/title_reminder"
-        tools:layout="@layout/fragment_reminder" />
+        android:id="@+id/navigation_profile"
+        android:name="com.example.lazyplant.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
 
 </navigation>

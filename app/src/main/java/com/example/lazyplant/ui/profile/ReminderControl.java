@@ -1,4 +1,4 @@
-package com.example.lazyplant.ui.reminder;
+package com.example.lazyplant.ui.profile;
 
 import android.content.Context;
 

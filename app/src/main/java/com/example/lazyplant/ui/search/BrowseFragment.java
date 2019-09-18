@@ -55,6 +55,7 @@ public class BrowseFragment extends Fragment {
     private String current_filter;
     private SelectedFiltersEntity selected_filters = new SelectedFiltersEntity();
     private ConstraintLayout results_cl;
+    final private String LOCATION_TEXT = "Plants for postcode: ";
 
     final private List<String> FILTER_OPTIONS = Arrays.asList("Type", "Height", "Width", "Shade", "Frost");
     final private int CHIP_SPACING = 8;
@@ -75,7 +76,10 @@ public class BrowseFragment extends Fragment {
 
         ImageButton filters_button = (ImageButton) root.findViewById(R.id.browse_display_filters);
         filters_button.setOnClickListener(filterButtonListener);
-        updateLocation(null);
+
+        Bundle bundle = this.getArguments();
+        String postcode = bundle.getString(Constants.LOCATION_TAG);
+        updateLocation(postcode);
         updateResults();
 
         return this.root;
@@ -91,6 +95,8 @@ public class BrowseFragment extends Fragment {
             location = postcode;
         }
         if (location == null){ return false; }
+        TextView location_text = (TextView)this.root.findViewById(R.id.browse_location_text);
+        location_text.setText(LOCATION_TEXT + location);
         ClimateZoneGetter czg = new ClimateZoneGetter();
         int zone = czg.getZone(location);
         FilterOptionEntity fo = FilterDisplayHelper.createZoneFilter();

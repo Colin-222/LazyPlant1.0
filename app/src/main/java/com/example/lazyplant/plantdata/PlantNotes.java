@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Calendar;
+
 /**
  * Plant notes. It's used with Room.
  */
@@ -28,6 +30,12 @@ public class PlantNotes {
     public void setNotes(String notes) { this.notes = notes; }
 
     private String notes;
+
+    @NonNull
+    private Calendar last_edit;
+    @NonNull
+    public Calendar getLast_edit() { return last_edit; }
+    public void setLast_edit(@NonNull Calendar last_edit) { this.last_edit = last_edit; }
 
 
 }

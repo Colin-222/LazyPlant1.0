@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_2"
+    android:id="@+id/profile_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:id="@+id/profile_light"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/colorHomeLight"
+        android:layout_marginTop="30dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"
+            android:layout_alignParentTop="true">
+        </View>
+
+        <TextView
+            android:id="@+id/profile_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="?actionBarSize"
+            android:textColor="@color/colorLazyGreen"
+            android:textSize="44sp"
+            android:text="WELCOME"
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="28dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"
+            android:layout_alignParentBottom="true">
+        </View>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/profile_button_history"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/ic_rounded_rect"
+        android:layout_below="@id/profile_light"
+        android:layout_marginTop="30dp"
+        android:layout_toLeftOf="@+id/profile_button_plants"
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_delete"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="2dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/dGray"
+            android:textSize="16sp"
+            android:text="Watering\n History"
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="4dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/profile_button_plants"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/ic_rounded_rect"
+        android:layout_below="@id/profile_light"
+        android:layout_marginTop="30dp"
+        android:layout_centerInParent="true">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_delete"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="2dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/dGray"
+            android:textSize="16sp"
+            android:text="   All\nPlants"
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="4dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/profile_button_reminder"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/ic_rounded_rect"
+        android:layout_below="@id/profile_light"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@+id/profile_button_plants"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_delete"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="2dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/dGray"
+            android:textSize="16sp"
+            android:text="Reminders"
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="16dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/profile_button_notes"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/ic_rounded_rect"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/profile_button_history"
+        android:layout_marginLeft="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_below="@+id/profile_button_plants">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_delete"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="2dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/dGray"
+            android:textSize="16sp"
+            android:text="notes"
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="16dp"/>
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

@@ -13,7 +13,9 @@ import com.example.lazyplant.plantdata.GardenPlant;
 import com.example.lazyplant.plantdata.GardenPlantDAO;
 import com.example.lazyplant.plantdata.PlantCareRecord;
 import com.example.lazyplant.plantdata.PlantCareRecordDAO;
-import com.example.lazyplant.ui.reminder.ReminderControl;
+import com.example.lazyplant.plantdata.PlantNotes;
+import com.example.lazyplant.plantdata.PlantNotesDAO;
+import com.example.lazyplant.ui.profile.ReminderControl;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,7 +25,7 @@ import org.junit.runner.RunWith;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
-import static androidx.test.InstrumentationRegistry.getContext;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
@@ -33,6 +35,7 @@ public class PlantDataTest {
     private FavouriteDAO favouriteDAO;
     private PlantCareRecordDAO plantCareRecordDAO;
     private GardenPlantDAO gardenPlantDAO;
+    private PlantNotesDAO plantNotesDAO;
     private ReminderControl reminderControl;
 
     @Before
@@ -44,9 +47,11 @@ public class PlantDataTest {
         this.favouriteDAO = database.getFavouriteDAO();
         this.plantCareRecordDAO = database.getPlantCareRecordDAO();
         this.gardenPlantDAO = database.getGardenPlantDAO();
+        this.plantNotesDAO = database.getPlantNotesDAO();
         this.favouriteDAO.deleteAll();
         this.plantCareRecordDAO.deleteAll();
         this.gardenPlantDAO.deleteAll();
+        this.plantNotesDAO.deleteAll();
         this.reminderControl = new ReminderControl(appContext, Constants.GARDEN_DB_TEST);
     }
 
@@ -129,6 +134,29 @@ public class PlantDataTest {
         this.gardenPlantDAO.update(x);
         assertEquals(this.gardenPlantDAO.getGardenPlant("A1").get(0).getNotes(), "N2");
         this.gardenPlantDAO.deleteAll();
+    }
+
+    @Test
+    public void PlantNotesDAO() throws Exception {
+        PlantNotes x = new PlantNotes();
+        x.setLast_edit(Calendar.getInstance());
+        x.setSpecies_id("A1");
+        x.setNotes("aaa");
+        this.plantNotesDAO.insert(x);
+        PlantNotes x2 = new PlantNotes();
+        x2.setSpecies_id("A2");
+        x2.setNotes("bbb");
+        x2.setLast_edit(Calendar.getInstance());
+        this.plantNotesDAO.insert(x2);
+        assertEquals("aaa", this.plantNotesDAO.getNotes("A1"));
+        assertEquals(null, this.plantNotesDAO.getNotes("A3"));
+        assertEquals(1, this.plantNotesDAO.checkIfExists("A1"));
+        assertEquals(0, this.plantNotesDAO.checkIfExists("A3"));
+        PlantNotes x3 = this.plantNotesDAO.getPlantNotes("A2");
+        x3.setNotes("ccc");
+        this.plantNotesDAO.update(x3);
+        assertEquals("ccc", this.plantNotesDAO.getNotes("A2"));
+        this.plantNotesDAO.deleteAll();
     }
 
     @Test
