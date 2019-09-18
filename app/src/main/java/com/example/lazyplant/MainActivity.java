@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //AlarmBroadcastReceiver.startAlarmBroadcastReceiver(this);
+        //AlarmBroadcastReceiver.staartAlarmBroadcastReceiver(this);
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
 

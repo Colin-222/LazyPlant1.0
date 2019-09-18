@@ -29,6 +29,7 @@ import com.example.lazyplant.plantdata.PlantNotes;
 import com.example.lazyplant.plantdata.PlantNotesDAO;
 import com.example.lazyplant.ui.plantDetailsDisplayHelper;
 import com.example.lazyplant.ui.plantListDisplayHelper;
+import com.example.lazyplant.ui.profile.ReminderControl;
 
 import java.util.Calendar;
 import java.util.List;
@@ -81,7 +82,7 @@ public class PlantDetailsFragment extends Fragment {
     private View.OnClickListener addListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
+            addPlant();
         }
     };
 
@@ -99,6 +100,25 @@ public class PlantDetailsFragment extends Fragment {
         }
     };
 
+    private void addPlant(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this.getContext());
+        alert.setTitle("Give a name to this plant:");
+        final EditText input = new EditText(this.getContext());
+        alert.setView(input);
+        alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                ReminderControl rc = new ReminderControl(getContext(), Constants.GARDEN_DB_NAME);
+                String namae = input.getText().toString();
+                rc.addGardenPlant(namae, p.getId());
+                Toast.makeText(getActivity(), "New plant \'" + namae + "\' added.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) { }
+        });
+        alert.show();
+    }
+
     private void openNotesPopup(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this.getContext());
         alert.setTitle("Add notes for: " + p.getCommon_name());
@@ -114,7 +134,6 @@ public class PlantDetailsFragment extends Fragment {
 
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-
                 if(current == null){
                     PlantNotes n = new PlantNotes();
                     n.setSpecies_id(p.getId());

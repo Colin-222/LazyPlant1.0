@@ -78,8 +78,12 @@ public class BrowseFragment extends Fragment {
         filters_button.setOnClickListener(filterButtonListener);
 
         Bundle bundle = this.getArguments();
-        String postcode = bundle.getString(Constants.LOCATION_TAG);
-        updateLocation(postcode);
+        if(bundle == null){
+            updateLocation(null);
+        }else{
+            String postcode = bundle.getString(Constants.LOCATION_TAG);
+            updateLocation(postcode);
+        }
         updateResults();
 
         return this.root;

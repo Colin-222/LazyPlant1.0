@@ -194,13 +194,13 @@ public class PlantDataTest {
         this.gardenPlantDAO.insert(x3);
 
         c5.add(Calendar.DATE, 5);
-        c7.add(Calendar.DATE, 7);
+        c7.add(Calendar.DATE, 77);
         List <GardenPlant> lgp0 = this.reminderControl.getPlantsToWater(t);
         List <GardenPlant> lgp5 = this.reminderControl.getPlantsToWater(c5);
         List <GardenPlant> lgp7 = this.reminderControl.getPlantsToWater(c7);
         assertEquals(0, lgp0.size());
         assertEquals(2, lgp5.size());
-        assertEquals(1, lgp7.size());
+        assertEquals(3, lgp7.size());
 
     }
 
