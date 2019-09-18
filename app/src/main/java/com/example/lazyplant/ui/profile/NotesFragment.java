@@ -1,9 +1,14 @@
 package com.example.lazyplant.ui.profile;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,6 +22,7 @@ import com.example.lazyplant.plantdata.AppDatabase;
 import com.example.lazyplant.plantdata.PlantNotes;
 import com.example.lazyplant.plantdata.PlantNotesDAO;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class NotesFragment extends Fragment {
@@ -37,6 +43,32 @@ public class NotesFragment extends Fragment {
         this.notes.setLayoutManager(mLayoutManager);
         adapter = new NotesAdapter(pn);
         this.notes.setAdapter(adapter);
+
+        /*final ImageButton edit = (ImageButton) root.findViewById(R.id.notes_edit);
+        final ImageButton delete = (ImageButton) root.findViewById(R.id.notes_delete);
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //edit text
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(delete.getContext());
+                alert.setTitle("Are you sure you want to delete this note?");
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                    }
+                });
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                });
+                alert.show();
+            }
+        });*/
 
         return this.root;
     }

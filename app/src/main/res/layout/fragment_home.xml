@@ -81,7 +81,7 @@
             android:minHeight="?actionBarSize"
             android:textColor="@color/colorLazyGreen"
             android:textSize="18sp"
-            android:text="The NATIVE plant recommender app that’s designed for your low maintainence life"
+            android:text="The NATIVE plant recommender app that’s designed for your low maintainence life."
             android:fontFamily="@font/american_typewriter_bold"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:layout_below="@id/home_intro_text"

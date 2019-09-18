@@ -22,20 +22,12 @@ public class ProfileFragment extends Fragment {
         final Fragment f_fragment = this;
 
         RelativeLayout button_history = (RelativeLayout)root.findViewById(R.id.profile_button_history);
-        RelativeLayout button_plants = (RelativeLayout)root.findViewById(R.id.profile_button_plants);
         RelativeLayout button_reminder = (RelativeLayout)root.findViewById(R.id.profile_button_reminder);
         RelativeLayout button_notes = (RelativeLayout)root.findViewById(R.id.profile_button_notes);
 
         button_history.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 HistoryFragment f = new HistoryFragment();
-                f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, f).commit();
-            }
-        });
-
-        button_plants.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                AllPlantsFragment f = new AllPlantsFragment();
                 f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, f).commit();
             }
         });

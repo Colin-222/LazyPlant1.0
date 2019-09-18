@@ -8,17 +8,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
+import com.example.lazyplant.plantdata.DbAccess;
+import com.example.lazyplant.plantdata.PlantInfoEntity;
 import com.example.lazyplant.plantdata.PlantNotes;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
-
+    final private String DATE_DESC = "Last edited: ";
     private List<PlantNotes> notes;
 
     public NotesAdapter(List<PlantNotes> notes) {
@@ -36,13 +40,16 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         PlantNotes note = notes.get(position);
-        holder.title.setText(note.getSpecies_id());
+        DbAccess databaseAccess = DbAccess.getInstance(holder.title.getContext());
+        databaseAccess.open();
+        String common_name = databaseAccess.getShortPlantInfo(note.getSpecies_id()).getCommon_name();
+        databaseAccess.close();
+        holder.title.setText(common_name);
 
         Date date = note.getLast_edit().getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String d = dateFormat.format(date);
-
-        holder.date.setText(d);
+        holder.date.setText(this.DATE_DESC + ": " + d);
         holder.text.setText(note.getNotes());
     }
 
