@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.example.lazyplant.AlarmBroadcastReceiver;
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.AppDatabase;
@@ -82,6 +83,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
 
         holder.water.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                AlarmBroadcastReceiver.showNotification(context);
                 ReminderControl rc = new ReminderControl(context, Constants.GARDEN_DB_NAME);
                 rc.recordPlantWatering(pid, Constants.WATERING);
                 refresh(pos);
