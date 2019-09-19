@@ -38,13 +38,13 @@ public class MainActivity extends AppCompatActivity {
 
         //AlarmBroadcastReceiver.startAlarmBroadcastReceiver(this);
 
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString(Constants.DEFAULT_POSTCODE, "3000");
-        editor.putInt(Constants.REMINDER_HOUR, 8);
-        editor.putInt(Constants.REMINDER_MINUTE, 12);
-        editor.commit();
+//        SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
+//
+//        SharedPreferences.Editor editor = pref.edit();
+//        editor.putString(Constants.DEFAULT_POSTCODE, "Enter Your Postcode");
+//        editor.putInt(Constants.REMINDER_HOUR, 8);
+//        editor.putInt(Constants.REMINDER_MINUTE, 12);
+//        editor.commit();
 
         /*pref.getString(Constants.DEFAULT_POSTCODE, null);
         pref.getInt(Constants.REMINDER_HOUR, -1);

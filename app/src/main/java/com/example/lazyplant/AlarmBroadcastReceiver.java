@@ -51,7 +51,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         }
 
         mBuilder.setContentIntent(contentIntent);
-        mBuilder.setContentText("Great! Keep going on!");
+        mBuilder.setContentText("Thanks for watering me!");
         mBuilder.setAutoCancel(true);
         mNotificationManager.notify(1, mBuilder.build());
     }
