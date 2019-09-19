@@ -8,13 +8,16 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,15 +60,15 @@ public class HomeFragment extends Fragment {
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
 
-        final TextView location_tv = (TextView) root.findViewById(R.id.home_location_text);
+        final EditText location_tv = (EditText) root.findViewById(R.id.home_location_text);
         SharedPreferences pref = this.getContext().getApplicationContext()
                 .getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
         postcode = pref.getString(Constants.DEFAULT_POSTCODE, null);
         if(postcode != null){
-            location_tv.setText(LOCATION_TEXT + postcode);
-        }else{
+            location_tv.setText(/*LOCATION_TEXT + */postcode);
+        }/*else{
             location_tv.setText("No current location.");
-        }
+        }*/
 
         ImageButton locationButton = (ImageButton) root.findViewById(R.id.home_location_button);
         requestPermission();
@@ -102,12 +105,20 @@ public class HomeFragment extends Fragment {
         ImageButton browse = (ImageButton)root.findViewById(R.id.home_browse_go);
         browse.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.LOCATION_TAG, getPostcode());
-                BrowseFragment f = new BrowseFragment();
-                f.setArguments(bundle);
-                f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, f).commit();
-            }
+                String pc = location_tv.getText().toString();
+                if(pc.matches("[0-9][0-9][0-9][0-9]")){
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.LOCATION_TAG, pc);//getPostcode());
+                    BrowseFragment f = new BrowseFragment();
+                    f.setArguments(bundle);
+                    f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, f).commit();
+                }else{
+                    Toast toast = Toast.makeText(getActivity(),
+                            "Sorry, please type a postcode.", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
+             }
         });
 
         return root;

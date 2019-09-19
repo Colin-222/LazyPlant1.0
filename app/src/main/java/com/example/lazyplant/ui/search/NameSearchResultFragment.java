@@ -1,6 +1,7 @@
 package com.example.lazyplant.ui.search;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +38,15 @@ public class NameSearchResultFragment extends Fragment {
         Bundle bundle = this.getArguments();
         String search_term = bundle.getString(Constants.NAME_SEARCH_TAG);
         List<String> found = searchForName(search_term);
-        ConstraintLayout cl = (ConstraintLayout) root.findViewById(R.id.search_result_constraint_layout);
-        plantListDisplayHelper.drawPlantList(root,this, cl, found);
-
+        if(found.size() <= 0){
+            Toast toast = Toast.makeText(getActivity(),
+                    "Sorry! We didn't find any plants matching that name.", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }else{
+            ConstraintLayout cl = (ConstraintLayout) root.findViewById(R.id.search_result_constraint_layout);
+            plantListDisplayHelper.drawPlantList(root,this, cl, found);
+        }
         return root;
     }
 

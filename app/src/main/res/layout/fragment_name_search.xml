@@ -19,7 +19,7 @@
         android:id="@+id/name_search_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:text="SEARCH BY PLANT NAME"
         android:textSize="26sp"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -140,7 +140,7 @@
             android:layout_marginBottom="7dp"
             android:background="@drawable/ic_location" />
 
-        <TextView
+        <EditText
             android:id="@+id/home_location_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
             android:fontFamily="@font/andale_mono"
             android:gravity="center"
             android:padding="@dimen/appbar_padding"
-            android:text="Get Current Location"
+            android:text="Type postcode here"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:textColor="#000000"
             android:textSize="18sp" />

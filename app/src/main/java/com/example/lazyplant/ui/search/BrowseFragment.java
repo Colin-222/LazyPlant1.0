@@ -3,11 +3,15 @@ package com.example.lazyplant.ui.search;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,7 +50,7 @@ public class BrowseFragment extends Fragment {
     private String current_filter;
     private SelectedFiltersEntity selected_filters = new SelectedFiltersEntity();
     private ConstraintLayout results_cl;
-    final private String LOCATION_TEXT = "Plants for postcode: ";
+    final private String LOCATION_TEXT = "Postcode: ";
     private RecyclerView result_view;
     private RecyclerView.Adapter adapter;
 
@@ -69,7 +73,7 @@ public class BrowseFragment extends Fragment {
         this.filter_cl = (ConstraintLayout) this.root.findViewById(R.id.browse_filter_area);
         //this.results_cl = (ConstraintLayout) this.root.findViewById(R.id.browse_results_layout);
 
-        ImageButton filters_button = (ImageButton) root.findViewById(R.id.browse_display_filters);
+        Button filters_button = (Button) root.findViewById(R.id.browse_display_filters);
         filters_button.setOnClickListener(filterButtonListener);
 
         Bundle bundle = this.getArguments();
@@ -97,7 +101,16 @@ public class BrowseFragment extends Fragment {
         TextView location_text = (TextView)this.root.findViewById(R.id.browse_location_text);
         location_text.setText(LOCATION_TEXT + location);
         ClimateZoneGetter czg = new ClimateZoneGetter();
-        int zone = czg.getZone(location);
+        int zone = 0;
+        try {
+            zone = czg.getZone(location);
+        }catch (IllegalArgumentException e) {
+            Toast toast = Toast.makeText(getActivity(),
+                    "Sorry, that postcode is invalid. Showing results for all locations.", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+            Log.i("ERROR", "OH NO BAD POSTCODE");
+        }
         FilterOptionEntity fo = FilterDisplayHelper.createZoneFilter();
         FilterOptionSelector location_fos = FilterDisplayHelper.createFilter(fo, getContext());
         if(zone >= 1 && zone <= 7){

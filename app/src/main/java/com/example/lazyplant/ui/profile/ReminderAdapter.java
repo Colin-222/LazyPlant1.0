@@ -72,7 +72,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
             String common_name = pie.getCommon_name();
             holder.species.setText(common_name);
         }
-
+        
         Calendar c = p.getLast_watering();
         c.add(Calendar.DATE, p.getWatering_interval());
         Date date = c.getTime();
