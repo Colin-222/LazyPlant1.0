@@ -10,8 +10,12 @@ import java.util.List;
 /**
  * Entity to store plant information. Mainly provides setters and getters for each field in the plant database.
  */
-public class PlantInfoEntity {
+public class PlantInfoEntity implements Comparable<PlantInfoEntity>{
     public PlantInfoEntity() {
+    }
+
+    public int compareTo(PlantInfoEntity pie){
+        return this.getCommon_name().compareTo(pie.getCommon_name());
     }
 
     private String id;

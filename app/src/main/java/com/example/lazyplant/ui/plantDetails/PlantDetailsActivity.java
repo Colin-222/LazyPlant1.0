@@ -45,10 +45,7 @@ public class PlantDetailsActivity extends AppCompatActivity {
         String message;
         message = intent.getStringExtra(CalendarFragment.EXTRA_MESSAGE);
         if (message == null){
-            message = intent.getStringExtra(FavouritesFragment.EXTRA_MESSAGE);
-            if (message == null){
-                message = intent.getStringExtra(SearchResultFragment.EXTRA_MESSAGE);
-            }
+            message = intent.getStringExtra(SearchResultFragment.EXTRA_MESSAGE);
         }
         DbAccess databaseAccess = DbAccess.getInstance(this.getApplicationContext());
         databaseAccess.open();

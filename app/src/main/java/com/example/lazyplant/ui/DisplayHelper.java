@@ -15,7 +15,7 @@ import com.example.lazyplant.Constants;
  */
 abstract public class DisplayHelper {
 
-    static private int dpToPx(int dp, Context context) {
+    static public int dpToPx(int dp, Context context) {
         float density = context.getResources()
                 .getDisplayMetrics()
                 .density;

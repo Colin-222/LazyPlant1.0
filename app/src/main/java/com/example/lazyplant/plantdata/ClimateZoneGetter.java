@@ -109,7 +109,8 @@ public class ClimateZoneGetter {
 
     public int getZone(String postcode) {
         if (postcode.length() != 4){
-            throw new IllegalArgumentException("That ain't no valid postcode.");
+            //throw new IllegalArgumentException("That ain't no valid postcode.");
+            return -1;
         }
         int longest_match = 0;
         int zone = -1;
@@ -120,9 +121,9 @@ public class ClimateZoneGetter {
                 zone = Integer.valueOf(l.get(1));
             }
         }
-        if(zone == -1){
+        /*if(zone == -1){
             throw new IllegalArgumentException("That ain't no valid postcode.");
-        }
+        }*/
         return zone;
     }
 

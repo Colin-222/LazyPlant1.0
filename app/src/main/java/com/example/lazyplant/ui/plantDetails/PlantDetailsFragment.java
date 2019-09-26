@@ -18,6 +18,7 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.room.Room;
 
 import com.example.lazyplant.AlarmBroadcastReceiver;
@@ -103,7 +104,6 @@ public class PlantDetailsFragment extends Fragment {
         public void onClick(View view) {
             Intent intent = new Intent(getActivity(), ShopsMapActivity.class);
             startActivity(intent);
-
         }
     };
 
@@ -122,6 +122,7 @@ public class PlantDetailsFragment extends Fragment {
                         rc.getGardenPlant(p.getId()).getWatering_interval());*/
             }
         });
+
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) { }
         });

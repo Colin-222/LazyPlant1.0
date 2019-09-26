@@ -27,15 +27,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-//        getSupportActionBar().hide();
-
-        if(getIntent().getExtras() != null) {
-            String message = getIntent().getExtras().getString(Constants.NOTIFICATION_TAG);
-            if (message != null) {
-                navController.navigate(R.id.action_navigation_home_to_navigation_reminder);
-            }
-        }
-
         //AlarmBroadcastReceiver.startAlarmBroadcastReceiver(this);
 
 //        SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);

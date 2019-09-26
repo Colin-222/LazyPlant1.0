@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.lazyplant.R;
 import com.example.lazyplant.ui.plantDetails.PlantDetailsFragment;
@@ -32,21 +33,27 @@ public class ProfileFragment extends Fragment {
         button_history.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 HistoryFragment f = new HistoryFragment();
-                f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, f).commit();
+                NavHostFragment.findNavController(f_fragment).navigate(
+                        R.id.action_navigation_profile_to_navigation_history);
+                //f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, f).commit();
             }
         });
 
         button_reminder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ReminderFragment f = new ReminderFragment();
-                f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, f).commit();
+                NavHostFragment.findNavController(f_fragment).navigate(
+                        R.id.action_navigation_profile_to_navigation_reminder);
+                //f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, f).commit();
             }
         });
 
         button_notes.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 NotesFragment f = new NotesFragment();
-                f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, f).commit();
+                NavHostFragment.findNavController(f_fragment).navigate(
+                        R.id.action_navigation_profile_to_navigation_notes);
+                //f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, f).commit();
             }
         });
 

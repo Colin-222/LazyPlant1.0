@@ -1,59 +1,110 @@
 package com.example.lazyplant.ui.search;
 
-import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.widget.TextView;
 
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
+import com.example.lazyplant.plantdata.ClimateZoneGetter;
 import com.example.lazyplant.plantdata.DbAccess;
-import com.example.lazyplant.ui.plantListDisplayHelper;
-import com.google.android.gms.location.FusedLocationProviderClient;
+import com.example.lazyplant.plantdata.PlantInfoEntity;
+import com.google.android.gms.common.util.CollectionUtils;
+import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.content.Context.MODE_PRIVATE;
 
-public class NameSearchResultFragment extends Fragment {
+public class PlantSearcher {
+
+    Context context;
+    private SelectedFiltersEntity selected_filters;
+    private String search_term;
+    private int zone;
     private static final int MIN_EDIT_DISTANCE = 1;
     private static final double EDIT_LENGTH_PERCENTAGE = 0.25;
+    final private String HEIGHT = "height";
+    final private String WIDTH = "width";
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        View root = inflater.inflate(R.layout.fragment_search_results, container, false);
-
-        Bundle bundle = this.getArguments();
-        String search_term = bundle.getString(Constants.NAME_SEARCH_TAG);
-        List<String> found = searchForName(search_term);
-        if(found.size() <= 0){
-            Toast toast = Toast.makeText(getActivity(),
-                    "Sorry! We didn't find any plants matching that name.", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        }else{
-            ConstraintLayout cl = (ConstraintLayout) root.findViewById(R.id.search_result_constraint_layout);
-            plantListDisplayHelper.drawPlantList(root,this, cl, found);
-        }
-        return root;
+    public PlantSearcher(Context context) {
+        this.context = context;
+        this.selected_filters = new SelectedFiltersEntity();
+        this.search_term = "";
     }
 
+    public void clearFilters(){
+        this.selected_filters = new SelectedFiltersEntity();
+        this.setSearchTerm("");
+    }
 
-    private List<String> searchForName(String search_term) {
+    public void setSearchTerm(String term){
+        this.search_term = term;
+    }
+
+    public boolean updateZone(int zone){
+        FilterOptionEntity fo = FilterDisplayHelper.createZoneFilter();
+        FilterOptionSelector location_fos = FilterDisplayHelper.createFilter(fo, context);
+        if(zone >= 1 && zone <= 7){
+            ((Chip)location_fos.getChildAt(zone - 1)).setChecked(true);
+            this.editOptions(location_fos);
+        }else{
+            return false;
+        }
+        return true;
+    }
+
+    public boolean updateLocation(String location){
+        ClimateZoneGetter czg = new ClimateZoneGetter();
+        try {
+            this.zone = czg.getZone(location);
+        }catch (IllegalArgumentException e) {
+            return false;
+        }
+        return this.updateZone(this.zone);
+    }
+
+    public List<PlantInfoEntity> getResults(){
+        List<PlantInfoEntity> pl = new ArrayList<>();
+        DbAccess databaseAccess = DbAccess.getInstance(context);
+        databaseAccess.open();
+        List<String> found = databaseAccess.searchPlantDatabase(Constants.SPECIES_ID_FIELD,
+                this.selected_filters.getOptions_selected(), this.selected_filters.getSearch_tables(),
+                this.selected_filters.getSearch_fields(), this.selected_filters.getSelected_filters(),
+                HEIGHT, WIDTH);
+        databaseAccess.close();
+        String term = this.getSearch_term();
+        if(!(term == null || term.equals(""))){
+            List<String> found_name = this.searchForName(term);
+            found.retainAll(found_name);
+            Set<String> tmp = new HashSet<String>(found);
+            found = new ArrayList<>(tmp);
+        }
+        databaseAccess.open();
+        for (String id : found) {
+            pl.add(databaseAccess.getShortPlantInfo(id));
+        }
+        databaseAccess.close();
+        Collections.sort(pl);
+        return pl;
+    }
+
+    public List<String> getCurrentSelections(String category){
+        return this.selected_filters.getCurrentSelections(category);
+    }
+
+    public void editOptions(FilterOptionSelector fos){
+        this.selected_filters.editSelectedOptions(fos);
+    }
+
+    public List<String> searchForName(String search_term) {
         Set<String> e = new HashSet<String>();
-        DbAccess databaseAccess = DbAccess.getInstance(getContext());
+        DbAccess databaseAccess = DbAccess.getInstance(context);
         databaseAccess.open();
         for (String i : databaseAccess.getAllFieldFromTable("scientific_name", "plant_data")){
             if(namesSimilar(search_term, i)){
@@ -135,6 +186,20 @@ public class NameSearchResultFragment extends Fragment {
         return edits[s1.length()][s2.length()];
     }
 
+    public String getSearch_term() {
+        return search_term;
+    }
+
+    public void setSearch_term(String search_term) {
+        this.search_term = search_term;
+    }
+
+    public int getZone() {
+        return zone;
+    }
+
+    public void setZone(int zone) {
+        this.zone = zone;
+    }
+
 }
-
-

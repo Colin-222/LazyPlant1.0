@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
@@ -25,8 +26,8 @@ public class NameSearchFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         View root = inflater.inflate(R.layout.fragment_name_search, container, false);
+        final Fragment f_fragment = this;
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         //Set search button behaviour
         final EditText et = (EditText) root. findViewById(R.id.name_search_edit);
@@ -38,10 +39,12 @@ public class NameSearchFragment extends Fragment {
                 if (!search_term.equals("")){
                     Bundle bundle = new Bundle();
                     bundle.putString(Constants.NAME_SEARCH_TAG, search_term);
-                    NameSearchResultFragment nsrf = new NameSearchResultFragment();
+                    NavHostFragment.findNavController(f_fragment).navigate(
+                            R.id.action_navigation_search_to_navigation_browse, bundle);
+                    /*NameSearchResultFragment nsrf = new NameSearchResultFragment();
                     nsrf.setArguments(bundle);
                     getFragmentManager() .beginTransaction()
-                            .replace(R.id.nav_host_fragment, nsrf).commit();
+                            .replace(R.id.nav_host_fragment, nsrf).commit();*/
                 } else {
                     et.setError("Please Enter a Valid Plant Name");
                 }

@@ -11,8 +11,17 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_home_to_navigation_reminder"
+            android:id="@+id/action_navigation_home_to_navigation_browse"
+            app:destination="@id/navigation_browse" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_profile"
             app:destination="@id/navigation_profile" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_search"
+            app:destination="@id/navigation_search" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_favourites"
+            app:destination="@id/navigation_favourites" />
     </fragment>
 
     <fragment
@@ -28,14 +37,18 @@
     <fragment
         android:id="@+id/navigation_plant_details"
         android:name="com.example.lazyplant.ui.plantDetails.PlantDetailsFragment"
-        android:label="@string/title_activity_plant_details"
-        tools:layout="@layout/fragment_plant_details" />
+        android:label="@string/title_plant_detail"
+        tools:layout="@layout/fragment_plant_details" >
+        <action
+            android:id="@+id/action_navigation_plant_details_to_navigation_shop_map"
+            app:destination="@id/navigation_shop_map" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_browse"
         android:name="com.example.lazyplant.ui.search.BrowseFragment"
         android:label="@string/title_browse"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_browse">
         <action
             android:id="@+id/action_navigation_browse_to_navigation_plant_details"
             app:destination="@id/navigation_plant_details" />
@@ -45,16 +58,59 @@
         android:id="@+id/navigation_search"
         android:name="com.example.lazyplant.ui.search.NameSearchFragment"
         android:label="@string/title_search"
-        tools:layout="@layout/fragment_name_search" >
+        tools:layout="@layout/fragment_name_search">
         <action
-            android:id="@+id/action_navigation_search_to_navigation_plant_details"
-            app:destination="@id/navigation_plant_details" />
+            android:id="@+id/action_navigation_search_to_navigation_browse"
+            app:destination="@id/navigation_browse" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.lazyplant.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_notes"
+            app:destination="@id/navigation_notes" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_history"
+            app:destination="@id/navigation_history" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_reminder"
+            app:destination="@id/navigation_reminder" />
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_all_plants"
+            app:destination="@id/navigation_all_plants" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_all_plants"
+        android:name="com.example.lazyplant.ui.profile.AllPlantsFragment"
+        android:label="@string/title_all_plants"
+        tools:layout="@layout/fragment_all_plants" />
+
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="com.example.lazyplant.ui.profile.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
+        android:id="@+id/navigation_notes"
+        android:name="com.example.lazyplant.ui.profile.NotesFragment"
+        android:label="@string/title_notes"
+        tools:layout="@layout/fragment_notes" />
+
+    <fragment
+        android:id="@+id/navigation_reminder"
+        android:name="com.example.lazyplant.ui.profile.ReminderFragment"
+        android:label="@string/title_reminder"
+        tools:layout="@layout/fragment_reminder" />
+
+    <activity
+        android:id="@+id/navigation_shop_map"
+        android:name="com.example.lazyplant.ui.shopmap.ShopsMapActivity"
+        android:label="@string/title_shop_map"
+        tools:layout="@layout/activity_shops_map2" />
 
 </navigation>

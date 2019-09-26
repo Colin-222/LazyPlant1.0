@@ -26,7 +26,6 @@ public class AllPlantsFragment extends Fragment {
     private RecyclerView gp_view;
     private RecyclerView.Adapter adapter;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         this.root = inflater.inflate(R.layout.fragment_all_plants, container, false);

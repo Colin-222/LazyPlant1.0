@@ -23,12 +23,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.room.Room;
 
 import com.example.lazyplant.AlarmBroadcastReceiver;
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.AppDatabase;
+import com.example.lazyplant.plantdata.ClimateZoneGetter;
 import com.example.lazyplant.plantdata.Favourite;
 import com.example.lazyplant.plantdata.FavouriteDAO;
 import com.example.lazyplant.shopmap.ShopMapActivity;
@@ -48,7 +51,6 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
-
     private FusedLocationProviderClient client;
     final private String LOCATION_TEXT = "Postcode: ";
     private String postcode;
@@ -56,8 +58,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-
-
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
 
         final EditText location_tv = (EditText) root.findViewById(R.id.home_location_text);
@@ -107,11 +107,18 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 String pc = location_tv.getText().toString();
                 if(pc.matches("[0-9][0-9][0-9][0-9]")){
-                    Bundle bundle = new Bundle();
-                    bundle.putString(Constants.LOCATION_TAG, pc);//getPostcode());
-                    BrowseFragment f = new BrowseFragment();
-                    f.setArguments(bundle);
-                    f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, f).commit();
+                    ClimateZoneGetter czg = new ClimateZoneGetter();
+                    int zone = czg.getZone(pc);
+                    if (zone != -1){
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constants.LOCATION_TAG, pc);//getPostcode());
+                        NavHostFragment.findNavController(f_fragment).navigate(R.id.action_navigation_home_to_navigation_browse, bundle);
+                    }else{
+                        Toast toast = Toast.makeText(getActivity(),
+                                "Sorry, your postcode is invalid.", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    }
                 }else{
                     Toast toast = Toast.makeText(getActivity(),
                             "Sorry, please type a postcode.", Toast.LENGTH_LONG);

@@ -1,13 +1,17 @@
 <resources>
     <string name="app_name">LazyPlant</string>
     <string name="title_home">Home</string>
-    <string name="title_reminder">Reminder</string>
     <string name="title_browse">Browse</string>
     <string name="title_search">Search</string>
     <string name="title_calendar">Calendar</string>
     <string name="title_profile">Profile</string>
     <string name="title_favourites">Favourites</string>
-    <string name="title_activity_plant_detail">PlantDetail</string>
+    <string name="title_plant_detail">PlantDetail</string>
+    <string name="title_shop_map">Shop Map</string>
+    <string name="title_all_plants">My Plants</string>
+    <string name="title_history">Watering History</string>
+    <string name="title_notes">Notes</string>
+    <string name="title_reminder">Reminders</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="google_maps_key">AIzaSyBmgWIYl0AC5XpaXMIVRAXqVE_RaL5hF-w</string>

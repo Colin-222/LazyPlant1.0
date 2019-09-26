@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -65,9 +67,17 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
                 //open details page with id
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.PLANT_DETAILS_BUNDLE_TAG, pid);
-                PlantDetailsFragment pdf = new PlantDetailsFragment();
+                NavController navi = NavHostFragment.findNavController(f_fragment);
+                if(navi.getCurrentDestination().getId() == R.id.navigation_browse){
+                    navi.navigate(R.id.action_navigation_browse_to_navigation_plant_details, bundle);
+                }else if(navi.getCurrentDestination().getId() == R.id.navigation_favourites){
+                    navi.navigate(R.id.action_navigation_favorite_to_navigation_plant_details, bundle);
+                }
+
+                /*PlantDetailsFragment pdf = new PlantDetailsFragment();
                 pdf.setArguments(bundle);
                 f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, pdf).commit();
+                */
             }
         });
 

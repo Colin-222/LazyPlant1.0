@@ -223,5 +223,15 @@ public class FilterOptionSelector extends ChipGroup{
         return l;
     }
 
+    /**
+     * Turns all chips to be off.
+     */
+    public void clear(){
+        for (int i = 0; i < this.getChildCount(); i++){
+            Chip c = (Chip) this.getChildAt(i);
+            c.setChecked(false);
+        }
+    }
+
 }
 
