@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +30,7 @@ import com.example.lazyplant.ResultSpaceItemDecoration;
 import com.example.lazyplant.plantdata.ClimateZoneGetter;
 import com.example.lazyplant.plantdata.PlantInfoEntity;
 import com.example.lazyplant.ui.DisplayHelper;
+import com.example.lazyplant.ui.PlantSearchViewModel;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
@@ -44,8 +49,7 @@ public class BrowseFragment extends Fragment {
     private String current_filter;
     private RecyclerView result_view;
     private RecyclerView.Adapter adapter;
-    private List<PlantInfoEntity> plant_list;
-    private PlantSearcher plant_searcher;
+    private PlantSearchViewModel model;
 
     final private List<String> FILTER_OPTIONS = Arrays.asList("Type", "Height", "Width", "Shade", "Frost");
     final private int H_MARGIN = 8;
@@ -53,16 +57,23 @@ public class BrowseFragment extends Fragment {
     final private int HEIGHT_CLOSED = 40;
     final private int HEIGHT_OPEN = 240;
     final private int PLANT_SPACING = 6;
-    final private String LOCATION_TEXT = "Postcode: ";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        this.model = ViewModelProviders.of(getActivity()).get(PlantSearchViewModel.class);
         this.root = inflater.inflate(R.layout.fragment_browse, container, false);
-        this.plant_searcher = new PlantSearcher(getContext());
         this.current_filter = this.FILTER_OPTIONS.get(0);
         this.filter_cl = (ConstraintLayout) this.root.findViewById(R.id.browse_filter_area);
-        this.plant_list = new ArrayList<>();
+        this.model.plant_list = new ArrayList<>();
+        if(this.model.plant_searcher == null){
+            this.model.plant_searcher = new PlantSearcher(getContext());
+        }
+        
+        if (savedInstanceState != null) {
+            this.model.postcode = savedInstanceState.getString("PC");
+            Log.i("AAA", this.model.postcode);
+        }
 
         Button reset_button = (Button) root.findViewById(R.id.browse_reset);
         reset_button.setOnClickListener(resetButtonListener);
@@ -81,16 +92,22 @@ public class BrowseFragment extends Fragment {
         this.result_view.addItemDecoration(rsid);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         this.result_view.setLayoutManager(mLayoutManager);
-        this.adapter = new BrowseAdapter(this.plant_list, this);
+        this.adapter = new BrowseAdapter(this.model.plant_list, this);
         this.result_view.setAdapter(this.adapter);
         Bundle bundle = this.getArguments();
         if(bundle == null){
-            this.setLocation(null);
+            //this.setLocation(null);
+            //this.model.postcode = "";
+            SharedPreferences pref = this.getContext().getApplicationContext()
+                    .getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
+            this.model.postcode = pref.getString(Constants.DEFAULT_POSTCODE, null);
+            this.setLocation(this.model.postcode);
         }else{
-            String postcode = bundle.getString(Constants.LOCATION_TAG);
-            this.setLocation(postcode);
+            this.model.plant_searcher = new PlantSearcher(getContext());
+            this.model.postcode = bundle.getString(Constants.LOCATION_TAG);
+            this.setLocation(this.model.postcode);
             String term = bundle.getString(Constants.NAME_SEARCH_TAG);
-            this.plant_searcher.setSearchTerm(term);
+            this.model.plant_searcher.setSearchTerm(term);
         }
         updateResults();
         this.adapter.notifyDataSetChanged();
@@ -99,18 +116,8 @@ public class BrowseFragment extends Fragment {
     }
 
     private boolean setLocation(String postcode){
-        String location = null;
-        if (postcode == null) {
-            SharedPreferences pref = this.getContext().getApplicationContext()
-                    .getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
-            location = pref.getString(Constants.DEFAULT_POSTCODE, null);
-        } else {
-            location = postcode;
-        }
-        if (location == null){ return false; }
-        //TextView location_text = (TextView)this.root.findViewById(R.id.browse_location_text);
-        //location_text.setText(LOCATION_TEXT + location);
-        return this.plant_searcher.updateLocation(location);
+        if (postcode == null){ return false; }
+        return this.model.plant_searcher.updateLocation(postcode);
     }
 
     private void configure_filter_display(){
@@ -139,10 +146,11 @@ public class BrowseFragment extends Fragment {
             this.show_filters = true;
 
             EditText st_edit = (EditText) this.filter_view.findViewById(R.id.browse_top_name_edit);
-            String current_term = this.plant_searcher.getSearch_term();
+            String current_term = this.model.plant_searcher.getSearch_term();
             st_edit.setText(current_term);
             st_edit.setOnFocusChangeListener(searchTermListener);
             EditText pc_edit = (EditText) this.filter_view.findViewById(R.id.browse_top_postcode_edit);
+            pc_edit.setText(this.model.postcode);
             pc_edit.setOnFocusChangeListener(postcodeListener);
         }
         this.filter_cl.setLayoutParams(params);
@@ -161,23 +169,23 @@ public class BrowseFragment extends Fragment {
         switch(this.current_filter) {
             case "Type":
                 fo = FilterDisplayHelper.createTypeFilter();
-                current = this.plant_searcher.getCurrentSelections("Type");
+                current = this.model.plant_searcher.getCurrentSelections("Type");
                 break;
             case "Height":
                 fo = FilterDisplayHelper.createHeightFilter();
-                current = this.plant_searcher.getCurrentSelections("Height");
+                current = this.model.plant_searcher.getCurrentSelections("Height");
                 break;
             case "Width":
                 fo = FilterDisplayHelper.createWidthFilter();
-                current = this.plant_searcher.getCurrentSelections("Width");
+                current = this.model.plant_searcher.getCurrentSelections("Width");
                 break;
             case "Shade":
                 fo = FilterDisplayHelper.createShadeFilter();
-                current = this.plant_searcher.getCurrentSelections("Shade");
+                current = this.model.plant_searcher.getCurrentSelections("Shade");
                 break;
             case "Frost":
                 fo = FilterDisplayHelper.createFrostFilter();
-                current = this.plant_searcher.getCurrentSelections("Frost");
+                current = this.model.plant_searcher.getCurrentSelections("Frost");
                 break;
         }
         this.fos = FilterDisplayHelper.createFilter(this.filter_view, this.filter_cl, fo, true,
@@ -203,11 +211,11 @@ public class BrowseFragment extends Fragment {
      * Update the results fragment to show the selected plants based on the options.
      */
     private void updateResults() {
-        this.plant_list.clear();
-        this.plant_list.addAll(this.plant_searcher.getResults());
+        this.model.plant_list.clear();
+        this.model.plant_list.addAll(this.model.plant_searcher.getResults());
         this.adapter.notifyDataSetChanged();
         TextView error_text = (TextView) root.findViewById(R.id.browse_error_text);
-        if(this.plant_list.size() <= 0){
+        if(this.model.plant_list.size() <= 0){
             error_text.setText("No plants found.");
         }else{
             error_text.setText("");
@@ -215,41 +223,44 @@ public class BrowseFragment extends Fragment {
     }
 
     private void changeSearchTerm(String search_term){
-        this.plant_searcher.setSearchTerm(search_term);
+        this.model.plant_searcher.setSearchTerm(search_term);
         updateResults();
     }
 
-    private void changeLocation(EditText et, String postcode){
-        String pc = et.getText().toString();
-        if(pc.matches("[0-9][0-9][0-9][0-9]")){
+    private void changeLocation(EditText et){
+        this.model.postcode = et.getText().toString();
+        if(this.model.postcode.matches("[0-9][0-9][0-9][0-9]")){
             ClimateZoneGetter czg = new ClimateZoneGetter();
-            int zone = czg.getZone(pc);
+            int zone = czg.getZone(this.model.postcode);
             if (zone != -1){
-                setLocation(postcode);
+                setLocation(this.model.postcode);
                 updateResults();
             }else{
                 Toast toast = Toast.makeText(getActivity(),
                         "Sorry, your postcode is invalid.", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
+                this.model.postcode = "";
             }
         }else{
             Toast toast = Toast.makeText(getActivity(),
                     "Sorry, your postcode is invalid.", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
+            this.model.postcode = "";
         }
+        et.setText(this.model.postcode);
     }
 
     private void updateSelectedFilters(){
-        this.plant_searcher.editOptions(this.fos);
+        this.model.plant_searcher.editOptions(this.fos);
     }
 
     private void setCurrentFilter(String current) { this.current_filter=current; }
 
     private void resetFilters(){
-        this.plant_searcher.clearFilters();
-        this.plant_searcher.updateZone(this.plant_searcher.getZone());
+        this.model.plant_searcher.clearFilters();
+        this.model.plant_searcher.updateZone(this.model.plant_searcher.getZone());
         if(this.fos != null){
             this.fos.clear();
         }
@@ -308,8 +319,20 @@ public class BrowseFragment extends Fragment {
         @Override
         public void onFocusChange(View view, boolean hasFocus) {
             if(!hasFocus){
-                changeLocation((EditText)view, ((EditText)view).getText().toString());
+                changeLocation((EditText)view);
             }
         }};
+
+    @Override
+    public void onDetach(){
+        super.onDetach();
+        if(filter_cl != null){
+            this.filter_cl.removeAllViews();
+            ((ViewManager)this.filter_cl.getParent()).removeView(this.filter_cl);
+        }
+        if(this.root != null){
+            ((ViewManager)this.root).removeView(this.root);
+        }
+    }
 
 }
