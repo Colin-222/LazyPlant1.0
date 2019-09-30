@@ -210,6 +210,11 @@ public class PlantInfoEntity implements Comparable<PlantInfoEntity>{
         return l;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return(o.equals(this.getId()));
+    }
+
     private String scientific_name = "";
     private String common_name = "";
     private String family = "";

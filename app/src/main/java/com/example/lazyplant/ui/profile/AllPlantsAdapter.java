@@ -38,7 +38,6 @@ public class AllPlantsAdapter extends RecyclerView.Adapter<AllPlantsAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         GardenPlant p = gp.get(position);
         holder.name.setText(p.getName());
-
         Calendar c = p.getLast_watering();
         c.add(Calendar.DATE, p.getWatering_interval());
         Date date = c.getTime();

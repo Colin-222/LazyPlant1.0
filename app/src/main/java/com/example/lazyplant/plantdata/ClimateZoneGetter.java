@@ -116,7 +116,7 @@ public class ClimateZoneGetter {
         int zone = -1;
         for (List<String> l : this.postcodeZoneMapping){
             int matches = this.match(l.get(0), postcode);
-            if (matches > longest_match){
+            if (matches > longest_match && matches == l.get(0).length()){
                 longest_match = matches;
                 zone = Integer.valueOf(l.get(1));
             }

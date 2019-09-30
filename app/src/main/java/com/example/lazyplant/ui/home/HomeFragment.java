@@ -1,44 +1,29 @@
 package com.example.lazyplant.ui.home;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.room.Room;
 
-import com.example.lazyplant.AlarmBroadcastReceiver;
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
-import com.example.lazyplant.plantdata.AppDatabase;
 import com.example.lazyplant.plantdata.ClimateZoneGetter;
-import com.example.lazyplant.plantdata.Favourite;
-import com.example.lazyplant.plantdata.FavouriteDAO;
-import com.example.lazyplant.shopmap.ShopMapActivity;
-import com.example.lazyplant.shopmap.StoreMap;
-import com.example.lazyplant.ui.plantDetails.PlantDetailsActivity;
-import com.example.lazyplant.ui.profile.NotesFragment;
-import com.example.lazyplant.ui.search.BrowseFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -57,12 +42,13 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        final View root = inflater.inflate(R.layout.fragment_home, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
 
-        final EditText location_tv = (EditText) root.findViewById(R.id.home_location_text);
         SharedPreferences pref = this.getContext().getApplicationContext()
                 .getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
+
+        final EditText location_tv = (EditText) root.findViewById(R.id.home_location_text);
         postcode = pref.getString(Constants.DEFAULT_POSTCODE, null);
         if(postcode != null){
             location_tv.setText(/*LOCATION_TEXT + */postcode);
@@ -76,7 +62,6 @@ public class HomeFragment extends Fragment {
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-
                 client.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
@@ -97,8 +82,6 @@ public class HomeFragment extends Fragment {
                     }
                 });
             }
-
-
         });
 
         final Fragment f_fragment = this;
@@ -136,5 +119,8 @@ public class HomeFragment extends Fragment {
     private  void requestPermission(){
         ActivityCompat.requestPermissions(getActivity(), new String[] {ACCESS_FINE_LOCATION}, 1);
     }
+
+
+
 
 }

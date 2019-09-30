@@ -45,6 +45,19 @@
 
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/profile_button_user_details"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Edit details"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="-25dp"
+        android:layout_alignRight="@+id/profile_light"
+        android:layout_alignEnd="@+id/profile_light"
+        android:layout_below="@+id/profile_light"/>
+
+
     <RelativeLayout
         android:id="@+id/profile_button_history"
         android:layout_width="120dp"
@@ -142,9 +155,8 @@
             android:layout_marginBottom="10dp"/>
     </RelativeLayout>
 
-    <!--
     <RelativeLayout
-        android:id="@+id/profile_button_backup"
+        android:id="@+id/profile_button_plants"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:background="@drawable/ic_rounded_rect"
@@ -167,13 +179,13 @@
             android:layout_centerInParent="true"
             android:textColor="@color/dGray"
             android:textSize="16sp"
-            android:text="Backup"
+            android:text="  My\nPlants"
             android:fontFamily="@font/imprima"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="6dp"/>
     </RelativeLayout>
-    -->
+
 
 
 

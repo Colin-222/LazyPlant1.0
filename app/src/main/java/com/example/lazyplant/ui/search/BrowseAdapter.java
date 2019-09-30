@@ -27,6 +27,7 @@ import com.example.lazyplant.ui.plantListDisplayHelper;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -60,7 +61,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
                 Constants.PLANT_IMAGES_FOLDER, context.getPackageName());
         Glide.with(context).load(image_id).into(holder.image);
         plantListDisplayHelper.createToggleButton(holder.favourite_button, context, pid);
-
+        ArrayList<String> pl_names = new ArrayList<String>();
         final Fragment f_fragment = fragment;
         holder.image.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -74,10 +75,6 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
                     navi.navigate(R.id.action_navigation_favorite_to_navigation_plant_details, bundle);
                 }
 
-                /*PlantDetailsFragment pdf = new PlantDetailsFragment();
-                pdf.setArguments(bundle);
-                f_fragment.getFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, pdf).commit();
-                */
             }
         });
 

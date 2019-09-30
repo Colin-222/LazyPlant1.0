@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,7 +26,6 @@ import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
 import com.example.lazyplant.ResultSpaceItemDecoration;
 import com.example.lazyplant.plantdata.ClimateZoneGetter;
-import com.example.lazyplant.plantdata.PlantInfoEntity;
 import com.example.lazyplant.ui.DisplayHelper;
 import com.example.lazyplant.ui.PlantSearchViewModel;
 import com.google.android.material.chip.Chip;
@@ -52,11 +49,11 @@ public class BrowseFragment extends Fragment {
     private PlantSearchViewModel model;
 
     final private List<String> FILTER_OPTIONS = Arrays.asList("Type", "Height", "Width", "Shade", "Frost");
-    final private int H_MARGIN = 8;
-    final private int V_MARGIN = 2;
-    final private int HEIGHT_CLOSED = 40;
-    final private int HEIGHT_OPEN = 240;
-    final private int PLANT_SPACING = 6;
+    final private int FILTER_H_MARGIN = 8;
+    final private int FILTER_V_MARGIN = 2;
+    final private int HEIGHT_CLOSED = 60;
+    final private int HEIGHT_OPEN = 250;
+    final private int PLANT_SPACING = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -69,11 +66,6 @@ public class BrowseFragment extends Fragment {
         if(this.model.plant_searcher == null){
             this.model.plant_searcher = new PlantSearcher(getContext());
         }
-        
-        if (savedInstanceState != null) {
-            this.model.postcode = savedInstanceState.getString("PC");
-            Log.i("AAA", this.model.postcode);
-        }
 
         Button reset_button = (Button) root.findViewById(R.id.browse_reset);
         reset_button.setOnClickListener(resetButtonListener);
@@ -81,15 +73,15 @@ public class BrowseFragment extends Fragment {
         filters_button.setOnClickListener(filterButtonListener);
 
         this.result_view = (RecyclerView) root.findViewById(R.id.browse_result_view);
-        ResultSpaceItemDecoration rsid = new ResultSpaceItemDecoration(
+        /*ResultSpaceItemDecoration rsid = new ResultSpaceItemDecoration(
                 DisplayHelper.dpToPx(this.PLANT_SPACING, getContext())) {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
             }
         };
+        this.result_view.addItemDecoration(rsid);*/
 
-        this.result_view.addItemDecoration(rsid);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         this.result_view.setLayoutManager(mLayoutManager);
         this.adapter = new BrowseAdapter(this.model.plant_list, this);
@@ -100,7 +92,7 @@ public class BrowseFragment extends Fragment {
             //this.model.postcode = "";
             SharedPreferences pref = this.getContext().getApplicationContext()
                     .getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
-            this.model.postcode = pref.getString(Constants.DEFAULT_POSTCODE, null);
+            this.model.postcode = pref.getString(Constants.SHARED_PREFERENCE_POSTCODE, null);
             this.setLocation(this.model.postcode);
         }else{
             this.model.plant_searcher = new PlantSearcher(getContext());
@@ -123,8 +115,8 @@ public class BrowseFragment extends Fragment {
     private void configure_filter_display(){
         LayoutInflater inflater = LayoutInflater.from(this.getContext());
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) this.filter_cl.getLayoutParams();
-        int h = this.dpToPx(this.H_MARGIN, this.getContext());
-        int v = this.dpToPx(this.V_MARGIN, this.getContext());
+        int h = this.dpToPx(this.FILTER_H_MARGIN, this.getContext());
+        int v = this.dpToPx(this.FILTER_V_MARGIN, this.getContext());
 
         if(this.show_filters){
             //Close filter options
@@ -145,11 +137,11 @@ public class BrowseFragment extends Fragment {
             this.showCurrentFilter();
             this.show_filters = true;
 
-            EditText st_edit = (EditText) this.filter_view.findViewById(R.id.browse_top_name_edit);
+            EditText st_edit = (EditText) this.filter_view.findViewById(R.id.get_user_name_edit);
             String current_term = this.model.plant_searcher.getSearch_term();
             st_edit.setText(current_term);
             st_edit.setOnFocusChangeListener(searchTermListener);
-            EditText pc_edit = (EditText) this.filter_view.findViewById(R.id.browse_top_postcode_edit);
+            EditText pc_edit = (EditText) this.filter_view.findViewById(R.id.get_user_postcode_edit);
             pc_edit.setText(this.model.postcode);
             pc_edit.setOnFocusChangeListener(postcodeListener);
         }

@@ -73,6 +73,9 @@ public class plantDetailsDisplayHelper extends DisplayHelper {
         configureTextView(subtitle, p.getScientific_name(), SUBTITLE_SIZE, ContextCompat.getColor(context, R.color.detailsSubtitleColor));
         cl.addView(subtitle);
         setViewConstraints(subtitle, cl, cl, cl, title, TITLE_H_MARGIN, TITLE_V_MARGIN);
+        Typeface a = ResourcesCompat.getFont(context, R.font.american_typewriter_bold);
+        title.setTypeface(a);
+        subtitle.setTypeface(a);
         l.add(title);
         l.add(subtitle);
         return l;
@@ -85,7 +88,7 @@ public class plantDetailsDisplayHelper extends DisplayHelper {
         for(String x : details){
             final TextView i = new TextView(cl.getRootView().getContext());
             configureTextView(i, x, DESC_SIZE, ContextCompat.getColor(context, R.color.detailsTextColor));
-            Typeface a = ResourcesCompat.getFont(context, R.font.source_sans_pro_bold);
+            Typeface a = ResourcesCompat.getFont(context, R.font.american_typewriter_bold);
             i.setTypeface(a);
             cl.addView(i);
             setViewConstraintsLeft(i, cl, cl, last, DESC_H_MARGIN, DESC_V_MARGIN);

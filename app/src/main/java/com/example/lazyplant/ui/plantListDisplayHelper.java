@@ -95,6 +95,7 @@ public class plantListDisplayHelper extends DisplayHelper {
         List<Favourite> favs = favouriteDAO.getFavourites();
         database.close();
         tb.setChecked(checkIfFavourite(pid, favs));
+        tb.setOnClickListener(null);
         tb.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {

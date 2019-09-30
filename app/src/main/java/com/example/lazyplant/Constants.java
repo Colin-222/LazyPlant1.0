@@ -12,7 +12,12 @@ public class Constants {
     public final static String REMINDER = "reminder";
     public final static String WATERING = "watering";
     public final static String SHARED_PREFERENCE = "shared_preferences_a74j";
+    public final static String SETTINGS_PREFERENCE = "got_yo_settings_a74j";
+    public final static String FIRST_TIME_USE = "first_a74j";
     public final static String DEFAULT_POSTCODE = "default_postcode";
     public final static String REMINDER_HOUR = "reminder_hour";
     public final static String REMINDER_MINUTE = "reminder_minute";
+    public final static String PLANT_LIST = "plant_list";
+    public final static String SHARED_PREFERENCE_NAME = "shared_preferences_name_a74j";
+    public final static String SHARED_PREFERENCE_POSTCODE = "shared_preferences_postcode_a74j";
 }

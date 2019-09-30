@@ -55,12 +55,10 @@
         <activity
             android:name=".ui.shopmap.ShopsMapActivity"
             android:label="@string/title_activity_shops_map"></activity>
-        <activity
-            android:name=".ui.plantDetails.PlantDetailsActivity"
-            android:label="@string/title_activity_plant_details"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

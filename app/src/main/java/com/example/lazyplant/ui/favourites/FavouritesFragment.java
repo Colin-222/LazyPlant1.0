@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -19,6 +20,7 @@ import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.AppDatabase;
 import com.example.lazyplant.plantdata.Favourite;
 import com.example.lazyplant.plantdata.FavouriteDAO;
+import com.example.lazyplant.ui.PlantSearchViewModel;
 import com.example.lazyplant.ui.profile.AllPlantsAdapter;
 import com.example.lazyplant.ui.search.BrowseAdapter;
 
@@ -29,6 +31,7 @@ public class FavouritesFragment extends Fragment {
     private View root;
     private RecyclerView favs_view;
     private RecyclerView.Adapter adapter;
+    private PlantSearchViewModel model;
 
     public FavouritesFragment() {
     }
@@ -37,23 +40,24 @@ public class FavouritesFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_favourites, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        this.model = ViewModelProviders.of(getActivity()).get(PlantSearchViewModel.class);
+        this.model.plant_list = new ArrayList<>();
 
         AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, Constants.GARDEN_DB_NAME)
                 .fallbackToDestructiveMigration().allowMainThreadQueries().build();
         FavouriteDAO favouriteDAO = database.getFavouriteDAO();
         List<Favourite> favs = favouriteDAO.getFavourites();
-        List<PlantInfoEntity> plant_list = new ArrayList<>();
         DbAccess databaseAccess = DbAccess.getInstance(root.getContext());
         databaseAccess.open();
         for (Favourite fav : favs) {
-            plant_list.add(databaseAccess.getShortPlantInfo(fav.getSpecies_id()));
+            this.model.plant_list.add(databaseAccess.getShortPlantInfo(fav.getSpecies_id()));
         }
         databaseAccess.close();
 
         this.favs_view = (RecyclerView) root.findViewById(R.id.favourites_recycler);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         this.favs_view.setLayoutManager(mLayoutManager);
-        adapter = new BrowseAdapter(plant_list, this);
+        adapter = new BrowseAdapter(this.model.plant_list, this);
         this.favs_view.setAdapter(adapter);
 
         return root;
