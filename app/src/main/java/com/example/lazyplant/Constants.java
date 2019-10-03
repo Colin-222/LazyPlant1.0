@@ -9,6 +9,7 @@ public class Constants {
     public final static String NAME_SEARCH_TAG = "name_search";
     public final static String LOCATION_TAG = "location_yay";
     public final static String NOTIFICATION_TAG = "notification_yay";
+    public final static String SEARCH_TYPE = "search_type";
     public final static String REMINDER = "reminder";
     public final static String WATERING = "watering";
     public final static String SHARED_PREFERENCE = "shared_preferences_a74j";

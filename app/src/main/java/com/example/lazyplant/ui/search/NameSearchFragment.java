@@ -1,12 +1,16 @@
 package com.example.lazyplant.ui.search;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +20,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
+import com.example.lazyplant.ui.DisplayHelper;
 import com.google.android.gms.location.FusedLocationProviderClient;
 
 public class NameSearchFragment extends Fragment {
@@ -26,12 +31,13 @@ public class NameSearchFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_name_search, container, false);
+        final View root = inflater.inflate(R.layout.fragment_name_search, container, false);
+        final Context context = getContext();
         final Fragment f_fragment = this;
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         //Set search button behaviour
         final EditText et = (EditText) root. findViewById(R.id.name_search_edit);
-        ImageButton button = (ImageButton) root.findViewById(R.id.name_search_go);
+        final ImageButton button = (ImageButton) root.findViewById(R.id.name_search_go);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,8 +57,27 @@ public class NameSearchFragment extends Fragment {
             }
         });
 
+        et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if  ((actionId == EditorInfo.IME_ACTION_GO)) {
+                    DisplayHelper.hideKeyboard(context, root);
+                    return button.callOnClick();
+                }
+                return false;
+            }
+        });
+        et.setOnFocusChangeListener(editFocusListener);
+
         return root;
     }
+
+    private View.OnFocusChangeListener editFocusListener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View view, boolean hasFocus) {
+            if(!hasFocus){
+                DisplayHelper.hideKeyboard(view.getContext(), view);
+            }
+        }};
 
 }
 

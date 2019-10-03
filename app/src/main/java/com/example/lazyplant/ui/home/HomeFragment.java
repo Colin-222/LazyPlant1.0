@@ -1,18 +1,23 @@
 package com.example.lazyplant.ui.home;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +29,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.ClimateZoneGetter;
+import com.example.lazyplant.ui.DisplayHelper;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,15 +51,16 @@ public class HomeFragment extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
 
-        SharedPreferences pref = this.getContext().getApplicationContext()
-                .getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
-
         final EditText location_tv = (EditText) root.findViewById(R.id.home_location_text);
+        final Fragment f_fragment = this;
+        final ImageButton browse = (ImageButton)root.findViewById(R.id.home_browse_go);
+        final Context context = getContext();
+
+        /*SharedPreferences pref = this.getContext().getApplicationContext()
+                .getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
         postcode = pref.getString(Constants.DEFAULT_POSTCODE, null);
         if(postcode != null){
-            location_tv.setText(/*LOCATION_TEXT + */postcode);
-        }/*else{
-            location_tv.setText("No current location.");
+            location_tv.setText(postcode);
         }*/
 
         ImageButton locationButton = (ImageButton) root.findViewById(R.id.home_location_button);
@@ -84,8 +91,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        final Fragment f_fragment = this;
-        ImageButton browse = (ImageButton)root.findViewById(R.id.home_browse_go);
+
         browse.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String pc = location_tv.getText().toString();
@@ -111,6 +117,17 @@ public class HomeFragment extends Fragment {
              }
         });
 
+        location_tv.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if  ((actionId == EditorInfo.IME_ACTION_GO)) {
+                    DisplayHelper.hideKeyboard(context, root);
+                    return browse.callOnClick();
+                }
+                return false;
+            }
+        });
+        location_tv.setOnFocusChangeListener(editFocusListener);
+
         return root;
     }
 
@@ -120,7 +137,14 @@ public class HomeFragment extends Fragment {
         ActivityCompat.requestPermissions(getActivity(), new String[] {ACCESS_FINE_LOCATION}, 1);
     }
 
-
+    private View.OnFocusChangeListener editFocusListener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View view, boolean hasFocus) {
+            if(!hasFocus){
+                DisplayHelper.hideKeyboard(view.getContext(), view);
+                Log.i("TAG", "ASDF");
+            }
+        }};
 
 
 }

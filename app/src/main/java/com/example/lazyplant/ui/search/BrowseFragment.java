@@ -5,10 +5,12 @@ import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -52,8 +54,7 @@ public class BrowseFragment extends Fragment {
     final private int FILTER_H_MARGIN = 8;
     final private int FILTER_V_MARGIN = 2;
     final private int HEIGHT_CLOSED = 60;
-    final private int HEIGHT_OPEN = 250;
-    final private int PLANT_SPACING = 0;
+    final private int HEIGHT_OPEN = 280;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -73,29 +74,35 @@ public class BrowseFragment extends Fragment {
         filters_button.setOnClickListener(filterButtonListener);
 
         this.result_view = (RecyclerView) root.findViewById(R.id.browse_result_view);
-        /*ResultSpaceItemDecoration rsid = new ResultSpaceItemDecoration(
-                DisplayHelper.dpToPx(this.PLANT_SPACING, getContext())) {
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-            }
-        };
-        this.result_view.addItemDecoration(rsid);*/
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         this.result_view.setLayoutManager(mLayoutManager);
         this.adapter = new BrowseAdapter(this.model.plant_list, this);
         this.result_view.setAdapter(this.adapter);
         Bundle bundle = this.getArguments();
+        /*String search_type = bundle.getString(Constants.SEARCH_TYPE);
+        this.model.plant_searcher = new PlantSearcher(getContext());
+        if(search_type == null){
+            SharedPreferences pref = this.getContext().getApplicationContext()
+                    .getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
+            this.model.postcode = pref.getString(Constants.SHARED_PREFERENCE_POSTCODE, null);
+            this.setLocation(this.model.postcode);
+        }else if(search_type.equals(Constants.NAME_SEARCH_TAG)){
+            String term = bundle.getString(Constants.NAME_SEARCH_TAG);
+            this.model.plant_searcher.setSearchTerm(term);
+        }else if (search_type.equals(Constants.LOCATION_TAG)){
+            this.model.postcode = bundle.getString(Constants.LOCATION_TAG);
+            this.setLocation(this.model.postcode);
+        }*/
+
+        this.model.plant_searcher = new PlantSearcher(getContext());
         if(bundle == null){
-            //this.setLocation(null);
-            //this.model.postcode = "";
             SharedPreferences pref = this.getContext().getApplicationContext()
                     .getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
             this.model.postcode = pref.getString(Constants.SHARED_PREFERENCE_POSTCODE, null);
             this.setLocation(this.model.postcode);
         }else{
-            this.model.plant_searcher = new PlantSearcher(getContext());
+
             this.model.postcode = bundle.getString(Constants.LOCATION_TAG);
             this.setLocation(this.model.postcode);
             String term = bundle.getString(Constants.NAME_SEARCH_TAG);
@@ -117,6 +124,7 @@ public class BrowseFragment extends Fragment {
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) this.filter_cl.getLayoutParams();
         int h = this.dpToPx(this.FILTER_H_MARGIN, this.getContext());
         int v = this.dpToPx(this.FILTER_V_MARGIN, this.getContext());
+        final Context context = this.getContext();
 
         if(this.show_filters){
             //Close filter options
@@ -137,13 +145,34 @@ public class BrowseFragment extends Fragment {
             this.showCurrentFilter();
             this.show_filters = true;
 
-            EditText st_edit = (EditText) this.filter_view.findViewById(R.id.get_user_name_edit);
+            final EditText st_edit = (EditText) this.filter_view.findViewById(R.id.get_user_name_edit);
             String current_term = this.model.plant_searcher.getSearch_term();
             st_edit.setText(current_term);
             st_edit.setOnFocusChangeListener(searchTermListener);
-            EditText pc_edit = (EditText) this.filter_view.findViewById(R.id.get_user_postcode_edit);
+            final EditText pc_edit = (EditText) this.filter_view.findViewById(R.id.get_user_postcode_edit);
             pc_edit.setText(this.model.postcode);
             pc_edit.setOnFocusChangeListener(postcodeListener);
+
+            st_edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if  ((actionId == EditorInfo.IME_ACTION_GO)) {
+                        DisplayHelper.hideKeyboard(context, root);
+                        changeLocation(st_edit.getText().toString());
+                        return true;
+                    }
+                    return false;
+                }
+            });
+            pc_edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if  ((actionId == EditorInfo.IME_ACTION_GO)) {
+                        DisplayHelper.hideKeyboard(context, root);
+                        changeLocation(pc_edit.getText().toString());
+                        return true;
+                    }
+                    return false;
+                }
+            });
         }
         this.filter_cl.setLayoutParams(params);
     }
@@ -219,8 +248,8 @@ public class BrowseFragment extends Fragment {
         updateResults();
     }
 
-    private void changeLocation(EditText et){
-        this.model.postcode = et.getText().toString();
+    private void changeLocation(String location){
+        this.model.postcode = location;
         if(this.model.postcode.matches("[0-9][0-9][0-9][0-9]")){
             ClimateZoneGetter czg = new ClimateZoneGetter();
             int zone = czg.getZone(this.model.postcode);
@@ -241,7 +270,6 @@ public class BrowseFragment extends Fragment {
             toast.show();
             this.model.postcode = "";
         }
-        et.setText(this.model.postcode);
     }
 
     private void updateSelectedFilters(){
@@ -303,6 +331,7 @@ public class BrowseFragment extends Fragment {
         @Override
         public void onFocusChange(View view, boolean hasFocus) {
             if(!hasFocus){
+                DisplayHelper.hideKeyboard(view.getContext(), view);
                 changeSearchTerm(((EditText)view).getText().toString());
             }
         }};
@@ -311,7 +340,8 @@ public class BrowseFragment extends Fragment {
         @Override
         public void onFocusChange(View view, boolean hasFocus) {
             if(!hasFocus){
-                changeLocation((EditText)view);
+                DisplayHelper.hideKeyboard(view.getContext(), view);
+                changeLocation(((EditText)view).getText().toString());
             }
         }};
 

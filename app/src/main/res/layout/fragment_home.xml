@@ -8,13 +8,17 @@
     android:orientation="vertical"
     android:background="@drawable/bg_1"
     android:paddingBottom="56dp">
+
 <RelativeLayout
     android:id="@+id/home_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center"
     android:fillViewport="true"
-    android:layout_marginTop="00dp">
+    android:layout_marginTop="00dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
 
     <RelativeLayout
@@ -22,7 +26,10 @@
         android:layout_width="match_parent"
         android:layout_height="340dp"
         android:layout_marginTop="6dp"
-        android:background="@color/colorHomeLight">
+        android:background="@color/colorHomeLight"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <ImageView
             android:id="@+id/home_logo"
@@ -84,7 +91,7 @@
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:textColor="@color/colorLazyGreen"
             android:textSize="18sp" />
-        />
+
 
         <View
             android:layout_width="match_parent"
@@ -137,10 +144,14 @@
             android:fontFamily="@font/andale_mono"
             android:gravity="center"
             android:padding="@dimen/appbar_padding"
-            android:text="Type postcode here"
+            android:hint="Type postcode here"
+            android:textColorHint="#444444"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:imeOptions="actionGo"
+            android:singleLine="true"
+            android:maxLength="4"/>
 
         <ImageButton
             android:id="@+id/home_location_button"

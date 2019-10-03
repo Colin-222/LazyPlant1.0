@@ -9,11 +9,13 @@
     android:layout_height="fill_parent"
     android:fillViewport="true">
 
-
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/name_search_constraint_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <TextView
         android:id="@+id/name_search_hint"
@@ -52,7 +54,9 @@
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@id/name_search_hint"
         app:layout_constraintLeft_toLeftOf="@id/name_search_hint"
-        app:layout_constraintTop_toBottomOf="@id/name_search_hint" />
+        app:layout_constraintTop_toBottomOf="@id/name_search_hint"
+        android:imeOptions="actionGo"
+        android:singleLine="true"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

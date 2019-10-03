@@ -1,7 +1,9 @@
 package com.example.lazyplant.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -14,6 +16,11 @@ import com.example.lazyplant.Constants;
  * Abstract class that contains some functions to help display elements in UI.
  */
 abstract public class DisplayHelper {
+
+    public static void hideKeyboard(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
     static public int dpToPx(int dp, Context context) {
         float density = context.getResources()
