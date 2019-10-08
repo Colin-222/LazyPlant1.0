@@ -334,4 +334,20 @@ public class DbAccess {
         return found;
     }
 
+    public List<String> searchEdiblePlants(String category){
+        List<String> found = new ArrayList<>();
+        String command = "SELECT DISTINCT species_id FROM food WHERE category = \""
+                + category + "\"";
+        Cursor cursor = database.rawQuery(command, null);
+        cursor.moveToFirst();
+        boolean first = true;
+        while (!cursor.isAfterLast()) {
+            found.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        if(cursor != null)
+            cursor.close();
+        return found;
+    }
+
 }

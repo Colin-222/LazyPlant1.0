@@ -1,4 +1,4 @@
-package com.example.lazyplant.ui.habitat;
+package com.example.lazyplant.ui.edible;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -32,24 +32,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HabitatSearchFragment extends Fragment {
+public class EdibleSearchFragment extends Fragment {
     private View root;
     private RecyclerView favs_view;
     private RecyclerView.Adapter adapter;
     private PlantSearchViewModel model;
-    private String animal;
+    private String category;
 
-    public HabitatSearchFragment() {
+    public EdibleSearchFragment() {
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         this.root = inflater.inflate(R.layout.fragment_show_plants, container, false);
         Bundle bundle = this.getArguments();
-        this.animal = bundle.getString(Constants.HABITAT_TAG);
+        this.category = bundle.getString(Constants.EDIBLE_TAG);
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         ((AppCompatActivity)getActivity()).getSupportActionBar()
-                .setTitle("Plants for attracting " + this.animal);
+                .setTitle("Plants: " + this.category);
         this.model = ViewModelProviders.of(getActivity()).get(PlantSearchViewModel.class);
         this.model.plant_list = new ArrayList<>();
 
@@ -77,12 +77,12 @@ public class HabitatSearchFragment extends Fragment {
             int zone = czg.getZone(this.model.postcode);
             if (zone != -1){
                 pc_edit.setText(this.model.postcode);
-                this.getPlantList(this.animal, zone);
+                this.getPlantList(this.category, zone);
             }else{
                 pc_edit.setText("");
             }
         }else{
-            this.getPlantList(this.animal, -1);
+            this.getPlantList(this.category, -1);
         }
 
         this.favs_view = (RecyclerView) root.findViewById(R.id.show_plants_search_recycler);
@@ -97,7 +97,7 @@ public class HabitatSearchFragment extends Fragment {
     private void getPlantList(String search_term, int zone){
         DbAccess databaseAccess = DbAccess.getInstance(this.root.getContext());
         databaseAccess.open();
-        List<String> found = databaseAccess.searchPlantsByAnimalsAttracted(search_term);
+        List<String> found = databaseAccess.searchEdiblePlants(search_term);
         if (zone >= 1 && zone <= 7){
             List<String> tmp = databaseAccess.searchOnConditions(Constants.SPECIES_ID_FIELD,
                     "zone", "climate_zone",
@@ -117,7 +117,7 @@ public class HabitatSearchFragment extends Fragment {
             if (zone != -1){
                 this.model.postcode = location;
                 this.model.plant_list.clear();
-                this.getPlantList(this.animal, zone);
+                this.getPlantList(this.category, zone);
                 this.adapter.notifyDataSetChanged();
             }else{
                 Toast toast = Toast.makeText(getActivity(),

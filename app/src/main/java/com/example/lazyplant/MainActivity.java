@@ -1,9 +1,6 @@
 package com.example.lazyplant;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -12,15 +9,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import static androidx.core.view.ViewCompat.animate;
 
 public class MainActivity extends AppCompatActivity {
     final private long BOTTOM_NAV_HIDE_DURATION = 100;
@@ -34,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_favourites, R.id.navigation_browse,
-                R.id.navigation_search, R.id.navigation_profile).build();
+                R.id.navigation_home, R.id.navigation_favourites, R.id.navigation_home_search,
+                R.id.navigation_reminder, R.id.navigation_profile).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
@@ -53,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_notes:
                         navView.setVisibility(View.GONE);
                         break;
-                    case R.id.navigation_reminder:
+                    case R.id.navigation_history:
                         navView.setVisibility(View.GONE);
                         break;
-                    case R.id.navigation_history:
+                    case R.id.navigation_name_search:
                         navView.setVisibility(View.GONE);
                         break;
                     default:

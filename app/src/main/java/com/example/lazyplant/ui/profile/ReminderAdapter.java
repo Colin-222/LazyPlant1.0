@@ -3,19 +3,19 @@ package com.example.lazyplant.ui.profile;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.bumptech.glide.Glide;
 import com.example.lazyplant.AlarmBroadcastReceiver;
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
@@ -24,11 +24,10 @@ import com.example.lazyplant.plantdata.DbAccess;
 import com.example.lazyplant.plantdata.GardenPlant;
 import com.example.lazyplant.plantdata.GardenPlantDAO;
 import com.example.lazyplant.plantdata.PlantInfoEntity;
-import com.example.lazyplant.plantdata.PlantNotes;
-import com.example.lazyplant.plantdata.PlantNotesDAO;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -62,6 +61,10 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         final String pid = p.getPlant_id();
         final Context context = j_holder.name.getContext();
         holder.name.setText(p.getName());
+        String image_name = convertToImageName(p.getSpecies_id());
+        int image_id = context.getResources().getIdentifier(image_name,
+                Constants.PLANT_IMAGES_FOLDER, context.getPackageName());
+        Glide.with(context).load(image_id).into(holder.image);
 
         DbAccess databaseAccess = DbAccess.getInstance(holder.name.getContext());
         databaseAccess.open();
@@ -73,7 +76,17 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
             String common_name = pie.getCommon_name();
             holder.species.setText(common_name);
         }
-        
+
+        ReminderControl rc = new ReminderControl(context, Constants.GARDEN_DB_NAME);
+        int watering_percentage = rc.getWateringDatePercentage(pid);
+        if(watering_percentage >= 100){
+            holder.progress_bar.setProgress(100);
+            holder.progress_bar.setProgressBackgroundColor(R.color.progressRed);
+        }else{
+            holder.progress_bar.setProgress(watering_percentage);
+            holder.progress_bar.setProgressBackgroundColor(R.color.progressGreen);
+        }
+
         Calendar c = p.getLast_watering();
         c.add(Calendar.DATE, p.getWatering_interval());
         Date date = c.getTime();
@@ -89,10 +102,6 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
                 refresh(pos);
             }
         });
-
-
-
-
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -135,19 +144,28 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         public final TextView species;
         public final TextView next_watering;
         public final ImageButton water;
-        //public final ImageButton edit;
         public final ImageButton delete;
+        public final RoundCornerProgressBar progress_bar;
+        public final ImageView image;
 
         public ViewHolder(View view) {
             super(view);
             this.view = view;
             name = view.findViewById(R.id.reminder_name);
             species = view.findViewById(R.id.reminder_species);
-            next_watering = view.findViewById(R.id.reminder_next);
+            next_watering = view.findViewById(R.id.reminder_progress_text);
             water = view.findViewById(R.id.reminder_water);
-            //edit = view.findViewById(R.id.reminder_edit);
             delete = view.findViewById(R.id.reminder_delete);
+            progress_bar = view.findViewById(R.id.reminder_progress_bar);
+            image = view.findViewById(R.id.reminder_image);
         }
+    }
+
+    private String convertToImageName(String name){
+        String x = name;
+        x = x.replaceAll("[^a-zA-Z0-9]", "");
+        x = x.toLowerCase();
+        return x;
     }
 
 }

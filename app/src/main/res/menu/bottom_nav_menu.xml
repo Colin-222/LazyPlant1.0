@@ -12,14 +12,14 @@
         android:title="@string/title_favourites" />
 
     <item
-        android:id="@+id/navigation_browse"
-        android:icon="@drawable/ic_browse"
-        android:title="@string/title_browse" />
-
-    <item
-        android:id="@+id/navigation_search"
+        android:id="@+id/navigation_home_search"
         android:icon="@drawable/ic_search"
         android:title="@string/title_search" />
+
+    <item
+        android:id="@+id/navigation_reminder"
+        android:icon="@drawable/ic_watering_reminder"
+        android:title="@string/title_reminder" />
 
     <item
         android:id="@+id/navigation_profile"

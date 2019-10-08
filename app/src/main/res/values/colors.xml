@@ -19,5 +19,7 @@
     <color name="dividingGrey">#D8D8D8</color>
     <color name="plantBlue">#7040F0</color>
     <color name="plantAqua">#009688</color>
+    <color name="progressRed">#BB0000</color>
+    <color name="progressGreen">#55dd55</color>
 
 </resources>

@@ -190,8 +190,20 @@
         android:layout_below="@+id/home_layout_browse"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="0dp"
         android:text="Habitat"
+        android:elevation="4dp"
+        android:src="@drawable/ic_search_white" />
+
+    <Button
+        android:id="@+id/home_edible_go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/home_habitat_go"
+        android:layout_alignTop="@+id/home_habitat_go"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        android:text="Edible"
         android:elevation="4dp"
         android:src="@drawable/ic_search_white" />
 

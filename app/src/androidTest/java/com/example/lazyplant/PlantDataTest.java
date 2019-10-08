@@ -174,12 +174,15 @@ public class PlantDataTest {
         assertEquals(2, this.plantCareRecordDAO.getPlantCareRecords().size());
         this.reminderControl.editNotes(i2, "BLA");
         assertEquals("BLA", this.reminderControl.getGardenPlant(i2).getNotes());
-        this.gardenPlantDAO.deleteAll();
 
         Calendar t = Calendar.getInstance();
         Calendar c5 = Calendar.getInstance();
         Calendar c7 = Calendar.getInstance();
 
+        c7.add(Calendar.DATE, 27);
+        List <GardenPlant> lgp27 = this.reminderControl.getPlantsToWater(c7);
+
+        this.gardenPlantDAO.deleteAll();
         GardenPlant x = new GardenPlant();
         x.setPlant_id("A1");
         x.setNotes("N1");

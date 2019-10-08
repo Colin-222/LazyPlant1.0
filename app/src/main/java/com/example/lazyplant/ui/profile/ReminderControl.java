@@ -44,6 +44,7 @@ public class ReminderControl {
             PlantInfoEntity p = databaseAccess.getPlantInfo(species_id);
             databaseAccess.close();
             x.setWatering_interval(Integer.valueOf(p.getWatering_interval()));
+            x.setSpecies_id(species_id);
         } else {
             x.setWatering_interval(14);
         }
@@ -54,7 +55,7 @@ public class ReminderControl {
         Calendar t = Calendar.getInstance();
         x.setLast_watering(t);
         x.setPlant_date(t);
-        AppDatabase database = Room.databaseBuilder(this.context, AppDatabase.class, db_name)
+        AppDatabase database = Room.databaseBuilder(this.context, AppDatabase.class, this.db_name)
                 .allowMainThreadQueries().build();
         GardenPlantDAO dao = database.getGardenPlantDAO();
         dao.insert(x);
@@ -150,12 +151,15 @@ public class ReminderControl {
     public List<GardenPlant> getPlantsToWater(Calendar date) {
         List<GardenPlant> plants_to_water = new ArrayList<>();
         AppDatabase database = Room.databaseBuilder(this.context, AppDatabase.class, this.db_name)
-                .allowMainThreadQueries().build();
+                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
         GardenPlantDAO dao = database.getGardenPlantDAO();
         List<GardenPlant> plants = dao.getGardenPlants();
         database.close();
         for (GardenPlant gp : plants) {
-            Calendar c = gp.getLast_watering();
+            //Calendar c = gp.getLast_watering();
+            long cc = gp.getLast_watering().getTimeInMillis();
+            Calendar c = Calendar.getInstance();
+            c.setTimeInMillis(cc);
             int wi = gp.getWatering_interval();
             c.add(Calendar.DATE, wi);
             if(wi>0){
