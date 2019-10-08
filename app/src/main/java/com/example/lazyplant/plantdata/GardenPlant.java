@@ -36,6 +36,12 @@ public class GardenPlant {
     public void setNotes(String notes) { this.notes = notes; }
 
     @NonNull
+    private Calendar plant_date;
+    @NonNull
+    public Calendar getPlant_date() { return plant_date; }
+    public void setPlant_date(@NonNull Calendar plant_date) { this.plant_date = plant_date; }
+
+    @NonNull
     private Integer watering_interval;
     @NonNull
     public Integer getWatering_interval() { return watering_interval; }

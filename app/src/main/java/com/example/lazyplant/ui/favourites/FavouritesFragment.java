@@ -15,13 +15,11 @@ import androidx.room.Room;
 
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.plantdata.DbAccess;
-import com.example.lazyplant.plantdata.PlantInfoEntity;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.AppDatabase;
 import com.example.lazyplant.plantdata.Favourite;
 import com.example.lazyplant.plantdata.FavouriteDAO;
 import com.example.lazyplant.ui.PlantSearchViewModel;
-import com.example.lazyplant.ui.profile.AllPlantsAdapter;
 import com.example.lazyplant.ui.search.BrowseAdapter;
 
 import java.util.ArrayList;
@@ -38,22 +36,11 @@ public class FavouritesFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_favourites, container, false);
+        this.root = inflater.inflate(R.layout.fragment_favourites, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         this.model = ViewModelProviders.of(getActivity()).get(PlantSearchViewModel.class);
         this.model.plant_list = new ArrayList<>();
-
-        AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, Constants.GARDEN_DB_NAME)
-                .fallbackToDestructiveMigration().allowMainThreadQueries().build();
-        FavouriteDAO favouriteDAO = database.getFavouriteDAO();
-        List<Favourite> favs = favouriteDAO.getFavourites();
-        DbAccess databaseAccess = DbAccess.getInstance(root.getContext());
-        databaseAccess.open();
-        for (Favourite fav : favs) {
-            this.model.plant_list.add(databaseAccess.getShortPlantInfo(fav.getSpecies_id()));
-        }
-        databaseAccess.close();
-
+        this.getPlantList();
         this.favs_view = (RecyclerView) root.findViewById(R.id.favourites_recycler);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         this.favs_view.setLayoutManager(mLayoutManager);
@@ -63,5 +50,17 @@ public class FavouritesFragment extends Fragment {
         return root;
     }
 
+    private void getPlantList(){
+        AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, Constants.GARDEN_DB_NAME)
+                .fallbackToDestructiveMigration().allowMainThreadQueries().build();
+        FavouriteDAO favouriteDAO = database.getFavouriteDAO();
+        List<Favourite> favs = favouriteDAO.getFavourites();
+        DbAccess databaseAccess = DbAccess.getInstance(this.root.getContext());
+        databaseAccess.open();
+        for (Favourite fav : favs) {
+            this.model.plant_list.add(databaseAccess.getShortPlantInfo(fav.getSpecies_id()));
+        }
+        databaseAccess.close();
+    }
 
 }

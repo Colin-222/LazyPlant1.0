@@ -39,7 +39,7 @@ public class ReminderControl {
         String plant_id = UUID.randomUUID().toString();
         GardenPlant x = new GardenPlant();
         if (species_id != null){
-            DbAccess databaseAccess = DbAccess.getInstance(context);
+            DbAccess databaseAccess = DbAccess.getInstance(this.context);
             databaseAccess.open();
             PlantInfoEntity p = databaseAccess.getPlantInfo(species_id);
             databaseAccess.close();
@@ -53,7 +53,8 @@ public class ReminderControl {
         x.setNotes("");
         Calendar t = Calendar.getInstance();
         x.setLast_watering(t);
-        AppDatabase database = Room.databaseBuilder(context, AppDatabase.class, db_name)
+        x.setPlant_date(t);
+        AppDatabase database = Room.databaseBuilder(this.context, AppDatabase.class, db_name)
                 .allowMainThreadQueries().build();
         GardenPlantDAO dao = database.getGardenPlantDAO();
         dao.insert(x);
@@ -66,7 +67,7 @@ public class ReminderControl {
      * @param plant_id Plant id of plant to get
      */
     public GardenPlant getGardenPlant(String plant_id){
-        AppDatabase database = Room.databaseBuilder(context, AppDatabase.class, db_name)
+        AppDatabase database = Room.databaseBuilder(this.context, AppDatabase.class, this.db_name)
                 .allowMainThreadQueries().build();
         GardenPlantDAO dao = database.getGardenPlantDAO();
         GardenPlant gp = dao.getGardenPlant(plant_id).get(0);
@@ -79,7 +80,7 @@ public class ReminderControl {
      * @param plant_id Plant id of plant to delete
      */
     public void deleteGardenPlant(String plant_id){
-        AppDatabase database = Room.databaseBuilder(context, AppDatabase.class, db_name)
+        AppDatabase database = Room.databaseBuilder(context, AppDatabase.class, this.db_name)
                 .allowMainThreadQueries().build();
         GardenPlantDAO dao = database.getGardenPlantDAO();
         dao.deleteGardenPlant(plant_id);
@@ -92,7 +93,7 @@ public class ReminderControl {
      * @param notes New notes
      */
     public void editNotes(String plant_id, String notes){
-        AppDatabase database = Room.databaseBuilder(context, AppDatabase.class, db_name)
+        AppDatabase database = Room.databaseBuilder(this.context, AppDatabase.class, this.db_name)
                 .allowMainThreadQueries().build();
         GardenPlantDAO dao = database.getGardenPlantDAO();
         GardenPlant gp = dao.getGardenPlant(plant_id).get(0);
@@ -107,7 +108,7 @@ public class ReminderControl {
      */
     public void recordPlantWatering(String plant_id, String source){
         Calendar today = Calendar.getInstance();
-        AppDatabase database = Room.databaseBuilder(context, AppDatabase.class, db_name)
+        AppDatabase database = Room.databaseBuilder(this.context, AppDatabase.class, this.db_name)
                 .allowMainThreadQueries().build();
         GardenPlantDAO dao = database.getGardenPlantDAO();
         GardenPlant gp = dao.getGardenPlant(plant_id).get(0);
@@ -132,7 +133,7 @@ public class ReminderControl {
      * @return Date of next watering as a Calendar.
      */
     public Calendar getNextWatering(String plant_id){
-        AppDatabase database = Room.databaseBuilder(context, AppDatabase.class, db_name)
+        AppDatabase database = Room.databaseBuilder(this.context, AppDatabase.class, this.db_name)
                 .allowMainThreadQueries().build();
         GardenPlantDAO dao = database.getGardenPlantDAO();
         GardenPlant gp = dao.getGardenPlant(plant_id).get(0);
@@ -148,7 +149,7 @@ public class ReminderControl {
      */
     public List<GardenPlant> getPlantsToWater(Calendar date) {
         List<GardenPlant> plants_to_water = new ArrayList<>();
-        AppDatabase database = Room.databaseBuilder(context, AppDatabase.class, db_name)
+        AppDatabase database = Room.databaseBuilder(this.context, AppDatabase.class, this.db_name)
                 .allowMainThreadQueries().build();
         GardenPlantDAO dao = database.getGardenPlantDAO();
         List<GardenPlant> plants = dao.getGardenPlants();
@@ -161,13 +162,21 @@ public class ReminderControl {
                 if ((c.get(Calendar.DAY_OF_YEAR) == date.get(Calendar.DAY_OF_YEAR)) &&
                         (c.get(Calendar.YEAR) == date.get(Calendar.YEAR))){
                     plants_to_water.add(gp);
-                }
-                if (c.before(date)){
+                } else if (c.before(date)){
                     plants_to_water.add(gp);
                 }
             }
         }
         return plants_to_water;
+    }
+
+    public int getWateringDatePercentage(String plant_id){
+        GardenPlant gp = getGardenPlant(plant_id);
+        Calendar today = Calendar.getInstance();
+        Calendar watering_date = getNextWatering(plant_id);
+        long overall = watering_date.getTimeInMillis() - gp.getLast_watering().getTimeInMillis();
+        long progress = today.getTimeInMillis() - gp.getLast_watering().getTimeInMillis();
+        return (int)((100*progress)/overall);
     }
 
 }

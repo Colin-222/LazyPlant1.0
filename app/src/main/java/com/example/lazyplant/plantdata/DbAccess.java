@@ -315,4 +315,23 @@ public class DbAccess {
         return found;
     }
 
+    public List<String> searchPlantsByAnimalsAttracted(String animal_type){
+        List<String> found = new ArrayList<>();
+        String command = "SELECT DISTINCT animals_attracted.species_id" +
+                " FROM animals_attracted INNER JOIN animals ON animals_attracted.animal=animals.animal"
+                + " WHERE animals.type = \"" + animal_type +"\" UNION " +
+                "SELECT DISTINCT species_id FROM wildlife WHERE wildlife_attracted=\"" +
+                animal_type + "\"";
+        Cursor cursor = database.rawQuery(command, null);
+        cursor.moveToFirst();
+        boolean first = true;
+        while (!cursor.isAfterLast()) {
+            found.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        if(cursor != null)
+            cursor.close();
+        return found;
+    }
+
 }

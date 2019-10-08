@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -56,13 +57,6 @@ public class HomeFragment extends Fragment {
         final ImageButton browse = (ImageButton)root.findViewById(R.id.home_browse_go);
         final Context context = getContext();
 
-        /*SharedPreferences pref = this.getContext().getApplicationContext()
-                .getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
-        postcode = pref.getString(Constants.DEFAULT_POSTCODE, null);
-        if(postcode != null){
-            location_tv.setText(postcode);
-        }*/
-
         ImageButton locationButton = (ImageButton) root.findViewById(R.id.home_location_button);
         requestPermission();
         client = LocationServices.getFusedLocationProviderClient(getActivity());
@@ -90,7 +84,6 @@ public class HomeFragment extends Fragment {
                 });
             }
         });
-
 
         browse.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -127,6 +120,15 @@ public class HomeFragment extends Fragment {
             }
         });
         location_tv.setOnFocusChangeListener(editFocusListener);
+
+        final Button habitatButton = (Button) root.findViewById(R.id.home_habitat_go);
+        habitatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                NavHostFragment.findNavController(f_fragment).navigate(R.id.action_navigation_home_to_navigation_habitat);
+
+            }
+        });
 
         return root;
     }

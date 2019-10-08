@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_favourites"
             app:destination="@id/navigation_favourites" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_habitat"
+            app:destination="@id/navigation_habitat" />
     </fragment>
 
     <fragment
@@ -81,6 +84,26 @@
         <action
             android:id="@+id/action_navigation_profile_to_navigation_all_plants"
             app:destination="@id/navigation_all_plants" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_habitat"
+        android:name="com.example.lazyplant.ui.habitat.HabitatFragment"
+        android:label="@string/title_habitat"
+        tools:layout="@layout/fragment_habitat" >
+        <action
+            android:id="@+id/action_navigation_habitat_to_navigation_habitat_search"
+            app:destination="@id/navigation_habitat_search" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_habitat_search"
+        android:name="com.example.lazyplant.ui.habitat.HabitatSearchFragment"
+        android:label="@string/title_habitat_search"
+        tools:layout="@layout/fragment_habitat_search" >
+        <action
+            android:id="@+id/action_navigation_habitat_search_to_navigation_plant_details"
+            app:destination="@id/navigation_plant_details" />
     </fragment>
 
     <fragment

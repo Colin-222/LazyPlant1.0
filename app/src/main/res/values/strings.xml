@@ -11,6 +11,8 @@
     <string name="title_all_plants">My Plants</string>
     <string name="title_history">Watering History</string>
     <string name="title_notes">Notes</string>
+    <string name="title_habitat">Habitat Gardening</string>
+    <string name="title_habitat_search">Find Plants For Animals</string>
     <string name="title_reminder">Reminders</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>

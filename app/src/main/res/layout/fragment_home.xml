@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg_1"
+    android:background="#00AA00"
     android:paddingBottom="56dp">
 
 <RelativeLayout
@@ -127,6 +127,7 @@
         android:textSize="25sp" />
 
     <RelativeLayout
+        android:id="@+id/home_layout_browse"
         android:layout_width="361dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/home_browse_text"
@@ -181,5 +182,18 @@
             android:src="@drawable/ic_search_white" />
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/home_habitat_go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/home_layout_browse"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="Habitat"
+        android:elevation="4dp"
+        android:src="@drawable/ic_search_white" />
+
 </RelativeLayout>
 </ScrollView>
