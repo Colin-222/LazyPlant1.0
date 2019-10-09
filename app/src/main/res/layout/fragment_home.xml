@@ -126,6 +126,24 @@
         android:textColor="#FFFFFF"
         android:textSize="25sp" />
 
+    <TextView
+        android:id="@+id/home_number_text"
+        android:text="0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="500dp"
+        android:fontFamily="@font/andale_mono"
+        android:gravity="center"
+        android:padding="@dimen/appbar_padding"
+        android:hint="Type postcode here"
+        android:textColorHint="#444444"
+        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+        android:textColor="#444444"
+        android:textSize="18sp"
+        android:imeOptions="actionGo"
+        android:singleLine="true"
+        android:maxLength="4"/>
+
     <RelativeLayout
         android:layout_width="361dp"
         android:layout_height="wrap_content"
