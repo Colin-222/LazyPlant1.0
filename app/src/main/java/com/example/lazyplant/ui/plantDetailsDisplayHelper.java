@@ -5,7 +5,6 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -17,22 +16,28 @@ import com.bumptech.glide.Glide;
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.PlantInfoEntity;
-import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * A class that contains a bunch of display functions that can be re-used.
  * These are primarily for displaying data on screen, e.g plant details or plant search results.
  */
 public class plantDetailsDisplayHelper extends DisplayHelper {
-    final private int NUM_COLUMNS = 4;
     final static private int TITLE_H_MARGIN = 16;
     final static private int TITLE_V_MARGIN = 5;
     private static final int TITLE_SIZE = 26;
     private static final int SUBTITLE_SIZE = 14;
     final static private int DRAWABLE_IMAGE_NAME_MAX = 5;
+    final static private int[] ICON_IMAGES = {R.id.linear_icon_image1, R.id.linear_icon_image2,
+            R.id.linear_icon_image3, R.id.linear_icon_image4};
+    final static private int[] ICON_NAMES = {R.id.linear_icon_text1, R.id.linear_icon_text2,
+            R.id.linear_icon_text3, R.id.linear_icon_text4};
 
     public plantDetailsDisplayHelper() { }
 
@@ -79,38 +84,57 @@ public class plantDetailsDisplayHelper extends DisplayHelper {
         return l;
     }
 
-    static public List<View> displayPlantDetails(PlantInfoEntity p, ConstraintLayout cl, View top_ref, Context context){
+    static public List<View> displayPlantDetails(PlantInfoEntity p, ConstraintLayout cl, View top_ref, Context context) {
         List<View> l = new ArrayList<>();
+        //List<View> last = new ArrayList<>();
         LayoutInflater inflater = LayoutInflater.from(context);
+        View layout = (View) inflater.inflate(R.layout.linear_layout_hori, null, false);
+        setDetailIcon(layout, 0, p.getHeight(), R.drawable.ic_height, context);
+        setDetailIcon(layout, 1, p.getWidth(), R.drawable.ic_width, context);
+        setViewConstraints(layout, cl, cl, cl, top_ref, 4, 2);
+        cl.addView(layout);
+        l.add(layout);
 
-        /*LinearLayout il = (LinearLayout)inflater.inflate(R.layout.linear_layout_hori, null, false);
-        l.add(il);
-        setViewConstraints(il, cl, 4, 0);
-        View last = il;*/
-        //Generate list
-        for(int i = 0; i < 3; i++){
-            /*final TextView v = new TextView(cl.getRootView().getContext());
-            configureTextView(v, x, DESC_SIZE, ContextCompat.getColor(context, R.color.detailsTextColor));
-            Typeface a = ResourcesCompat.getFont(context, R.font.american_typewriter_bold);
-            v.setTypeface(a);
-            cl.addView(v);
+        List<List<String>> icons = new ArrayList<>();
+        List<String> frost_list = new ArrayList<String>();
+        frost_list.addAll(Arrays.asList("Frost"));
+        frost_list.addAll(Arrays.asList(p.getFrost_tolerance().split(", ")));
+        List<String> light_list = new ArrayList<String>();
+        light_list.addAll(Arrays.asList("Light"));
+        light_list.addAll(Arrays.asList(p.getLight().split(", ")));
+        List<String> type_list = new ArrayList<>();
+        type_list.addAll(Arrays.asList("Type"));
+        type_list.addAll(Arrays.asList(p.getType().split(", ")));
+        icons.add(type_list);
+        icons.add(light_list);
+        icons.add(frost_list);
 
-
-            /*LinearLayout ll = (LinearLayout)inflater.inflate(R.layout.linear_layout_hori, null, false);
-            l.add(ll);
-            setViewConstraints(ll, cl, cl, cl, last, 4, 2);
-
-            final TextView v = new TextView(cl.getRootView().getContext());
-            configureTextView(v, x, DESC_SIZE, ContextCompat.getColor(context, R.color.detailsTextColor));
-            Typeface a = ResourcesCompat.getFont(context, R.font.american_typewriter_bold);
-            v.setTypeface(a);
-            cl.addView(v);
-
-
-            last = v;
-            l.add(v);*/
+        int spaces = 2;
+        for (List<String> list : icons) {
+            int size = list.size() - 1;
+            if (size > 0) {
+                if (size <= spaces) {
+                    int pos = 4 - spaces;
+                    for (int i = 0; i < size; i++) {
+                        String text = list.get(1 + i);
+                        int ic = getIcon(list.get(0), text);
+                        setDetailIcon(l.get(l.size()-1), pos + i, text, ic, context);
+                    }
+                    spaces = spaces - list.size();
+                } else {
+                    View new_layout = (View) inflater.inflate(R.layout.linear_layout_hori, null, false);
+                    for (int i = 0; i < size; i++) {
+                        String text = list.get(1 + i);
+                        int ic = getIcon(list.get(0), text);
+                        setDetailIcon(new_layout, i, text, ic, context);
+                    }
+                    setViewConstraints(new_layout, cl, cl, cl, l.get(l.size()-1), 4, 2);
+                    cl.addView(new_layout);
+                    l.add(new_layout);
+                    spaces = 4 - (size);
+                }
+            }
         }
-
 
         /*List<String> details = p.getPlantDetailList();
         View last = top_ref;
@@ -126,6 +150,57 @@ public class plantDetailsDisplayHelper extends DisplayHelper {
         }*/
         return l;
     }
+
+    static int  getIcon(String category, String name){
+        if(category.equals("Type")){
+            switch(name){
+                case "Tree":
+                    return R.drawable.ic_tree;
+                case "Shrub":
+                    return R.drawable.ic_shrub;
+                case "Ground cover":
+                    return R.drawable.ic_ground_cover;
+                case "Grass":
+                    return R.drawable.ic_grass;
+                case "Clumping perennial":
+                    return R.drawable.ic_clumpling_perennial;
+                case "Climber":
+                    return R.drawable.ic_climber;
+                case "Bulb":
+                    return R.drawable.ic_bulb;
+            }
+        }else if(category.equals("Frost")){
+            switch(name) {
+                case "Light":
+                    return R.drawable.ic_light_frost;
+                case "None":
+                    return R.drawable.ic_none;
+                case "Heavy":
+                    return R.drawable.ic_heavy_frost;
+            }
+        }else if(category.equals("Light")){
+            switch(name) {
+                case "Sunny":
+                    return R.drawable.ic_sunny;
+                case "Light shade":
+                    return R.drawable.ic_light_shade;
+                case "Heavy shade":
+                    return R.drawable.ic_heavy_shade;
+                case "Half shade":
+                    return R.drawable.ic_half_shade;
+            }
+        }
+        return 0;
+    }
+
+    static private void setDetailIcon(View layout, int position, String text, int image, Context context){
+        TextView tv = (TextView) layout.findViewById(ICON_NAMES[position]);
+        tv.setText(text);
+        ImageView im = (ImageView) layout.findViewById(ICON_IMAGES[position]);
+        Glide.with(context).load(image).into(im);
+    }
+
+
 
     static private void configureTextView(TextView tv, String text, int size, int color){
         tv.setId(ViewCompat.generateViewId());

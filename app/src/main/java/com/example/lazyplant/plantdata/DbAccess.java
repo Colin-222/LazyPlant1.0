@@ -86,7 +86,7 @@ public class DbAccess {
      */
     public PlantInfoEntity getPlantInfo(String id){
         PlantInfoEntity pi = new PlantInfoEntity();
-        String command = "SELECT * FROM plant_data WHERE species_id = \"" + id + "\"";
+        String command = "SELECT DISTINCT * FROM plant_data WHERE species_id = \"" + id + "\"";
         Cursor cursor = database.rawQuery(command, null);
         if(cursor!=null && cursor.getCount()==1){
             //Get all data
@@ -241,7 +241,7 @@ public class DbAccess {
      */
     private String getSinglePlantDataDatum(String field, String table, String id){
         String data = "";
-        String command = "SELECT " + field + " FROM " + table + " WHERE species_id = \"" + id + "\"";
+        String command = "SELECT DISTINCT " + field + " FROM " + table + " WHERE species_id = \"" + id + "\"";
         Cursor cursor = database.rawQuery(command, null);
         cursor.moveToFirst();
         boolean first = true;

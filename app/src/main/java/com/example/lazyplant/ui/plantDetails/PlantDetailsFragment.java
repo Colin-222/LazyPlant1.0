@@ -101,11 +101,12 @@ public class PlantDetailsFragment extends Fragment {
             ConstraintLayout cl_bottom = (ConstraintLayout) this.root.findViewById(R.id.plant_text_constraint_layout);
             plantDetailsDisplayHelper.displayDetailsPageImage(pid, image, this.getContext(), 0.4);
             View top_wo_nerae = (View) this.root.findViewById(R.id.plants_details_top);
+            View bottom_wo_nerae = (View) this.root.findViewById(R.id.plant_text_constraint_layout_top);
 
             this.plant_details.addAll(plantDetailsDisplayHelper.displayPlantTitle(this.p,
                     cl, top_wo_nerae, this.getContext()));
             this.plant_details.addAll(plantDetailsDisplayHelper.displayPlantDetails(this.p, cl_bottom,
-                    image, this.getContext()));
+                    bottom_wo_nerae, this.getContext()));
 
             //List<TextView> l = plantDetailsDisplayHelper.displayPlantTitle(this.p, cl,
             // top_wo_nerae, this.getContext());

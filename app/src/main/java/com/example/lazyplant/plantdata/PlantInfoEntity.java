@@ -5,6 +5,7 @@ import android.database.Cursor;
 import com.example.lazyplant.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -176,6 +177,33 @@ public class PlantInfoEntity implements Comparable<PlantInfoEntity>{
 
     public void setFood_type(String food_type) { this.food_type = food_type; }
 
+    public String getHeight(){
+        String x = this.getHeight_lower();
+        String x2 = this.getHeight_upper();
+        String tmp = "";
+        if (x.equals("") && !x2.equals("")){
+            tmp = (x2 + "m");
+        } else if (!x.equals("") && x2.equals("")) {
+            tmp = (x + "m");
+        } else if (!x.equals("") && !x2.equals("")){
+            tmp = (x + "-" + x2 + "m");
+        }
+        return tmp;
+    }
+
+    public String getWidth(){
+        String x = this.getWidth_lower();
+        String x2 = this.getWidth_upper();
+        String tmp = "";
+        if (x.equals("") && !x2.equals("")){
+            tmp = (x2 + "m");
+        } else if (!x.equals("") && x2.equals("")) {
+            tmp = (x + "m");
+        } else if (!x.equals("") && !x2.equals("")){
+            tmp = (x + "-" + x2 + "m");
+        }
+        return tmp;
+    }
 
     /**
      * This gets all the plants details into a list. It can then be used for display to the user.
