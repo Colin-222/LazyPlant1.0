@@ -86,7 +86,8 @@ public class HomeFragment extends Fragment {
                             animator.setDuration(1000);
                             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                 public void onAnimationUpdate(ValueAnimator animation) {
-                                    numberText.setText(animation.getAnimatedValue().toString());
+                                    numberText.setText("No. of Plants planted through this app: " +
+                                animation.getAnimatedValue().toString());
                                 }
                             });
                             animator.start();

@@ -43,32 +43,20 @@
             android:src="@drawable/home_title"/>
 
         <TextView
-            android:id="@+id/home_count_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/home_title"
-            android:layout_marginTop="2dp"
-            android:layout_marginLeft="100dp"
-            android:fontFamily="@font/american_typewriter_bold"
-            android:minHeight="?actionBarSize"
-            android:text="Planted:"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-            android:textColor="#FFFFFF"
-            android:textSize="28sp" />
-
-        <TextView
             android:id="@+id/home_number_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
             android:layout_below="@id/home_title"
             android:layout_marginTop="2dp"
-            android:layout_marginLeft="220dp"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
             android:text="0"
             android:fontFamily="@font/american_typewriter_bold"
             android:minHeight="?actionBarSize"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:textColor="#FFFFFF"
-            android:textSize="28sp" />
+            android:textSize="16sp"
+            android:background="#009688"/>
 
     </RelativeLayout>
 
@@ -76,13 +64,13 @@
             android:id="@+id/home_carousel"
             android:layout_width="300dp"
             android:layout_height="160dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_below="@id/home_light"
             android:layout_centerHorizontal="true"
             android:elevation="10dp"
             app:fillColor="#FFFFFFFF"
             app:pageColor="#00777777"
-            app:radius="8dp"
+            app:radius="6dp"
             app:autoPlay="false"
             app:slideInterval="5000"
             app:pageTransformInterval="200"
@@ -97,7 +85,7 @@
         android:layout_below="@+id/home_carousel"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Explore Native Plants"
         android:textSize="26sp"
         android:elevation="4dp"

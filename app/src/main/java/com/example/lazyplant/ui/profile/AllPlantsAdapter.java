@@ -59,12 +59,14 @@ public class AllPlantsAdapter extends RecyclerView.Adapter<AllPlantsAdapter.View
         public final View view;
         public final TextView name;
         public final TextView next_watering;
+        public final TextView type;
 
         public ViewHolder(View view) {
             super(view);
             this.view = view;
             name = view.findViewById(R.id.ap_name);
             next_watering = view.findViewById(R.id.ap_next_watering);
+            type = view.findViewById(R.id.ap_type);
         }
     }
 
