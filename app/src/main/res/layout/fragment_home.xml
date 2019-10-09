@@ -102,110 +102,37 @@
 
     </RelativeLayout>
 
-    <View
-        android:id="@+id/home_divider"
-        android:layout_width="360dp"
-        android:layout_height="1dp"
-        android:layout_centerInParent="true"
-        android:background="#FFFFFF"
-        android:layout_marginTop="16dp"
-        android:layout_below="@id/home_light">
-    </View>
-
-    <TextView
-        android:id="@+id/home_browse_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/home_divider"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:minHeight="?actionBarSize"
-        android:text="BROWSE FOR PLANTS"
-        android:fontFamily="@font/american_typewriter_bold"
-        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp" />
-
-    <RelativeLayout
-        android:id="@+id/home_layout_browse"
-        android:layout_width="361dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/home_browse_text"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/ic_rounded_edit_text"
-        android:backgroundTint="@color/colorHomeLight">
-
-
-        <EditText
-            android:id="@+id/home_location_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="@font/andale_mono"
-            android:gravity="center"
-            android:padding="@dimen/appbar_padding"
-            android:hint="Type postcode here"
-            android:textColorHint="#444444"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:imeOptions="actionGo"
-            android:singleLine="true"
-            android:maxLength="4"/>
-
-        <ImageButton
-            android:id="@+id/home_location_button"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginBottom="7dp"
-            android:background="@drawable/ic_location" />
-
-        <ImageButton
-            android:id="@+id/home_browse_go"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="7dp"
-            android:layout_marginRight="7dp"
-            android:layout_marginBottom="7dp"
-            android:background="@drawable/ic_green_circle"
-            android:elevation="4dp"
-            android:src="@drawable/ic_search_white" />
-
-    </RelativeLayout>
+        <com.synnapps.carouselview.CarouselView
+            android:id="@+id/home_carousel"
+            android:layout_width="300dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/home_light"
+            android:layout_centerHorizontal="true"
+            android:elevation="10dp"
+            app:fillColor="#FFFFFFFF"
+            app:pageColor="#00777777"
+            app:radius="8dp"
+            app:autoPlay="false"
+            app:slideInterval="5000"
+            app:pageTransformInterval="200"
+            app:strokeColor="#FFFFFFFF"
+            app:strokeWidth="2dp"
+            app:indicatorMarginHorizontal="10dp"/>
 
     <Button
-        android:id="@+id/home_habitat_go"
+        android:id="@+id/home_explore_go"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/home_layout_browse"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/home_carousel"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="0dp"
-        android:text="Habitat"
+        android:layout_marginTop="20dp"
+        android:text="Explore Native Plants"
+        android:textSize="26sp"
         android:elevation="4dp"
-        android:src="@drawable/ic_search_white" />
+        android:background="#BB2200FF" />
 
-    <Button
-        android:id="@+id/home_edible_go"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/home_habitat_go"
-        android:layout_alignTop="@+id/home_habitat_go"
-        android:layout_gravity="center"
-        android:layout_marginTop="0dp"
-        android:text="Edible"
-        android:elevation="4dp"
-        android:src="@drawable/ic_search_white" />
 
 </RelativeLayout>
 </ScrollView>

@@ -6,7 +6,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -49,13 +48,15 @@ public class HomeSearchFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_home_search, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-
-        final EditText location_tv = (EditText) root.findViewById(R.id.home_location_text);
         final Fragment f_fragment = this;
-        final ImageButton browse = (ImageButton)root.findViewById(R.id.home_browse_go);
         final Context context = getContext();
 
-        ImageButton locationButton = (ImageButton) root.findViewById(R.id.home_location_button);
+        final EditText location_et = (EditText) root.findViewById(R.id.home_search_location_edit);
+        final ImageButton location_go = (ImageButton)root.findViewById(R.id.home_search_location_go);
+        final EditText name_et = (EditText) root.findViewById(R.id.home_search_name_edit);
+        final ImageButton name_go = (ImageButton)root.findViewById(R.id.home_search_name_button);
+
+        ImageButton locationButton = (ImageButton) root.findViewById(R.id.home_search_location_button);
         requestPermission();
         client = LocationServices.getFusedLocationProviderClient(getActivity());
         locationButton.setOnClickListener(new View.OnClickListener() {
@@ -69,12 +70,12 @@ public class HomeSearchFragment extends Fragment {
                         try {
                             List<Address> addresses = mGeocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                             postcode = addresses.get(0).getPostalCode();
-                            location_tv.setText(postcode);
-                            SharedPreferences.Editor editor = pref.edit();
+                            location_et.setText(postcode);
+                            /*SharedPreferences.Editor editor = pref.edit();
                             editor.putString(Constants.DEFAULT_POSTCODE, postcode);
                             editor.putInt(Constants.REMINDER_HOUR, 8);
                             editor.putInt(Constants.REMINDER_MINUTE, 12);
-                            editor.commit();
+                            editor.commit();*/
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -83,16 +84,17 @@ public class HomeSearchFragment extends Fragment {
             }
         });
 
-        browse.setOnClickListener(new View.OnClickListener() {
+        location_go.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String pc = location_tv.getText().toString();
+                String pc = location_et.getText().toString();
                 if(pc.matches("[0-9][0-9][0-9][0-9]")){
                     ClimateZoneGetter czg = new ClimateZoneGetter();
                     int zone = czg.getZone(pc);
                     if (zone != -1){
                         Bundle bundle = new Bundle();
-                        bundle.putString(Constants.LOCATION_TAG, pc);//getPostcode());
-                        NavHostFragment.findNavController(f_fragment).navigate(R.id.action_navigation_home_to_navigation_browse, bundle);
+                        bundle.putString(Constants.LOCATION_TAG, pc);
+                        NavHostFragment.findNavController(f_fragment).navigate(
+                                R.id.action_navigation_home_search_to_navigation_browse, bundle);
                     }else{
                         Toast toast = Toast.makeText(getActivity(),
                                 "Sorry, your postcode is invalid.", Toast.LENGTH_LONG);
@@ -108,29 +110,64 @@ public class HomeSearchFragment extends Fragment {
              }
         });
 
-        location_tv.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        location_et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if  ((actionId == EditorInfo.IME_ACTION_GO)) {
                     DisplayHelper.hideKeyboard(context, root);
-                    return browse.callOnClick();
+                    return location_go.callOnClick();
                 }
                 return false;
             }
         });
-        location_tv.setOnFocusChangeListener(editFocusListener);
 
-        final Button habitatButton = (Button) root.findViewById(R.id.home_habitat_go);
+        name_go.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String search_term = name_et.getText().toString();
+                if (!search_term.equals("")){
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.NAME_SEARCH_TAG, search_term);
+                    NavHostFragment.findNavController(f_fragment).navigate(
+                            R.id.action_navigation_home_search_to_navigation_browse, bundle);
+                } else {
+                    name_et.setError("Please Enter a Valid Plant Name");
+                }
+            }
+        });
+
+        name_et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if  ((actionId == EditorInfo.IME_ACTION_GO)) {
+                    DisplayHelper.hideKeyboard(context, root);
+                    return name_go.callOnClick();
+                }
+                return false;
+            }
+        });
+
+        final Button designButton = (Button) root.findViewById(R.id.home_search_button_design);
+        designButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                NavHostFragment.findNavController(f_fragment).navigate(
+                        R.id.action_navigation_home_search_to_navigation_design);
+            }
+        });
+
+        final Button habitatButton = (Button) root.findViewById(R.id.home_search_button_animals);
         habitatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                NavHostFragment.findNavController(f_fragment).navigate(R.id.action_navigation_home_to_navigation_habitat);
+                NavHostFragment.findNavController(f_fragment).navigate(
+                        R.id.action_navigation_home_search_to_navigation_habitat);
             }
         });
-        final Button edibleButton = (Button) root.findViewById(R.id.home_edible_go);
+
+        final Button edibleButton = (Button) root.findViewById(R.id.home_search_button_edible);
         edibleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                NavHostFragment.findNavController(f_fragment).navigate(R.id.action_navigation_home_to_navigation_edible);
+                NavHostFragment.findNavController(f_fragment).navigate(
+                        R.id.action_navigation_home_search_to_navigation_edible);
             }
         });
 
@@ -142,15 +179,5 @@ public class HomeSearchFragment extends Fragment {
     private  void requestPermission(){
         ActivityCompat.requestPermissions(getActivity(), new String[] {ACCESS_FINE_LOCATION}, 1);
     }
-
-    private View.OnFocusChangeListener editFocusListener = new View.OnFocusChangeListener() {
-        @Override
-        public void onFocusChange(View view, boolean hasFocus) {
-            if(!hasFocus){
-                DisplayHelper.hideKeyboard(view.getContext(), view);
-                Log.i("TAG", "ASDF");
-            }
-        }};
-
 
 }
