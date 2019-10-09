@@ -112,21 +112,32 @@ public class plantDetailsDisplayHelper extends DisplayHelper {
         type_list.addAll(Arrays.asList("Type"));
         type_list.addAll(Arrays.asList(p.getType().split(", ")));
 
-        /*View layout2 = (View) root.findViewById(R.id.linear2_layout);
-        for (int i = 0; i < 4; i++) {
-            if(i >= type_list.size() - 1){
-                setDetailIcon2(layout2, i, type_list.get(i+1),
-                        getIcon(type_list.get(0), type_list.get(i+1)), context);
+        View layout2 = (View) root.findViewById(R.id.linear2_layout);
+        for (int i = 0; i < type_list.size() - 1; i++) {
+            if (i == 4){
+                break;
             }
+            setDetailIcon2(layout2, i, type_list.get(i+1),
+                    getIcon(type_list.get(0), type_list.get(i+1)), context);
         }
-
+        int a = 0;
         View layout3 = (View) root.findViewById(R.id.linear3_layout);
-        for (int i = 0; i < 4; i++) {
-            if(i >= light_list.size() - 1){
-                setDetailIcon3(layout3, i, light_list.get(i+1),
-                        getIcon(light_list.get(0), light_list.get(i+1)), context);
+        for (int i = 0; i < frost_list.size() - 1; i++) {
+            if (i == 4){
+                break;
             }
-        }*/
+            setDetailIcon3(layout3, i, frost_list.get(i+1),
+                    getIcon(frost_list.get(0), frost_list.get(i+1)), context);
+            a++;
+        }
+        for (int i = a; i < light_list.size() - 1; i++) {
+            if (i == 4){
+                break;
+            }
+            setDetailIcon3(layout3, i, light_list.get(i+1),
+                    getIcon(light_list.get(0), light_list.get(i+1)), context);
+            a++;
+        }
 
 
         /*List<String> details = p.getPlantDetailList();
