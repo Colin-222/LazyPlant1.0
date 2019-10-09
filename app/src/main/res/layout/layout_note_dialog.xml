@@ -21,6 +21,7 @@
 
     <EditText
         android:id="@+id/note_dialog_input"
+        android:hint="Add notes here"
         android:layout_width="400dp"
         android:layout_height="550dp"
         android:layout_marginStart="8dp"
