@@ -20,6 +20,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -111,11 +112,10 @@ public class ShopsMapActivity extends FragmentActivity implements OnMapReadyCall
             }
         });
 
-
         for(StoreLocationData item : locationData){
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(item.getStoreLatitude(), item.getStoreLongitude()))
-                    .title(item.getStoreName()).snippet(item.getStoreAddress()));
+                    .title(item.getStoreName()).snippet(item.getStoreAddress())).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.store));
         }
 
     }
