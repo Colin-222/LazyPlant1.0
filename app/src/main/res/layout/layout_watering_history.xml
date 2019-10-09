@@ -17,15 +17,13 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        android:layout_marginTop="2dp"/>
+        android:textSize="20sp"/>
     <TextView
         android:id="@+id/history_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        android:layout_marginTop="2dp"/>
+        android:textSize="15sp"/>
 
 </LinearLayout>

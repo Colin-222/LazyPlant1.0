@@ -9,7 +9,7 @@ import androidx.room.TypeConverters;
 import com.example.lazyplant.ui.profile.BackupFragment;
 
 @Database(entities = {Favourite.class, PlantCareRecord.class, GardenPlant.class,
-PlantNotes.class}, version = 6)
+PlantNotes.class}, version = 8)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 

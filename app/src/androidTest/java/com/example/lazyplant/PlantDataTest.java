@@ -115,15 +115,18 @@ public class PlantDataTest {
         x.setNotes("N1");
         x.setWatering_interval(5);
         x.setLast_watering(t1);
+        x.setPlant_date(t1);
         GardenPlant x2 = new GardenPlant();
         Calendar t2 = Calendar.getInstance();
         x2.setPlant_id("A2");
         x2.setWatering_interval(7);
         x2.setLast_watering(t2);
+        x2.setPlant_date(t2);
         GardenPlant x3 = new GardenPlant();
         x3.setPlant_id("A3");
         x3.setWatering_interval(5);
         x3.setLast_watering(t1);
+        x3.setPlant_date(t1);
         this.gardenPlantDAO.insert(x);
         this.gardenPlantDAO.insert(x2);
         this.gardenPlantDAO.insert(x3);
@@ -161,6 +164,7 @@ public class PlantDataTest {
 
     @Test
     public void reminder() throws IOException {
+        this.gardenPlantDAO.deleteAll();
         String i1 = this.reminderControl.addGardenPlant("AAA", null);
         String i2 = this.reminderControl.addGardenPlant("BBB", null);
         String i3 = this.reminderControl.addGardenPlant("CCC", null);
@@ -170,31 +174,37 @@ public class PlantDataTest {
         assertEquals(2, this.plantCareRecordDAO.getPlantCareRecords().size());
         this.reminderControl.editNotes(i2, "BLA");
         assertEquals("BLA", this.reminderControl.getGardenPlant(i2).getNotes());
-        this.gardenPlantDAO.deleteAll();
 
         Calendar t = Calendar.getInstance();
         Calendar c5 = Calendar.getInstance();
         Calendar c7 = Calendar.getInstance();
 
+        c7.add(Calendar.DATE, 27);
+        List <GardenPlant> lgp27 = this.reminderControl.getPlantsToWater(c7);
+
+        this.gardenPlantDAO.deleteAll();
         GardenPlant x = new GardenPlant();
         x.setPlant_id("A1");
         x.setNotes("N1");
         x.setWatering_interval(5);
         x.setLast_watering(t);
+        x.setPlant_date(t);
         GardenPlant x2 = new GardenPlant();
         x2.setPlant_id("A2");
         x2.setWatering_interval(7);
         x2.setLast_watering(t);
+        x2.setPlant_date(t);
         GardenPlant x3 = new GardenPlant();
         x3.setPlant_id("A3");
         x3.setWatering_interval(5);
         x3.setLast_watering(t);
+        x3.setPlant_date(t);
         this.gardenPlantDAO.insert(x);
         this.gardenPlantDAO.insert(x2);
         this.gardenPlantDAO.insert(x3);
 
         c5.add(Calendar.DATE, 5);
-        c7.add(Calendar.DATE, 77);
+        c7.add(Calendar.DATE, 7);
         List <GardenPlant> lgp0 = this.reminderControl.getPlantsToWater(t);
         List <GardenPlant> lgp5 = this.reminderControl.getPlantsToWater(c5);
         List <GardenPlant> lgp7 = this.reminderControl.getPlantsToWater(c7);
@@ -202,6 +212,32 @@ public class PlantDataTest {
         assertEquals(2, lgp5.size());
         assertEquals(3, lgp7.size());
 
+        Calendar tp = Calendar.getInstance();
+        tp.add(Calendar.DATE, -5);
+        GardenPlant x4 = new GardenPlant();
+        x4.setPlant_id("B1");
+        x4.setNotes("N1");
+        x4.setWatering_interval(10);
+        x4.setLast_watering(tp);
+        x4.setPlant_date(tp);
+        GardenPlant x5 = new GardenPlant();
+        x5.setPlant_id("B2");
+        x5.setNotes("N1");
+        x5.setWatering_interval(15);
+        x5.setLast_watering(tp);
+        x5.setPlant_date(tp);
+        GardenPlant x6 = new GardenPlant();
+        x6.setPlant_id("B3");
+        x6.setNotes("N1");
+        x6.setWatering_interval(20);
+        x6.setLast_watering(tp);
+        x6.setPlant_date(tp);
+        this.gardenPlantDAO.insert(x4);
+        this.gardenPlantDAO.insert(x5);
+        this.gardenPlantDAO.insert(x6);
+        assertEquals(49, this.reminderControl.getWateringDatePercentage("B1"));
+        assertEquals(33, this.reminderControl.getWateringDatePercentage("B2"));
+        assertEquals(24, this.reminderControl.getWateringDatePercentage("B3"));
     }
 
 

@@ -20,6 +20,9 @@ public interface PlantCareRecordDAO {
     @Delete
     void delete(PlantCareRecord plantCareRecords);
 
+    @Query("SELECT * FROM plantCareRecords ORDER BY date DESC")
+    List<PlantCareRecord> getPlantCareRecordsByDate();
+
     @Query("SELECT * FROM plantCareRecords")
     List<PlantCareRecord> getPlantCareRecords();
 

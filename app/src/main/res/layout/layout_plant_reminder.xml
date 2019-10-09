@@ -11,82 +11,113 @@
     android:elevation="10dp"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/reminder_image"
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"/>
+
+    <LinearLayout
+        android:id="@+id/reminder_bottom_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_below="@id/reminder_image"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp">
+
+        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+            android:id="@+id/reminder_progress_bar"
+            android:layout_width="0dp"
+            android:layout_height="12dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:indeterminate="false"
+            app:rcProgress="50"
+            app:rcMax="100"
+            app:rcProgressColor="#55DD55"
+            app:rcBackgroundColor="#000000"
+            android:layout_weight="0.75"/>
+
+        <TextView
+            android:id="@+id/reminder_progress_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:text="Test days"
+            android:layout_weight="0.25"/>
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/reminder_name"
-        android:layout_width="240dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/reminder_image"
+        android:layout_toLeftOf="@id/reminder_water"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
         android:textColor="#FFFFFF"
-        android:textSize="22sp"
-        android:layout_marginTop="2dp"/>
+        android:textSize="20sp" />
     <TextView
         android:id="@+id/reminder_species"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:textColor="#D5D5D5"
-        android:textSize="16sp"
-        android:layout_below="@+id/reminder_name"
-        android:layout_marginTop="2dp"/>
-    <TextView
-        android:id="@+id/reminder_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:textColor="#D5D5D5"
-        android:textSize="16sp"
-        android:layout_below="@+id/reminder_species"
-        android:layout_marginTop="2dp"/>
+        android:layout_toRightOf="@id/reminder_image"
+        android:layout_toLeftOf="@id/reminder_water"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
+        android:textColor="#C5C5C5"
+        android:textSize="14sp"
+        android:layout_below="@+id/reminder_name"/>
 
     <ImageButton
         android:id="@+id/reminder_water"
-        android:layout_width="82dp"
-        android:layout_height="96dp"
-        android:elevation="4dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:scaleType="fitCenter"
+        android:padding="2dp"
         android:background="@drawable/ic_border_white"
         android:src="@drawable/ic_watering_history_white"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="6dp"
         android:layout_marginBottom="2dp"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="6dp"
-        android:layout_marginEnd="6dp"
-        android:layout_toLeftOf="@id/reminder_delete"/>
-
-    <!--<ImageButton
-        android:id="@+id/reminder_edit"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:elevation="4dp"
-        android:background="@drawable/ic_border"
-        android:src="@drawable/ic_edit_white"
-        android:layout_marginTop="7dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="6dp"
-        android:layout_marginEnd="6dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>-->
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="6dp"
+        android:layout_marginEnd="6dp"/>
+
 
     <ImageButton
         android:id="@+id/reminder_delete"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:elevation="4dp"
+        android:scaleType="fitCenter"
         android:background="@drawable/ic_border"
         android:src="@drawable/ic_trash_white"
-        android:layout_marginTop="26dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="6dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/reminder_water"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
     <!--android:layout_below="@id/reminder_edit"-->

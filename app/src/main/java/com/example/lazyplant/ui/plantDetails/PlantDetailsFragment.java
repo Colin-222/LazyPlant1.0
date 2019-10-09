@@ -22,20 +22,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.room.Room;
 
-import com.example.lazyplant.AlarmBroadcastReceiver;
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.DialogHelper;
 import com.example.lazyplant.R;
-import com.example.lazyplant.plantdata.AppDatabase;
 import com.example.lazyplant.plantdata.DbAccess;
-import com.example.lazyplant.plantdata.Favourite;
-import com.example.lazyplant.plantdata.FavouriteDAO;
 import com.example.lazyplant.plantdata.PlantInfoEntity;
-import com.example.lazyplant.plantdata.PlantNotes;
-import com.example.lazyplant.plantdata.PlantNotesDAO;
 import com.example.lazyplant.ui.PlantSearchViewModel;
 import com.example.lazyplant.ui.plantDetailsDisplayHelper;
 import com.example.lazyplant.ui.plantListDisplayHelper;
@@ -75,13 +67,11 @@ public class PlantDetailsFragment extends Fragment {
         ImageButton shopping = (ImageButton)this.root.findViewById(R.id.plant_details_button_shopping);
         ImageButton notes = (ImageButton)this.root.findViewById(R.id.plant_details_button_notes);
         ImageButton back = (ImageButton)this.root.findViewById(R.id.plant_details_button_back);
-        ImageButton share = (ImageButton)this.root.findViewById(R.id.plant_details_button_share);
 
         add.setOnClickListener(addListener);
         shopping.setOnClickListener(shoppingListener);
         notes.setOnClickListener(notesListener);
         back.setOnClickListener(backListener);
-        share.setOnClickListener(shareListener);
 
         Bundle bundle = this.getArguments();
         String pid = bundle.getString(Constants.PLANT_DETAILS_BUNDLE_TAG);
@@ -155,14 +145,6 @@ public class PlantDetailsFragment extends Fragment {
             tv.setText("Sorry we ran into an error and did not find the plant.");
         }
     }
-
-    private View.OnClickListener shareListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(getActivity(), ShopsMapActivity.class);
-            startActivity(intent);
-        }
-    };
 
     private View.OnClickListener backListener = new View.OnClickListener() {
         @Override

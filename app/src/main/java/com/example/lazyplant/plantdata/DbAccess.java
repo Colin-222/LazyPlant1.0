@@ -86,7 +86,7 @@ public class DbAccess {
      */
     public PlantInfoEntity getPlantInfo(String id){
         PlantInfoEntity pi = new PlantInfoEntity();
-        String command = "SELECT * FROM plant_data WHERE species_id = \"" + id + "\"";
+        String command = "SELECT DISTINCT * FROM plant_data WHERE species_id = \"" + id + "\"";
         Cursor cursor = database.rawQuery(command, null);
         if(cursor!=null && cursor.getCount()==1){
             //Get all data
@@ -111,6 +111,8 @@ public class DbAccess {
             pi.setSoil_moisture(getSinglePlantDataDatum("moisture", "soil_moisture", id));
             pi.setSoil_pH(getSinglePlantDataDatum("pH_level", "soil_pH", id));
             pi.setSoil_type(getSinglePlantDataDatum("soil_type", "soil_type", id));
+            pi.setAnimals(getSinglePlantDataDatum("animal", "animals_attracted", id));
+            pi.setFood_type(getSinglePlantDataDatum("category", "food", id));
         } else {
             return null;
         }
@@ -239,7 +241,7 @@ public class DbAccess {
      */
     private String getSinglePlantDataDatum(String field, String table, String id){
         String data = "";
-        String command = "SELECT " + field + " FROM " + table + " WHERE species_id = \"" + id + "\"";
+        String command = "SELECT DISTINCT " + field + " FROM " + table + " WHERE species_id = \"" + id + "\"";
         Cursor cursor = database.rawQuery(command, null);
         cursor.moveToFirst();
         boolean first = true;
@@ -312,6 +314,41 @@ public class DbAccess {
                 found.retainAll(found_or.get(i));
             }
         }
+        return found;
+    }
+
+    public List<String> searchPlantsByAnimalsAttracted(String animal_type){
+        List<String> found = new ArrayList<>();
+        String command = "SELECT DISTINCT animals_attracted.species_id" +
+                " FROM animals_attracted INNER JOIN animals ON animals_attracted.animal=animals.animal"
+                + " WHERE animals.type = \"" + animal_type +"\" UNION " +
+                "SELECT DISTINCT species_id FROM wildlife WHERE wildlife_attracted=\"" +
+                animal_type + "\"";
+        Cursor cursor = database.rawQuery(command, null);
+        cursor.moveToFirst();
+        boolean first = true;
+        while (!cursor.isAfterLast()) {
+            found.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        if(cursor != null)
+            cursor.close();
+        return found;
+    }
+
+    public List<String> searchEdiblePlants(String category){
+        List<String> found = new ArrayList<>();
+        String command = "SELECT DISTINCT species_id FROM food WHERE category = \""
+                + category + "\"";
+        Cursor cursor = database.rawQuery(command, null);
+        cursor.moveToFirst();
+        boolean first = true;
+        while (!cursor.isAfterLast()) {
+            found.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        if(cursor != null)
+            cursor.close();
         return found;
     }
 

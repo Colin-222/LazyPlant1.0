@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="56dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.synnapps.carouselview.CarouselView
+            android:id="@+id/design_carousel"
+            android:layout_width="360dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="20dp"
+            android:layout_centerInParent="true"
+            android:elevation="10dp"
+            app:fillColor="#FFFFFFFF"
+            app:pageColor="#00777777"
+            app:radius="8dp"
+            app:autoPlay="false"
+            app:slideInterval="5000"
+            app:pageTransformInterval="200"
+            app:strokeColor="#FFFFFFFF"
+            app:strokeWidth="2dp"
+            app:indicatorMarginHorizontal="10dp"/>
+
+    </RelativeLayout>
+</ScrollView>

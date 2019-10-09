@@ -34,7 +34,7 @@ public class HistoryFragment extends Fragment {
         AppDatabase database = Room.databaseBuilder(getContext(), AppDatabase.class, Constants.GARDEN_DB_NAME)
                 .fallbackToDestructiveMigration().allowMainThreadQueries().build();
         PlantCareRecordDAO dao = database.getPlantCareRecordDAO();
-        List<PlantCareRecord> pn = dao.getPlantCareRecords();
+        List<PlantCareRecord> pn = dao.getPlantCareRecordsByDate();
         this.h_view = (RecyclerView) root.findViewById(R.id.history_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         this.h_view.setLayoutManager(mLayoutManager);

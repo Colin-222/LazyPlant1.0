@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+import androidx.room.Room;
 
 import java.util.Calendar;
 
@@ -34,6 +35,12 @@ public class GardenPlant {
     private String notes;
     public String getNotes() { return notes; }
     public void setNotes(String notes) { this.notes = notes; }
+
+    @NonNull
+    private Calendar plant_date;
+    @NonNull
+    public Calendar getPlant_date() { return plant_date; }
+    public void setPlant_date(@NonNull Calendar plant_date) { this.plant_date = plant_date; }
 
     @NonNull
     private Integer watering_interval;
