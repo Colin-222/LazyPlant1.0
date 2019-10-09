@@ -47,9 +47,7 @@ import com.synnapps.carouselview.ImageListener;
 public class HomeFragment extends Fragment {
     private View root;
     private CarouselView carousel;
-    private int[] images = {R.drawable.acaciamacradeniazigzagwattle,
-            R.drawable.dampierastrictabluedampiera,
-            R.drawable.nativeoreganoprostantherarotundifolia};
+    private int[] images = {R.drawable.home_info1, R.drawable.home_info2, R.drawable.home_info3};
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

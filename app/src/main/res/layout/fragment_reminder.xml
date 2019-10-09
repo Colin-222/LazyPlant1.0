@@ -15,7 +15,7 @@
         android:layout_marginEnd="8dp"
         android:text="Reminders:"
         android:textSize="24sp"
-        android:textColor="@color/plantBlue"
+        android:textColor="#009688"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

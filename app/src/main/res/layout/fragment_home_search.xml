@@ -176,7 +176,7 @@
         android:layout_marginTop="10dp"
         android:text="Design Your Garden"
         android:elevation="4dp"
-        android:src="@drawable/ic_search_white" />
+        android:background="#088527" />
 
     <Button
         android:id="@+id/home_search_button_animals"
@@ -188,7 +188,7 @@
         android:layout_marginTop="10dp"
         android:text="Learn About Habitat Gardening"
         android:elevation="4dp"
-        android:src="@drawable/ic_search_white" />
+        android:background="#088527"  />
 
     <Button
         android:id="@+id/home_search_button_edible"
@@ -200,7 +200,7 @@
         android:layout_marginTop="10dp"
         android:text="Learn About Edible Plants"
         android:elevation="4dp"
-        android:src="@drawable/ic_search_white" />
+        android:background="#088527" />
 
 </RelativeLayout>
 </ScrollView>

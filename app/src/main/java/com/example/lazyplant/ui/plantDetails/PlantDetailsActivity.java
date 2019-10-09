@@ -55,15 +55,15 @@ public class PlantDetailsActivity extends AppCompatActivity {
 
         if(p != null){
             ImageView image = findViewById(R.id.details_image_main);
-            plantDetailsDisplayHelper.displayDetailsPageImage(convertToImageName(p.getId()), image, this, 0.4);
-            plantDetailsDisplayHelper.displayPlantTitle(p, (ConstraintLayout) findViewById(R.id.details_constraint_layout), image, this);
-            plantDetailsDisplayHelper.displayPlantDetails(p, (ConstraintLayout) findViewById(R.id.details_constraint_layout), image, this);
-
+            plantDetailsDisplayHelper.displayDetailsPageImage(convertToImageName(p.getId()),
+                    image, this, 0.4);
+            plantDetailsDisplayHelper.displayPlantTitle(p,
+                    (ConstraintLayout) findViewById(R.id.details_constraint_layout), image, this);
+            plantDetailsDisplayHelper.displayPlantDetails(p,
+                    (ConstraintLayout) findViewById(R.id.details_constraint_layout), image, this);
         }
 
     }
-
-
 
     String convertToImageName(String name){
         String x = name;
