@@ -32,14 +32,20 @@ import com.example.lazyplant.plantdata.ClimateZoneGetter;
 import com.example.lazyplant.ui.DisplayHelper;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.content.Context.MODE_PRIVATE;
+import static com.example.lazyplant.ui.plantDetails.PlantDetailsActivity.TAG;
 
 public class HomeFragment extends Fragment {
     private FusedLocationProviderClient client;
@@ -113,6 +119,28 @@ public class HomeFragment extends Fragment {
                             "Sorry, please type a postcode.", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
+
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    Map<String, Object> user = new HashMap<>();
+                    user.put("first", "Ada");
+                    user.put("last", "Lovelace");
+                    user.put("born", 1815);
+
+                    // Add a new document with a generated ID
+                    db.collection("users")
+                            .add(user)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error adding document", e);
+                                }
+                            });
                 }
              }
         });
