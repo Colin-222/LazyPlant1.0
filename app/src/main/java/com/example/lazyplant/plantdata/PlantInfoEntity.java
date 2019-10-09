@@ -168,6 +168,15 @@ public class PlantInfoEntity implements Comparable<PlantInfoEntity>{
 
     public void setWatering_interval(String watering_interval) { this.watering_interval = watering_interval; }
 
+    public String getAnimals() { return animals; }
+
+    public void setAnimals(String animals) { this.animals = animals; }
+
+    public String getFood_type() { return food_type; }
+
+    public void setFood_type(String food_type) { this.food_type = food_type; }
+
+
     /**
      * This gets all the plants details into a list. It can then be used for display to the user.
      * @return List containing plant details.
@@ -206,6 +215,10 @@ public class PlantInfoEntity implements Comparable<PlantInfoEntity>{
         if (!x.equals("")){ l.add("Wildlife Attracted: " + x); }
         x = this.getFlowering_period();
         if (!x.equals("")){ l.add("Flowering period: " + x); }
+        x = this.getAnimals();
+        if (!x.equals("")){ l.add("Animals: " + x); }
+        x = this.getFood_type();
+        if (!x.equals("")){ l.add("Food: " + x); }
 
         return l;
     }
@@ -234,5 +247,7 @@ public class PlantInfoEntity implements Comparable<PlantInfoEntity>{
     private String soil_pH = "";
     private String soil_moisture = "";
     private String watering_interval = "";
+    private String animals = "";
+    private String food_type = "";
     
 }

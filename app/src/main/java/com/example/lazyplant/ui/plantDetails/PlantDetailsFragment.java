@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,20 +20,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.room.Room;
 
-import com.example.lazyplant.AlarmBroadcastReceiver;
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.DialogHelper;
 import com.example.lazyplant.R;
-import com.example.lazyplant.plantdata.AppDatabase;
 import com.example.lazyplant.plantdata.DbAccess;
-import com.example.lazyplant.plantdata.Favourite;
-import com.example.lazyplant.plantdata.FavouriteDAO;
 import com.example.lazyplant.plantdata.PlantInfoEntity;
-import com.example.lazyplant.plantdata.PlantNotes;
-import com.example.lazyplant.plantdata.PlantNotesDAO;
 import com.example.lazyplant.ui.PlantSearchViewModel;
 import com.example.lazyplant.ui.plantDetailsDisplayHelper;
 import com.example.lazyplant.ui.plantListDisplayHelper;
@@ -42,7 +33,6 @@ import com.example.lazyplant.ui.profile.ReminderControl;
 import com.example.lazyplant.ui.shopmap.ShopsMapActivity;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class PlantDetailsFragment extends Fragment {
@@ -51,7 +41,7 @@ public class PlantDetailsFragment extends Fragment {
     private LayoutInflater inflater;
     private ViewGroup container;
     private PlantSearchViewModel model;
-    private List<View> plant_text;
+    private List<View> plant_details;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -59,7 +49,7 @@ public class PlantDetailsFragment extends Fragment {
         this.inflater = inflater;
         this.container = container;
         this.model = ViewModelProviders.of(getActivity()).get(PlantSearchViewModel.class);
-        this.plant_text = new ArrayList<>();
+        this.plant_details = new ArrayList<>();
 
         ImageButton add = (ImageButton)this.root.findViewById(R.id.plant_details_button_add);
         ImageButton shopping = (ImageButton)this.root.findViewById(R.id.plant_details_button_shopping);
@@ -98,13 +88,13 @@ public class PlantDetailsFragment extends Fragment {
 
     private void displayPlant(String pid){
         this.p = getPlantInfo(pid);
-        for (View v : this.plant_text){
+        for (View v : this.plant_details){
             ((ViewManager)v.getParent()).removeView(v);
         }
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(p.getCommon_name());
         //((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle(p.getScientific_name());
 
-        this.plant_text = new ArrayList<>();
+        this.plant_details = new ArrayList<>();
         if(p != null){
             ImageView image = this.root.findViewById(R.id.plant_details_image_main);
             ConstraintLayout cl = (ConstraintLayout) this.root.findViewById(R.id.plant_details_constraint_layout);
@@ -112,9 +102,9 @@ public class PlantDetailsFragment extends Fragment {
             plantDetailsDisplayHelper.displayDetailsPageImage(pid, image, this.getContext(), 0.4);
             View top_wo_nerae = (View) this.root.findViewById(R.id.plants_details_top);
 
-            this.plant_text.addAll(plantDetailsDisplayHelper.displayPlantTitle(this.p,
+            this.plant_details.addAll(plantDetailsDisplayHelper.displayPlantTitle(this.p,
                     cl, top_wo_nerae, this.getContext()));
-            this.plant_text.addAll(plantDetailsDisplayHelper.displayPlantDetails(this.p, cl_bottom,
+            this.plant_details.addAll(plantDetailsDisplayHelper.displayPlantDetails(this.p, cl_bottom,
                     image, this.getContext()));
 
             //List<TextView> l = plantDetailsDisplayHelper.displayPlantTitle(this.p, cl,

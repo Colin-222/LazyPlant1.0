@@ -111,6 +111,8 @@ public class DbAccess {
             pi.setSoil_moisture(getSinglePlantDataDatum("moisture", "soil_moisture", id));
             pi.setSoil_pH(getSinglePlantDataDatum("pH_level", "soil_pH", id));
             pi.setSoil_type(getSinglePlantDataDatum("soil_type", "soil_type", id));
+            pi.setAnimals(getSinglePlantDataDatum("animal", "animals_attracted", id));
+            pi.setFood_type(getSinglePlantDataDatum("category", "food", id));
         } else {
             return null;
         }

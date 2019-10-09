@@ -48,8 +48,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         AppDatabase database = Room.databaseBuilder(holder.desc.getContext(), AppDatabase.class, Constants.GARDEN_DB_NAME)
                 .fallbackToDestructiveMigration().allowMainThreadQueries().build();
         GardenPlantDAO dao = database.getGardenPlantDAO();
-        String name = dao.getGardenPlant(record.getPlant_id()).get(0).getName();
-        String text = name + ": " + str_date;
+        String text = "";
+        try {
+            String name = dao.getGardenPlant(record.getPlant_id()).get(0).getName();
+            text = name + ": " + str_date;
+        } catch (IndexOutOfBoundsException e) {
+            text = "Deleted Plant - " + str_date;
+        }
         holder.desc.setText(text);
     }
 

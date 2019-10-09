@@ -2,8 +2,10 @@ package com.example.lazyplant.ui;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -15,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.PlantInfoEntity;
+import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +27,11 @@ import java.util.List;
  * These are primarily for displaying data on screen, e.g plant details or plant search results.
  */
 public class plantDetailsDisplayHelper extends DisplayHelper {
-
+    final private int NUM_COLUMNS = 4;
     final static private int TITLE_H_MARGIN = 16;
     final static private int TITLE_V_MARGIN = 5;
-    final static private int SUBTITLE_H_MARGIN = 16;
-    final static private int SUBTITLE_V_MARGIN = 0;
     private static final int TITLE_SIZE = 26;
     private static final int SUBTITLE_SIZE = 14;
-    final static private int DESC_H_MARGIN = 16;
-    final static private int DESC_V_MARGIN = 16;
-    final static private int DESC_SIZE = 14;
     final static private int DRAWABLE_IMAGE_NAME_MAX = 5;
 
     public plantDetailsDisplayHelper() { }
@@ -81,9 +79,40 @@ public class plantDetailsDisplayHelper extends DisplayHelper {
         return l;
     }
 
-    static public List<TextView> displayPlantDetails(PlantInfoEntity p, ConstraintLayout cl, View top_ref, Context context){
-        List<TextView> l = new ArrayList<>();
-        List<String> details = p.getPlantDetailList();
+    static public List<View> displayPlantDetails(PlantInfoEntity p, ConstraintLayout cl, View top_ref, Context context){
+        List<View> l = new ArrayList<>();
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        /*LinearLayout il = (LinearLayout)inflater.inflate(R.layout.linear_layout_hori, null, false);
+        l.add(il);
+        setViewConstraints(il, cl, 4, 0);
+        View last = il;*/
+        //Generate list
+        for(int i = 0; i < 3; i++){
+            /*final TextView v = new TextView(cl.getRootView().getContext());
+            configureTextView(v, x, DESC_SIZE, ContextCompat.getColor(context, R.color.detailsTextColor));
+            Typeface a = ResourcesCompat.getFont(context, R.font.american_typewriter_bold);
+            v.setTypeface(a);
+            cl.addView(v);
+
+
+            /*LinearLayout ll = (LinearLayout)inflater.inflate(R.layout.linear_layout_hori, null, false);
+            l.add(ll);
+            setViewConstraints(ll, cl, cl, cl, last, 4, 2);
+
+            final TextView v = new TextView(cl.getRootView().getContext());
+            configureTextView(v, x, DESC_SIZE, ContextCompat.getColor(context, R.color.detailsTextColor));
+            Typeface a = ResourcesCompat.getFont(context, R.font.american_typewriter_bold);
+            v.setTypeface(a);
+            cl.addView(v);
+
+
+            last = v;
+            l.add(v);*/
+        }
+
+
+        /*List<String> details = p.getPlantDetailList();
         View last = top_ref;
         for(String x : details){
             final TextView i = new TextView(cl.getRootView().getContext());
@@ -94,7 +123,7 @@ public class plantDetailsDisplayHelper extends DisplayHelper {
             setViewConstraintsLeft(i, cl, cl, last, DESC_H_MARGIN, DESC_V_MARGIN);
             last = i;
             l.add(i);
-        }
+        }*/
         return l;
     }
 

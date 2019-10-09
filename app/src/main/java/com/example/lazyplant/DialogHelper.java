@@ -41,7 +41,6 @@ public class DialogHelper {
         final PlantNotes x = dao.getPlantNotes(p.getId());
         if(current != null) { input.setText(current); }
 
-
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 if(current == null){
