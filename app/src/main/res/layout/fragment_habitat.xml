@@ -82,7 +82,7 @@
             android:layout_height="180dp"
             android:layout_weight="0.44"
             android:elevation="5dp"
-            android:background="@drawable/ic_favourite"
+            android:background="@drawable/butterflies"
             android:tag="Butterfly/Moth"/>
 
         <View android:layout_width="0dp" android:layout_height="0dp"
@@ -94,7 +94,7 @@
             android:layout_height="180dp"
             android:layout_weight="0.44"
             android:elevation="5dp"
-            android:background="@drawable/ic_favourite"
+            android:background="@drawable/birds"
             android:tag="Bird"/>
 
     </LinearLayout>
@@ -117,7 +117,7 @@
             android:layout_height="180dp"
             android:layout_weight="0.44"
             android:elevation="5dp"
-            android:background="@drawable/ic_favourite"
+            android:background="@drawable/parrot"
             android:tag="Parrot"/>
 
         <View android:layout_width="0dp" android:layout_height="0dp"
@@ -129,7 +129,7 @@
             android:layout_height="180dp"
             android:layout_weight="0.44"
             android:elevation="5dp"
-            android:background="@drawable/ic_favourite"
+            android:background="@drawable/honeyeater"
             android:tag="Honeyeater"/>
 
     </LinearLayout>
@@ -152,7 +152,7 @@
             android:layout_height="180dp"
             android:layout_weight="0.44"
             android:elevation="5dp"
-            android:background="@drawable/ic_favourite"
+            android:background="@drawable/frogs"
             android:tag="Reptile/Frog"/>
 
         <View android:layout_width="0dp" android:layout_height="0dp"
@@ -164,7 +164,7 @@
             android:layout_height="180dp"
             android:layout_weight="0.44"
             android:elevation="5dp"
-            android:background="@drawable/ic_favourite"
+            android:background="@drawable/mammals"
             android:tag="Mammal" />
 
     </LinearLayout>
@@ -187,7 +187,7 @@
             android:layout_height="180dp"
             android:layout_weight="0.44"
             android:elevation="5dp"
-            android:background="@drawable/ic_favourite"
+            android:background="@drawable/insects"
             android:tag="Insect"/>
 
         <View android:layout_width="0dp" android:layout_height="0dp"
@@ -199,7 +199,7 @@
             android:layout_height="180dp"
             android:layout_weight="0.44"
             android:elevation="5dp"
-            android:background="@drawable/ic_favourite"
+            android:background="@drawable/bees"
             android:tag="Bees" />
 
     </LinearLayout>

@@ -146,7 +146,21 @@
         android:id="@+id/navigation_design"
         android:name="com.example.lazyplant.ui.design.DesignFragment"
         android:label="@string/title_design"
-        tools:layout="@layout/fragment_design" />
+        tools:layout="@layout/fragment_design" >
+        <action
+            android:id="@+id/action_navigation_design_to_navigation_design_result"
+            app:destination="@id/navigation_design_result" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_design_result"
+        android:name="com.example.lazyplant.ui.design.DesignResultsFragment"
+        android:label="@string/title_design"
+        tools:layout="@layout/fragment_design_result" >
+        <action
+            android:id="@+id/action_navigation_design_result_to_navigation_plant_details"
+            app:destination="@id/navigation_plant_details" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_all_plants"

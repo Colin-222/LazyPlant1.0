@@ -23,5 +23,5 @@ public class Constants {
     public final static String SHARED_PREFERENCE_POSTCODE = "shared_preferences_postcode_a74j";
     public final static String HABITAT_TAG = "habitat_tag";
     public final static String EDIBLE_TAG = "edible_tag";
-
+    public final static String DESIGN_TAG = "design_tag";
 }

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.bumptech.glide.Glide;
+import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
@@ -22,9 +23,8 @@ import com.synnapps.carouselview.ImageListener;
 public class DesignFragment extends Fragment {
     private View root;
     private CarouselView carousel;
-    private int[] images = {R.drawable.acaciamacradeniazigzagwattle,
-            R.drawable.dampierastrictabluedampiera,
-            R.drawable.nativeoreganoprostantherarotundifolia};
+    private int[] images = {R.drawable.desc_informal,
+            R.drawable.desc_formal, R.drawable.desc_japanese, R.drawable.desc_cottage};
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -53,19 +53,10 @@ public class DesignFragment extends Fragment {
     };
 
     private void openDesignPage(int position){
-        switch(position) {
-            case 0:
-                Log.i("HF", String.valueOf(position));
-                break;
-            case 1:
-                Log.i("HF", String.valueOf(position));
-                break;
-            case 2:
-                Log.i("HF", String.valueOf(position));
-                break;
-            default:
-                // code block
-        }
+        Bundle bundle = new Bundle();
+        bundle.putInt(Constants.EDIBLE_TAG, position);
+        NavHostFragment.findNavController(this).navigate(
+                R.id.action_navigation_design_to_navigation_design_result, bundle);
     }
 
 }
