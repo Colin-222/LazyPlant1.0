@@ -79,24 +79,38 @@
             android:textSize="28sp" />
 
         <TextView
-            android:id="@+id/home_intro_text2"
+            android:id="@+id/home_count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_intro_text"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="100dp"
+            android:fontFamily="@font/american_typewriter_bold"
+            android:minHeight="?actionBarSize"
+            android:text="Planted:"
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:textColor="@color/colorLazyGreen"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/home_number_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/home_intro_text"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="260dp"
+            android:text="0"
             android:fontFamily="@font/american_typewriter_bold"
-            android:gravity="center"
             android:minHeight="?actionBarSize"
-            android:text="The NATIVE plant recommender app that’s designed for your low maintainence life."
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             android:textColor="@color/colorLazyGreen"
-            android:textSize="18sp" />
+            android:textSize="28sp" />
 
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_below="@id/home_intro_text2"
+            android:layout_below="@id/home_intro_text"
             android:layout_marginTop="5dp"
             android:background="@android:color/darker_gray"></View>
 

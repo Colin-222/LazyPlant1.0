@@ -3,7 +3,9 @@ package com.example.lazyplant.ui.plantDetails;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +33,18 @@ import com.example.lazyplant.ui.plantDetailsDisplayHelper;
 import com.example.lazyplant.ui.plantListDisplayHelper;
 import com.example.lazyplant.ui.profile.ReminderControl;
 import com.example.lazyplant.ui.shopmap.ShopsMapActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.lazyplant.ui.plantDetails.PlantDetailsActivity.TAG;
 
 public class PlantDetailsFragment extends Fragment {
     private View root;
@@ -176,6 +187,28 @@ public class PlantDetailsFragment extends Fragment {
                 Toast.makeText(getActivity(), "New plant \'" + namae + "\' added.", Toast.LENGTH_SHORT).show();
                 /*AlarmBroadcastReceiver.startAlarmBroadcastReceiver(getContext(),
                         rc.getGardenPlant(p.getId()).getWatering_interval());*/
+                SharedPreferences pref = getContext().getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
+                String postcode = pref.getString("postcode", "3000");
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                Map<String, Object> plant = new HashMap<>();
+                plant.put("plantID", p.getId());
+                plant.put("postcode", postcode);
+
+                // Add a new document with a generated ID
+                db.collection("plantsInfo")
+                        .add(plant)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error adding document", e);
+                            }
+                        });
             }
         });
 
