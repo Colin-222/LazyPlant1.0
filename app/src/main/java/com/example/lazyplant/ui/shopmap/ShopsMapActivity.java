@@ -20,6 +20,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -104,7 +105,7 @@ public class ShopsMapActivity extends FragmentActivity implements OnMapReadyCall
                     List<Address> addresses = mGeocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                     myLatLng[0] = new LatLng(location.getLatitude(), location.getLongitude());
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLng[0]));
-                    mMap.animateCamera( CameraUpdateFactory.zoomTo( 12.0f ) );
+                    mMap.animateCamera( CameraUpdateFactory.zoomTo( 11.0f ) );
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -115,7 +116,7 @@ public class ShopsMapActivity extends FragmentActivity implements OnMapReadyCall
         for(StoreLocationData item : locationData){
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(item.getStoreLatitude(), item.getStoreLongitude()))
-                    .title(item.getStoreName()).snippet(item.getStoreAddress()));
+                    .title(item.getStoreName()).snippet(item.getStoreAddress()).icon(BitmapDescriptorFactory.fromResource(R.drawable.store)));
         }
 
     }
