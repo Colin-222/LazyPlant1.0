@@ -55,6 +55,7 @@ public class DesignFragment extends Fragment {
     private void openDesignPage(int position){
         Bundle bundle = new Bundle();
         bundle.putInt(Constants.EDIBLE_TAG, position);
+        Log.i("TAG", String.valueOf(position));
         NavHostFragment.findNavController(this).navigate(
                 R.id.action_navigation_design_to_navigation_design_result, bundle);
     }

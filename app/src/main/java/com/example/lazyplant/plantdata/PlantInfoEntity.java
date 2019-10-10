@@ -205,6 +205,17 @@ public class PlantInfoEntity implements Comparable<PlantInfoEntity>{
         return tmp;
     }
 
+    public List<String> getShortPlantDetailList(){
+        List<String> l = new ArrayList<>();
+        String x = this.getAnimals();
+        if (!x.equals("")){ l.add("Animals Attracted: " + x); }
+        x = this.getWildlife();
+        if (!x.equals("")){ l.add("Wildlife Attracted: " + x); }
+        x = this.getFlowering_period();
+        if (!x.equals("")){ l.add("Flowering period: " + x); }
+        return l;
+    }
+
     /**
      * This gets all the plants details into a list. It can then be used for display to the user.
      * @return List containing plant details.
