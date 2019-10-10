@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lazyplant.R;
+import com.example.lazyplant.plantdata.DbAccess;
 import com.example.lazyplant.plantdata.GardenPlant;
+import com.example.lazyplant.plantdata.PlantInfoEntity;
 import com.example.lazyplant.plantdata.PlantNotes;
 
 import java.text.DateFormat;
@@ -38,6 +40,13 @@ public class AllPlantsAdapter extends RecyclerView.Adapter<AllPlantsAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         GardenPlant p = gp.get(position);
         holder.name.setText(p.getName());
+
+        DbAccess databaseAccess = DbAccess.getInstance(holder.type.getContext().getApplicationContext());
+        databaseAccess.open();
+        PlantInfoEntity pie = databaseAccess.getPlantInfo(p.getSpecies_id());
+        databaseAccess.close();
+
+        holder.type.setText(pie.getCommon_name());
         Calendar c = p.getLast_watering();
         c.add(Calendar.DATE, p.getWatering_interval());
         Date date = c.getTime();

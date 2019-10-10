@@ -139,6 +139,17 @@ public class plantDetailsDisplayHelper extends DisplayHelper {
             a++;
         }
 
+        /*List<String> details = p.getShortPlantDetailList();
+        for(String x : details) {
+            final TextView i = new TextView(cl.getRootView().getContext());
+            configureTextView(i, x, 16, ContextCompat.getColor(context, R.color.detailsTextColor));
+            Typeface a = ResourcesCompat.getFont(context, R.font.american_typewriter_bold);
+            i.setTypeface(a);
+            cl.addView(i);
+            setViewConstraintsLeft(i, cl, cl, last, DESC_H_MARGIN, DESC_V_MARGIN);
+            last = i;
+            l.add(i);
+        }*/
 
         /*List<String> details = p.getPlantDetailList();
         View last = top_ref;

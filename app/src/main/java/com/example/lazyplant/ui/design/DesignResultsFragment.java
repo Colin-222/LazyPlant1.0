@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.bumptech.glide.Glide;
 import com.example.lazyplant.Constants;
@@ -30,7 +32,7 @@ public class DesignResultsFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
 
         Bundle bundle = this.getArguments();
-        int garden = bundle.getInt(Constants.DESIGN_TAG);
+        int garden = bundle.getInt(Constants.EDIBLE_TAG);
         ImageView im = (ImageView)root.findViewById(R.id.design_result_image);
         List<String> plants = new ArrayList<>();
         switch(garden){
@@ -50,10 +52,10 @@ public class DesignResultsFragment extends Fragment {
                 Glide.with(getContext()).load(R.drawable.garden_formal).into(im);
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Formal Style Garden");
                 plants.add("Goodenia ovata ‘Gold Cover’");
-                plants.add("Goodenia ovata ‘Gold Cover’");
+                plants.add("Wahlenbergia capillaris");
                 plants.add("Correa reflexa – Native Fuchsia");
                 plants.add("Grevillea rosmarinifolia ‘Scarlet Sprite’");
-                plants.add("");
+                plants.add("Chrysocephalum apiculatum ‘Desert Flame’ – Yellow Buttons");
                 break;
             case 2:
                 Glide.with(getContext()).load(R.drawable.garden_japanese).into(im);
@@ -83,9 +85,31 @@ public class DesignResultsFragment extends Fragment {
         for(String plant_id : plants){
             Button button = new Button(getContext());
             PlantInfoEntity pie = databaseAccess.getShortPlantInfo(plant_id);
+            final String pid = plant_id;
             button.setText(String.valueOf(i) + ") " + pie.getCommon_name());
             button.setLayoutParams(params);
             ll.addView(button);
+            final Fragment f_fragment = this;
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    //open details page with id
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.PLANT_DETAILS_BUNDLE_TAG, pid);
+                    NavHostFragment.findNavController(f_fragment).navigate(
+                            R.id.action_navigation_design_result_to_navigation_plant_details, bundle);
+                    NavController navi = NavHostFragment.findNavController(f_fragment);
+                    if(navi.getCurrentDestination().getId() == R.id.navigation_browse){
+                        navi.navigate(R.id.action_navigation_browse_to_navigation_plant_details, bundle);
+                    }else if(navi.getCurrentDestination().getId() == R.id.navigation_favourites){
+                        navi.navigate(R.id.action_navigation_favorite_to_navigation_plant_details, bundle);
+                    }else if(navi.getCurrentDestination().getId() == R.id.navigation_habitat_search){
+                        navi.navigate(R.id.action_navigation_habitat_search_to_navigation_plant_details, bundle);
+                    } else if(navi.getCurrentDestination().getId() == R.id.navigation_edible_search){
+                        navi.navigate(R.id.action_navigation_edible_search_to_navigation_plant_details, bundle);
+                    }
+                }
+            });
+            i++;
         }
         databaseAccess.close();
 
