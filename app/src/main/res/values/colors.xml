@@ -22,4 +22,5 @@
     <color name="progressRed">#BB0000</color>
     <color name="progressGreen">#55dd55</color>
     <color name="pureWhite">#FFFFFF</color>
+    <color name="Transparent">#00000000</color>
 </resources>

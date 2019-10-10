@@ -88,7 +88,19 @@
             android:src="@drawable/ic_search_white" />
 
     </RelativeLayout>
-
+    <Button
+        android:id="@+id/locate_user_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/home_search_layout_location"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="1dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:fontFamily="@font/american_typewriter_bold"
+        android:text="Insert Your Location"
+        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+        android:textColor="#FFFFFF"
+        android:textSize="12dp" />
     <View
         android:id="@+id/home_search_divider1"
         android:layout_width="320dp"
@@ -96,15 +108,17 @@
         android:layout_centerHorizontal="true"
         android:background="#FFFFFF"
         android:layout_marginTop="16dp"
-        android:layout_below="@id/home_search_layout_location">
+        android:layout_below="@id/locate_user_button">
     </View>
+
+
 
     <TextView
         android:id="@+id/home_search_name_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/home_search_divider1"
-        android:layout_marginTop="12dp"
+        android:layout_below="@+id/locate_user_button"
+        android:layout_marginTop="4dp"
         android:gravity="center"
         android:minHeight="?actionBarSize"
         android:text="SEARCH BY PLANT NAME"
@@ -174,6 +188,8 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="Design Your Garden"
         android:elevation="4dp"
         android:background="#088527" />
@@ -186,6 +202,8 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="Learn About Habitat Gardening"
         android:elevation="4dp"
         android:background="#088527"  />
@@ -198,6 +216,8 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="Learn About Edible Plants"
         android:elevation="4dp"
         android:background="#088527" />
