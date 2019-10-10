@@ -58,6 +58,32 @@ public class HomeSearchFragment extends Fragment {
 
         ImageButton locationButton = (ImageButton) root.findViewById(R.id.home_search_location_button);
         requestPermission();
+        Button userLocation = (Button) root.findViewById(R.id.locate_user_button);
+        userLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                client.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        Geocoder mGeocoder = new Geocoder(getContext(), Locale.ENGLISH);
+                        SharedPreferences pref = getContext().getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
+                        try {
+                            List<Address> addresses = mGeocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                            postcode = addresses.get(0).getPostalCode();
+                            location_et.setText(postcode);
+                            /*SharedPreferences.Editor editor = pref.edit();
+                            editor.putString(Constants.DEFAULT_POSTCODE, postcode);
+                            editor.putInt(Constants.REMINDER_HOUR, 8);
+                            editor.putInt(Constants.REMINDER_MINUTE, 12);
+                            editor.commit();*/
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
+
         client = LocationServices.getFusedLocationProviderClient(getActivity());
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
