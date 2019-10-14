@@ -25,6 +25,7 @@
             android:background="@color/darkGreen"
             android:text="CLICK FOR FILTERS"
             android:textSize="12sp"
+            android:fontFamily="sans-serif"
             android:layout_marginStart="12dp"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="0dp"

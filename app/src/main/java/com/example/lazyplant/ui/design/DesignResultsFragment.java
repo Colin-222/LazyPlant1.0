@@ -32,7 +32,7 @@ public class DesignResultsFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
 
         Bundle bundle = this.getArguments();
-        int garden = bundle.getInt(Constants.EDIBLE_TAG);
+        int garden = bundle.getInt(Constants.DESIGN_TAG);
         ImageView im = (ImageView)root.findViewById(R.id.design_result_image);
         List<String> plants = new ArrayList<>();
         switch(garden){

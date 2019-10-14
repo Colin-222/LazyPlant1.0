@@ -23,4 +23,10 @@
     <color name="progressGreen">#55dd55</color>
     <color name="pureWhite">#FFFFFF</color>
     <color name="Transparent">#00000000</color>
+    <color name="LazyGreen">#6AB04C</color>
+    <color name="LazyGreenDark">#4C8237</color>
+    <color name="BgWhite">#FEFEFE</color>
+    <color name="TextBlack">#010501</color>
+    <color name="SubtitleBlack">#9E9AA0</color>
+    <color name="SecondRed">#D61411</color>
 </resources>
