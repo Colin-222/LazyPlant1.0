@@ -24,4 +24,12 @@ public class Constants {
     public final static String HABITAT_TAG = "habitat_tag";
     public final static String EDIBLE_TAG = "edible_tag";
     public final static String DESIGN_TAG = "design_tag";
+    public final static String GENERAL_PLANTS_TAG = "general_plants_tag";
+    public final static String TAB_GENERAL = "General";
+    public final static String TAB_ANIMAL = "Animals";
+    public final static String TAB_EDIBLE = "Edible";
+    public final static String CATEGORY_TYPE = "category_type";
+    public final static String CATEGORY_TERM = "category_term";
+
+
 }

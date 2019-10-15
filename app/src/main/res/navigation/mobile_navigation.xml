@@ -11,8 +11,8 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_navigation_home_to_navigation_home_search"
-            app:destination="@id/navigation_home_search" />
+            android:id="@+id/action_navigation_home_to_navigation_search"
+            app:destination="@id/navigation_search" />
         <action
             android:id="@+id/action_navigation_home_to_navigation_profile"
             app:destination="@id/navigation_profile" />
@@ -22,6 +22,28 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_reminder"
             app:destination="@id/navigation_reminder" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_postcode"
+            app:destination="@id/navigation_postcode" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.example.lazyplant.ui.search.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_browse"
+            app:destination="@id/navigation_browse" />
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_habitat"
+            app:destination="@id/navigation_habitat" />
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_edible"
+            app:destination="@id/navigation_edible" />
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_design"
+            app:destination="@id/navigation_design" />
     </fragment>
 
     <fragment
@@ -51,6 +73,16 @@
         <action
             android:id="@+id/action_navigation_favorite_to_navigation_plant_details"
             app:destination="@id/navigation_plant_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_postcode"
+        android:name="com.example.lazyplant.ui.search.PostcodeFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_postcode" >
+        <action
+            android:id="@+id/action_navigation_postcode_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
 
     <fragment

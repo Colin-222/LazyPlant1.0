@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/postcode_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@drawable/bg_gradient_grey">
+
+    <TextView
+        android:id="@+id/postcode_location_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:minHeight="?actionBarSize"
+        android:text="Enter Your Postcode"
+        android:textAlignment="center"
+        style="@style/Title1" />
+
+    <RelativeLayout
+        android:id="@+id/postcode_layout_location"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/postcode_location_text">
+
+
+        <EditText
+            android:id="@+id/postcode_location_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/andale_mono"
+            android:gravity="center"
+            android:padding="@dimen/appbar_padding"
+            android:hint="Type postcode here"
+            style="@style/Title2"
+            android:imeOptions="actionGo"
+            android:singleLine="true"
+            android:maxLength="4"/>
+
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/locate_user_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/postcode_layout_location"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="1dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:text="Tap to get location"
+        style="@style/Title2"
+        android:backgroundTint="@color/LazyGreenDark"
+        android:textColor="@color/LWhite"/>
+
+    <Button
+        android:id="@+id/postcode_location_go"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/ic_rounded_edit_text"
+        android:backgroundTint="@color/LazyGreenDark"
+        android:text="OK"/>
+
+
+
+
+</RelativeLayout>

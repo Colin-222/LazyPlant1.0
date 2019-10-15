@@ -172,7 +172,9 @@ public class FilterOptionSelector extends ChipGroup{
             x.setCheckedIconVisible(false);
             x.setChipBackgroundColorResource(R.color.filter_chip_bg);
             x.setOnClickListener(on_click);
-            x.setTextColor(this.getResources().getColorStateList(R.color.chip_text));
+            //x.setTextColor(getResources().getColorStateList(R.color.chip_text));
+            //x.setHintTextColor(getResources().getColorStateList(R.color.progressRed));
+            x.setTextAppearanceResource(R.style.FilterText);
             this.addView(x, params);
         }
     }

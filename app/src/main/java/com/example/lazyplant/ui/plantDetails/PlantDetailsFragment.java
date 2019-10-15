@@ -89,6 +89,7 @@ public class PlantDetailsFragment extends Fragment {
         return this.model.plant_list.get(ni).getId();
     }
 
+
     private PlantInfoEntity getPlantInfo(String pid){
         DbAccess databaseAccess = DbAccess.getInstance(getContext());
         databaseAccess.open();
@@ -113,10 +114,12 @@ public class PlantDetailsFragment extends Fragment {
             plantDetailsDisplayHelper.displayDetailsPageImage(pid, image, this.getContext(), 0.4);
             View top_wo_nerae = (View) this.root.findViewById(R.id.plants_details_top);
 
-            this.plant_details.addAll(plantDetailsDisplayHelper.displayPlantTitle(this.p,
-                    cl, top_wo_nerae, this.getContext()));
-            this.plant_details.addAll(plantDetailsDisplayHelper.displayPlantDetails(this.p, cl_bottom,
-                    root, this.getContext()));
+            TextView title = (TextView) root.findViewById(R.id.plant_details_title);
+            title.setText(p.getCommon_name());
+            TextView subtitle = (TextView) root.findViewById(R.id.plant_details_subtitle);
+            subtitle.setText(p.getScientific_name());
+            this.plant_details.addAll(plantDetailsDisplayHelper.showPlantDetails(this.p, cl_bottom,
+                    this.getContext()));
 
             //List<TextView> l = plantDetailsDisplayHelper.displayPlantTitle(this.p, cl,
             // top_wo_nerae, this.getContext());

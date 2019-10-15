@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="56dp">
+    android:paddingBottom="56dp"
+    android:background="@drawable/bg_gradient_grey">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_gradient_grey">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/design_title"

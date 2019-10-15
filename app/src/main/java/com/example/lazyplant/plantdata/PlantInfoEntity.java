@@ -207,12 +207,46 @@ public class PlantInfoEntity implements Comparable<PlantInfoEntity>{
 
     public List<String> getShortPlantDetailList(){
         List<String> l = new ArrayList<>();
-        String x = this.getAnimals();
-        if (!x.equals("")){ l.add("Animals Attracted: " + x); }
-        x = this.getWildlife();
-        if (!x.equals("")){ l.add("Wildlife Attracted: " + x); }
+        String x = this.getHeight_lower();
+        String x2 = this.getHeight_upper();
+        if (x.equals("") && !x2.equals("")){
+            l.add("Height: " + x2 + "m");
+        } else if (!x.equals("") && x2.equals("")) {
+            l.add("Height: " + x + "m");
+        } else if (!x.equals("") && !x2.equals("")){
+            l.add("Height: " + x + "-" + x2 + "m");
+        }
+        x = this.getWidth_lower();
+        x2 = this.getWidth_upper();
+        if (x.equals("") && !x2.equals("")){
+            l.add("Width: " + x2 + "m");
+        } else if (!x.equals("") && x2.equals("")) {
+            l.add("Width: " + x + "m");
+        } else if (!x.equals("") && !x2.equals("")){
+            l.add("Width: " + x + "-" + x2 + "m");
+        }
+        x = this.getOther_names();
+        if (!x.equals("")){ l.add("Other names: " + x); }
+        x = this.getFrost_tolerance();
+        if (!x.equals("")){ l.add("Frost tolerance: " + x); }
+        x = this.getLight();
+        if (!x.equals("")){ l.add("Shade: " + x); }
         x = this.getFlowering_period();
         if (!x.equals("")){ l.add("Flowering period: " + x); }
+        x = this.getFood_type();
+        if (!x.equals("")){ l.add("Food: " + x); }
+        String animals = "";
+        x = this.getWildlife();
+        if (!x.equals("")){ animals += x; }
+        x = this.getAnimals();
+        if (!x.equals("")){
+            if(animals.equals("")){
+                animals += x;
+            }else{
+                animals += ", " + x;
+            }
+        }
+        if (!animals.equals("")){ l.add("Wildlife Attracted: " + animals); }
         return l;
     }
 

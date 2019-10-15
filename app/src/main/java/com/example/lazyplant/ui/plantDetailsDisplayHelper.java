@@ -2,6 +2,7 @@ package com.example.lazyplant.ui;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -76,19 +77,51 @@ public class plantDetailsDisplayHelper extends DisplayHelper {
 
     static public List<TextView> displayPlantTitle(PlantInfoEntity p, ConstraintLayout cl, View im, Context context){
         List<TextView> l = new ArrayList<>();
-        final TextView title = new TextView(cl.getRootView().getContext());
-        configureTextView(title, p.getCommon_name(), TITLE_SIZE, ContextCompat.getColor(context, R.color.detailsTitleColor));
+        final TextView title = new TextView(new ContextThemeWrapper(
+                cl.getRootView().getContext(), R.style.Title1), null, 0);
+        title.setText(p.getCommon_name());
         cl.addView(title);
         setViewConstraints(title, cl, cl, cl, im, TITLE_H_MARGIN, TITLE_V_MARGIN);
-        final TextView subtitle = new TextView(cl.getRootView().getContext());
-        configureTextView(subtitle, p.getScientific_name(), SUBTITLE_SIZE, ContextCompat.getColor(context, R.color.detailsSubtitleColor));
+        final TextView subtitle = new TextView(new ContextThemeWrapper(
+                cl.getRootView().getContext(), R.style.SubtitleText), null, 0);
+        subtitle.setText(p.getScientific_name());
         cl.addView(subtitle);
         setViewConstraints(subtitle, cl, cl, cl, title, TITLE_H_MARGIN, TITLE_V_MARGIN);
-        Typeface a = ResourcesCompat.getFont(context, R.font.american_typewriter_bold);
-        title.setTypeface(a);
-        subtitle.setTypeface(a);
         l.add(title);
         l.add(subtitle);
+        return l;
+    }
+
+    static public List<View> showPlantDetails(PlantInfoEntity p, ConstraintLayout cl,Context context) {
+        List<View> l = new ArrayList<>();
+        //List<View> last = new ArrayList<>();
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        List<String> type_list = Arrays.asList(p.getType().split(", "));
+        View layout = (View) cl.findViewById(R.id.linear_layout);
+        for (int i = 0; i < type_list.size(); i++) {
+            if (i == 4) {
+                break;
+            }
+            TextView tv = (TextView) layout.findViewById(ICON_NAMES[i]);
+            tv.setText(type_list.get(i));
+            ImageView im = (ImageView) layout.findViewById(ICON_IMAGES[i]);
+            Glide.with(context).load(getIcon("Type", type_list.get(i))).into(im);
+
+        }
+
+        View last = layout;
+        List<String> details = p.getShortPlantDetailList();
+        for(String x : details) {
+            final TextView i = new TextView(cl.getRootView().getContext());
+            configureTextView(i, x, 14, ContextCompat.getColor(context, R.color.TextBlack));
+            Typeface a = ResourcesCompat.getFont(context, R.font.andale_mono);
+            i.setTypeface(a);
+            cl.addView(i);
+            setViewConstraintsLeft(i, cl, cl, last, 18, 8);
+            last = i;
+            l.add(i);
+        }
         return l;
     }
 

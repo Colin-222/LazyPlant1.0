@@ -13,6 +13,7 @@ import android.view.ViewManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,8 +55,8 @@ public class BrowseFragment extends Fragment {
     final private List<String> FILTER_OPTIONS = Arrays.asList("Type", "Height", "Width", "Shade", "Frost");
     final private int FILTER_H_MARGIN = 8;
     final private int FILTER_V_MARGIN = 2;
-    final private int HEIGHT_CLOSED = 60;
-    final private int HEIGHT_OPEN = 280;
+    final private int HEIGHT_CLOSED = 48;
+    final private int HEIGHT_OPEN = 252;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -70,41 +72,29 @@ public class BrowseFragment extends Fragment {
 
         Button reset_button = (Button) root.findViewById(R.id.browse_reset);
         reset_button.setOnClickListener(resetButtonListener);
-        Button filters_button = (Button) root.findViewById(R.id.browse_display_filters);
+        ImageButton filters_button = (ImageButton) root.findViewById(R.id.browse_display_filters);
         filters_button.setOnClickListener(filterButtonListener);
 
         this.result_view = (RecyclerView) root.findViewById(R.id.browse_result_view);
-
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
         this.result_view.setLayoutManager(mLayoutManager);
         this.adapter = new BrowseAdapter(this.model.plant_list, this);
         this.result_view.setAdapter(this.adapter);
+        this.model.plant_searcher = new PlantSearcher(getContext());
+
+        SharedPreferences pref = this.getContext().getApplicationContext()
+                .getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
+        String postcode = pref.getString(Constants.SHARED_PREFERENCE_POSTCODE, null);
+        if(postcode != null){
+            this.model.postcode = postcode;
+            this.setLocation(this.model.postcode);
+        }
+
         Bundle bundle = this.getArguments();
-        /*String search_type = bundle.getString(Constants.SEARCH_TYPE);
-        this.model.plant_searcher = new PlantSearcher(getContext());
-        if(search_type == null){
-            SharedPreferences pref = this.getContext().getApplicationContext()
-                    .getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
-            this.model.postcode = pref.getString(Constants.SHARED_PREFERENCE_POSTCODE, null);
-            this.setLocation(this.model.postcode);
-        }else if(search_type.equals(Constants.NAME_SEARCH_TAG)){
-            String term = bundle.getString(Constants.NAME_SEARCH_TAG);
-            this.model.plant_searcher.setSearchTerm(term);
-        }else if (search_type.equals(Constants.LOCATION_TAG)){
-            this.model.postcode = bundle.getString(Constants.LOCATION_TAG);
-            this.setLocation(this.model.postcode);
-        }*/
-
-        this.model.plant_searcher = new PlantSearcher(getContext());
-        if(bundle == null){
-            SharedPreferences pref = this.getContext().getApplicationContext()
-                    .getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
-            this.model.postcode = pref.getString(Constants.SHARED_PREFERENCE_POSTCODE, null);
-            this.setLocation(this.model.postcode);
-        }else{
-
-            this.model.postcode = bundle.getString(Constants.LOCATION_TAG);
-            this.setLocation(this.model.postcode);
+        if(bundle.getString(Constants.CATEGORY_TYPE) != null){
+            this.model.plant_searcher.setCategory(bundle.getString(Constants.CATEGORY_TYPE),
+                    bundle.getString(Constants.CATEGORY_TERM));
+        }else if (bundle.getString(Constants.NAME_SEARCH_TAG) != null) {
             String term = bundle.getString(Constants.NAME_SEARCH_TAG);
             this.model.plant_searcher.setSearchTerm(term);
         }
@@ -112,6 +102,21 @@ public class BrowseFragment extends Fragment {
         this.adapter.notifyDataSetChanged();
 
         return this.root;
+    }
+
+    /**
+     * Update the results fragment to show the selected plants based on the options.
+     */
+    private void updateResults() {
+        this.model.plant_list.clear();
+        this.model.plant_list.addAll(this.model.plant_searcher.getSearchResult());
+        this.adapter.notifyDataSetChanged();
+        TextView error_text = (TextView) root.findViewById(R.id.browse_error_text);
+        if(this.model.plant_list.size() <= 0){
+            error_text.setText("No plants found.");
+        }else{
+            error_text.setText("");
+        }
     }
 
     private boolean setLocation(String postcode){
@@ -142,6 +147,7 @@ public class BrowseFragment extends Fragment {
             this.filter_cl.addView(this.filter_view);
             DisplayHelper.setViewConstraints(this.filter_view, this.filter_cl, this.filter_cl, im, h, v);
             cg.setOnCheckedChangeListener(chipGroupChangeListener);
+            this.setDisplayedFilter(this.current_filter, cg);
             this.showCurrentFilter();
             this.show_filters = true;
 
@@ -228,21 +234,6 @@ public class BrowseFragment extends Fragment {
         }
     }
 
-    /**
-     * Update the results fragment to show the selected plants based on the options.
-     */
-    private void updateResults() {
-        this.model.plant_list.clear();
-        this.model.plant_list.addAll(this.model.plant_searcher.getResults());
-        this.adapter.notifyDataSetChanged();
-        TextView error_text = (TextView) root.findViewById(R.id.browse_error_text);
-        if(this.model.plant_list.size() <= 0){
-            error_text.setText("No plants found.");
-        }else{
-            error_text.setText("");
-        }
-    }
-
     private void changeSearchTerm(String search_term){
         this.model.plant_searcher.setSearchTerm(search_term);
         updateResults();
@@ -278,6 +269,16 @@ public class BrowseFragment extends Fragment {
 
     private void setCurrentFilter(String current) { this.current_filter=current; }
 
+    private void setDisplayedFilter(String filter, ChipGroup chip_group){
+        for (int i = 0; i < chip_group.getChildCount(); ++i) {
+            Chip c = (Chip)chip_group.getChildAt(i);
+            if(c.getText().toString().equals(filter)) {
+                c.setChecked(true);
+            }
+        }
+
+    }
+
     private void resetFilters(){
         this.model.plant_searcher.clearFilters();
         this.model.plant_searcher.updateZone(this.model.plant_searcher.getZone());
@@ -296,6 +297,7 @@ public class BrowseFragment extends Fragment {
             FilterOptionSelector.OnClickListener() {
             @Override public void onClick(View v) {
                 updateSelectedFilters();
+                ((Chip)v).setTextColor(getResources().getColor(R.color.pureWhite));
                 updateResults();
             }};
 

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_favourites, R.id.navigation_home_search,
+                R.id.navigation_home, R.id.navigation_favourites, R.id.navigation_search,
                 R.id.navigation_reminder, R.id.navigation_profile).build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_name_search:
                         navView.setVisibility(View.GONE);
                         break;
+                    case R.id.navigation_postcode:
+                        navView.setVisibility(View.GONE);
+                        break;
                     default:
                         navView.setVisibility(View.VISIBLE);
                         break;
@@ -73,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+
     }
 
     @Override

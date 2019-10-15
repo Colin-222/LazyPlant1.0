@@ -31,11 +31,20 @@ public class PlantSearcher {
     private static final double EDIT_LENGTH_PERCENTAGE = 0.25;
     final private String HEIGHT = "height";
     final private String WIDTH = "width";
+    private String category_type;
+    private String category_term;
 
     public PlantSearcher(Context context) {
         this.context = context;
         this.selected_filters = new SelectedFiltersEntity();
         this.search_term = "";
+        this.category_type = null;
+        this.category_term = null;
+    }
+
+    public void setCategory(String type, String term){
+        this.category_type = type;
+        this.category_term = term;
     }
 
     public void clearFilters(){
@@ -67,6 +76,42 @@ public class PlantSearcher {
             return false;
         }
         return this.updateZone(this.zone);
+    }
+
+    public List<PlantInfoEntity> getSearchResult(){
+        List<PlantInfoEntity> pl = new ArrayList<>();
+        DbAccess databaseAccess = DbAccess.getInstance(context);
+        databaseAccess.open();
+        String command = databaseAccess.getSearchCommand(Constants.SPECIES_ID_FIELD,
+                this.selected_filters.getOptions_selected(), this.selected_filters.getSearch_tables(),
+                this.selected_filters.getSearch_fields(), this.selected_filters.getSelected_filters(),
+                HEIGHT, WIDTH);
+        if(this.category_term != null){
+            command += " INTERSECT ";
+            if(this.category_type.equals(Constants.GENERAL_PLANTS_TAG)){
+                command += databaseAccess.getPropertyCommand(this.category_term);
+            }else if(this.category_type.equals(Constants.HABITAT_TAG)){
+                command += databaseAccess.getAnimalCommand(this.category_term);
+            }else if(this.category_type.equals(Constants.EDIBLE_TAG)){
+                command += databaseAccess.getEdibleCommand(this.category_term);
+            }
+        }
+        List<String> found = databaseAccess.runCommand(command);
+        databaseAccess.close();
+        String term = this.getSearch_term();
+        if(!(term == null || term.equals(""))){
+            List<String> found_name = this.searchForName(term);
+            found.retainAll(found_name);
+            Set<String> tmp = new HashSet<String>(found);
+            found = new ArrayList<>(tmp);
+        }
+        databaseAccess.open();
+        for (String id : found) {
+            pl.add(databaseAccess.getShortPlantInfo(id));
+        }
+        databaseAccess.close();
+        Collections.sort(pl);
+        return pl;
     }
 
     public List<PlantInfoEntity> getResults(){

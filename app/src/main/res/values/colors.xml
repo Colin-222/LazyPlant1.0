@@ -28,5 +28,6 @@
     <color name="BgWhite">#FEFEFE</color>
     <color name="TextBlack">#010501</color>
     <color name="SubtitleBlack">#9E9AA0</color>
+    <color name="LWhite">#DEDEDE</color>
     <color name="SecondRed">#D61411</color>
 </resources>

@@ -2,6 +2,7 @@ package com.example.lazyplant.ui.home;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.bumptech.glide.Glide;
+import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.ClimateZoneGetter;
 import com.example.lazyplant.ui.DisplayHelper;
@@ -65,11 +67,24 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view){
                 NavHostFragment.findNavController(f_fragment).navigate(
-                        R.id.action_navigation_home_to_navigation_home_search);
+                        R.id.action_navigation_home_to_navigation_search);
             }
         });
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        SharedPreferences pref = this.getContext().getApplicationContext()
+                .getSharedPreferences(Constants.SHARED_PREFERENCE, MODE_PRIVATE);
+
+        SharedPreferences.Editor ed = pref.edit();
+        //ed.putString(Constants.SHARED_PREFERENCE_POSTCODE, null);
+        //ed.commit();
+
+        if(!pref.contains(Constants.SHARED_PREFERENCE_POSTCODE)){
+            NavHostFragment.findNavController(f_fragment).navigate(
+                    R.id.action_navigation_home_to_navigation_postcode);
+        }
+
+        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("plantsInfo")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -95,7 +110,7 @@ public class HomeFragment extends Fragment {
                             Log.w(TAG, "Error getting documents.", task.getException());
                         }
                     }
-                });
+                });*/
 
 
 

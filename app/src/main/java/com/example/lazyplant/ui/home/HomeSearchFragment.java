@@ -71,11 +71,6 @@ public class HomeSearchFragment extends Fragment {
                             List<Address> addresses = mGeocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                             postcode = addresses.get(0).getPostalCode();
                             location_et.setText(postcode);
-                            /*SharedPreferences.Editor editor = pref.edit();
-                            editor.putString(Constants.DEFAULT_POSTCODE, postcode);
-                            editor.putInt(Constants.REMINDER_HOUR, 8);
-                            editor.putInt(Constants.REMINDER_MINUTE, 12);
-                            editor.commit();*/
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

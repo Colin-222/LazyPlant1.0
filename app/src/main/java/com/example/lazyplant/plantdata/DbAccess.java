@@ -319,11 +319,11 @@ public class DbAccess {
 
     public List<String> searchPlantsByAnimalsAttracted(String animal_type){
         List<String> found = new ArrayList<>();
-        String command = "SELECT DISTINCT animals_attracted.species_id" +
+        String command = "SELECT * FROM ( SELECT DISTINCT animals_attracted.species_id" +
                 " FROM animals_attracted INNER JOIN animals ON animals_attracted.animal=animals.animal"
                 + " WHERE animals.type = \"" + animal_type +"\" UNION " +
                 "SELECT DISTINCT species_id FROM wildlife WHERE wildlife_attracted=\"" +
-                animal_type + "\"";
+                animal_type + "\")";
         Cursor cursor = database.rawQuery(command, null);
         cursor.moveToFirst();
         boolean first = true;
@@ -340,6 +340,100 @@ public class DbAccess {
         List<String> found = new ArrayList<>();
         String command = "SELECT DISTINCT species_id FROM food WHERE category = \""
                 + category + "\"";
+        Cursor cursor = database.rawQuery(command, null);
+        cursor.moveToFirst();
+        boolean first = true;
+        while (!cursor.isAfterLast()) {
+            found.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        if(cursor != null)
+            cursor.close();
+        return found;
+    }
+
+
+    /**
+     * Returns a SQL command that searches the plant database based on the parameters
+     * @param id_name The field name of the primary id field.
+     * @param options_selected List containing selected options, which will be names of what a
+     *                         filter option contains.
+     * @param search_tables List containing names of tables to search in.
+     * @param search_fields List containing names of fields to search for.
+     * @param selected_filters List containing lists which contain the selected values to search for.
+     * @param height Text that pertains to how the height field is referenced in the database.
+     * @param width Text that pertains to how the width field is referenced in the database.
+     * @return
+     */
+    public String getSearchCommand(String id_name, List<String> options_selected,
+                                            List<String> search_tables, List<String> search_fields,
+                                            List<List<String>> selected_filters,
+                                            String height, String width){
+        String found = "";
+        boolean first = true;
+        //Return all if nothing is selected
+        if(options_selected.size() == 0){
+            found = "SELECT DISTINCT " + id_name + " FROM plant_data";
+        }else {
+            List<List<String>> found_or = new ArrayList<>();
+            Pattern p = Pattern.compile("^(" + height + "|" + width + ")_[a-zA-z]*$");
+            Pattern pj = Pattern.compile("^([0-9]*)-([0-9]*)$");
+            //Search through database with each filter
+            for (int i = 0; i < options_selected.size(); i++) {
+                if(first){
+                    first = false;
+                }else{
+                    found += " INTERSECT ";
+                }
+                Matcher m = p.matcher(search_fields.get(i));
+                if (m.find()) {
+                    //Size field, making numerical comparison here, size is in format 'x_x'
+                    for (int j = 0; j < selected_filters.get(i).size(); j++) {
+                        Matcher mj = pj.matcher(selected_filters.get(i).get(j));
+                        if (mj.find()) {
+                            String lower_size = mj.group(1);
+                            String upper_size = mj.group(2);
+                            found += "SELECT DISTINCT " + id_name + " FROM " + search_tables.get(i)
+                                    + " WHERE " + search_fields.get(i) + " >= " + lower_size
+                                    + " AND " + search_fields.get(i) + " < " + upper_size;
+                        } else {
+                            throw new IllegalStateException("Something wrong with getting lower and upper bounds. Regex not working.");
+                        }
+                    }
+                } else {
+                    //Other fields, checking if it belongs to a group
+                    found += "SELECT DISTINCT " + id_name + " FROM " + search_tables.get(i) +
+                            " WHERE " + getConditions(search_fields.get(i), selected_filters.get(i));
+                }
+            }
+        }
+        return found;
+    }
+
+
+    public String getAnimalCommand(String animal_type){
+        String command = "SELECT * FROM ( SELECT DISTINCT animals_attracted.species_id" +
+                " FROM animals_attracted INNER JOIN animals ON animals_attracted.animal=animals.animal"
+                + " WHERE animals.type = \"" + animal_type +"\" UNION " +
+                "SELECT DISTINCT species_id FROM wildlife WHERE wildlife_attracted=\"" +
+                animal_type + "\")";
+        return command;
+    }
+
+    public String getEdibleCommand(String category){
+        String command = "SELECT DISTINCT species_id FROM food WHERE category = \""
+                + category + "\"";
+        return command;
+    }
+
+    public String getPropertyCommand(String property){
+        String command = "SELECT DISTINCT species_id FROM properties WHERE property = \""
+                + property + "\"";
+        return command;
+    }
+
+    public List<String> runCommand(String command){
+        List<String> found = new ArrayList<>();
         Cursor cursor = database.rawQuery(command, null);
         cursor.moveToFirst();
         boolean first = true;

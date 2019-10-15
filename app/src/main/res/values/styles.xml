@@ -5,12 +5,18 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/LazyGreen</item>
         <item name="colorPrimaryDark">@color/LazyGreenDark</item>
-        <item name="colorAccent">@color/SecondRed</item>
+        <item name="colorAccent">@color/LWhite</item>
     </style>
 
     <style name="SubtitleText" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/SubtitleBlack</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="FilterText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/chip_text</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
