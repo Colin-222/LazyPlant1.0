@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -40,6 +41,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.content.Context.MODE_PRIVATE;
 
 public class PostcodeFragment extends Fragment {
@@ -99,6 +101,7 @@ public class PostcodeFragment extends Fragment {
         });
         location_et.setOnFocusChangeListener(editFocusListener);
 
+        requestPermission();
         final FusedLocationProviderClient client;
         Button locationButton = (Button) root.findViewById(R.id.locate_user_button);
         client = LocationServices.getFusedLocationProviderClient(getActivity());
@@ -134,6 +137,10 @@ public class PostcodeFragment extends Fragment {
                 DisplayHelper.hideKeyboard(view.getContext(), view);
             }
         }};
+
+    private  void requestPermission(){
+        ActivityCompat.requestPermissions(getActivity(), new String[] {ACCESS_FINE_LOCATION}, 1);
+    }
 
 }
 
