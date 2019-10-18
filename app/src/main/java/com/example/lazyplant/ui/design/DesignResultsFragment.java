@@ -49,7 +49,7 @@ public class DesignResultsFragment extends Fragment {
                 plants.add("Chrysocephalum apiculatum ‘Desert Flame’ – Yellow Buttons");
                 break;
             case 1:
-                Glide.with(getContext()).load(R.drawable.garden_formal).into(im);
+                Glide.with(getContext()).load(R.drawable.garden_formal2).into(im);
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Formal Style Garden");
                 plants.add("Goodenia ovata ‘Gold Cover’");
                 plants.add("Corymbia ficifolia ‘Wildfire’ Flowering Gum");
