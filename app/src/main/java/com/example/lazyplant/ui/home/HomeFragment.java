@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
             }
         });
         Button design_go = (Button) root.findViewById(R.id.home_design_go);
-        explore_go.setOnClickListener(new View.OnClickListener() {
+        design_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
                 NavHostFragment.findNavController(f_fragment).navigate(
@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment {
             }
         });
         Button shopping_go = (Button) root.findViewById(R.id.home_shopping_go);
-        explore_go.setOnClickListener(new View.OnClickListener() {
+        shopping_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(getActivity(), ShopsMapActivity.class);

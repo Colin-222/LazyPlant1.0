@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_shop"
             app:destination="@id/navigation_shop_map" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_plant_details"
+            app:destination="@id/navigation_plant_details" />
     </fragment>
 
     <fragment

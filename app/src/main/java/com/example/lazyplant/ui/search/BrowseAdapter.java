@@ -75,8 +75,10 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
                     navi.navigate(R.id.action_navigation_favorite_to_navigation_plant_details, bundle);
                 }else if(navi.getCurrentDestination().getId() == R.id.navigation_habitat_search){
                     navi.navigate(R.id.action_navigation_habitat_search_to_navigation_plant_details, bundle);
-                } else if(navi.getCurrentDestination().getId() == R.id.navigation_edible_search){
+                }else if(navi.getCurrentDestination().getId() == R.id.navigation_edible_search){
                     navi.navigate(R.id.action_navigation_edible_search_to_navigation_plant_details, bundle);
+                }else if(navi.getCurrentDestination().getId() == R.id.navigation_home){
+                    navi.navigate(R.id.action_navigation_home_to_navigation_plant_details, bundle);
                 }
             }
         });
