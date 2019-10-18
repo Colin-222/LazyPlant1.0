@@ -25,6 +25,12 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_postcode"
             app:destination="@id/navigation_postcode" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_design"
+            app:destination="@id/navigation_design" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_shop"
+            app:destination="@id/navigation_shop_map" />
     </fragment>
 
     <fragment

@@ -2,6 +2,7 @@ package com.example.lazyplant.ui.home;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +33,7 @@ import com.example.lazyplant.plantdata.PlantInfoEntity;
 import com.example.lazyplant.ui.DisplayHelper;
 import com.example.lazyplant.ui.PlantSearchViewModel;
 import com.example.lazyplant.ui.search.BrowseAdapter;
+import com.example.lazyplant.ui.shopmap.ShopsMapActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -67,7 +69,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         this.root = inflater.inflate(R.layout.fragment_home, container, false);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Lazy Plant");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         final Fragment f_fragment = this;
 
         Button explore_go = (Button) root.findViewById(R.id.home_explore_go);
@@ -76,6 +79,22 @@ public class HomeFragment extends Fragment {
             public void onClick(View view){
                 NavHostFragment.findNavController(f_fragment).navigate(
                         R.id.action_navigation_home_to_navigation_search);
+            }
+        });
+        Button design_go = (Button) root.findViewById(R.id.home_design_go);
+        explore_go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                NavHostFragment.findNavController(f_fragment).navigate(
+                        R.id.action_navigation_home_to_navigation_design);
+            }
+        });
+        Button shopping_go = (Button) root.findViewById(R.id.home_shopping_go);
+        explore_go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(getActivity(), ShopsMapActivity.class);
+                startActivity(intent);
             }
         });
 

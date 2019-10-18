@@ -22,26 +22,43 @@
     <RelativeLayout
         android:id="@+id/home_light"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:layout_marginTop="40dp"
-        android:layout_alignParentTop="true"
-        android:clickable="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_alignParentTop="true">
 
-        <ImageView
-            android:id="@+id/home_title"
+        <TextView
+            android:id="@+id/home_desc"
+            style="@style/Title2"
+            android:text="LazyPlant, the only native plant recommender you'll ever need."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="12dp"
+            android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="-6dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/home_title"/>
+            />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/home_popular_text"
+        style="@style/Title1"
+        android:text="Trending Plants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/home_light"
+        />
+
+    <View
+        android:id="@+id/home_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_alignTop="@+id/home_recycler">
+    </View>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_recycler"
@@ -52,21 +69,63 @@
         android:paddingStart="6dp"
         android:paddingEnd="6dp"
         android:paddingRight="6dp"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/home_light"/>
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/home_popular_text"/>
+
+    <View
+        android:id="@+id/home_divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_alignBottom="@+id/home_recycler">
+    </View>
 
     <Button
         android:id="@+id/home_explore_go"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="260dp"
+        android:layout_height="80dp"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:text="Explore Native Plants"
-        android:textSize="20sp"
-        android:elevation="4dp"
-        android:background="#009688"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/home_recycler"/>
+        android:layout_below="@+id/home_recycler"
+        android:textAlignment="center"
+        style="@style/Title1"
+        android:textSize="20sp"
+        android:text="Explore Native Plants"
+        android:elevation="4dp"
+        android:background="#088527"/>
+
+    <Button
+        android:id="@+id/home_design_go"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/home_explore_go"
+        android:layout_alignLeft="@id/home_explore_go"
+        android:layout_alignStart="@id/home_explore_go"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        style="@style/Title1"
+        android:textSize="16sp"
+        android:text="Explore Garden Designs"
+        android:elevation="4dp"
+        android:background="#088527" />
+
+    <Button
+        android:id="@+id/home_shopping_go"
+        style="@style/Title1"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/home_explore_go"
+        android:layout_alignRight="@id/home_explore_go"
+        android:layout_alignEnd="@id/home_explore_go"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:text="Find Nearby Shops"
+        android:elevation="4dp"
+        android:background="#088527"  />
 
 
 </RelativeLayout>

@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -182,6 +184,7 @@ public class PlantDetailsFragment extends Fragment {
         alert.setTitle("Give a name to this plant:");
         final EditText input = new EditText(this.getContext());
         alert.setView(input);
+
         alert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 ReminderControl rc = new ReminderControl(getContext(), Constants.GARDEN_DB_NAME);
@@ -218,7 +221,29 @@ public class PlantDetailsFragment extends Fragment {
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) { }
         });
-        alert.show();
+
+        AlertDialog ad = alert.create();
+        final int bg = getContext().getResources().getColor(R.color.pureWhite);
+        final int tc = getContext().getResources().getColor(R.color.colorPrimaryDark);
+        ad.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button negativeButton = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                Button positiveButton = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 3f);
+                negativeButton.setLayoutParams(params);
+                positiveButton.setLayoutParams(params);
+                negativeButton.setBackgroundColor(bg);
+                positiveButton.setBackgroundColor(bg);
+                negativeButton.setTextColor(tc);
+                positiveButton.setTextColor(tc);
+                negativeButton.invalidate();
+                positiveButton.invalidate();
+            }
+        });
+        ad.show();
+        //alert.show();
     }
 
 }

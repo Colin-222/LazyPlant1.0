@@ -113,7 +113,7 @@
             android:layout_below="@+id/upd_last_watering"
             />
 
-        <EditText
+        <!--<EditText
             android:id="@+id/upd_watering_interval_edit"
             style="@style/BasicText"
             android:layout_width="40dp"
@@ -123,7 +123,7 @@
             android:layout_alignBottom="@+id/upd_watering_interval_text"
             android:maxLength="4"
             android:textAlignment="center"
-            />
+            />-->
 
         <View
             android:id="@+id/udp_divider"

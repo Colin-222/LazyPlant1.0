@@ -148,8 +148,11 @@ public class UserPlantDetailsFragment extends Fragment{
         this.displayNotes();
         this.root.findViewById(R.id.upd_button_back).setOnClickListener(backListener);
 
-        EditText et_interval = (EditText)this.root.findViewById(R.id.upd_watering_interval_edit);
-        et_interval.setText(String.valueOf(this.gp.getWatering_interval()));
+        String wi = "Watering Interval:" + this.gp.getWatering_interval() + "days";
+        ((TextView)this.root.findViewById(R.id.upd_watering_interval_text)).setText(wi);
+
+        /*EditText et_interval = (EditText)this.root.findViewById(R.id.upd_watering_interval_edit);
+        et_interval.setText(String.valueOf(this.gp.getWatering_interval()));*/
 
         ImageButton edit_button = (ImageButton) this.root.findViewById(R.id.upd_notes_edit);
         edit_button.setOnClickListener(new View.OnClickListener() {

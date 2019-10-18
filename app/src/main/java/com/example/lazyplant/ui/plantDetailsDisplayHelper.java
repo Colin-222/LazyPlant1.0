@@ -99,6 +99,12 @@ public class plantDetailsDisplayHelper extends DisplayHelper {
 
         List<String> type_list = Arrays.asList(p.getType().split(", "));
         View layout = (View) cl.findViewById(R.id.linear_layout);
+        for (int i = 0; i < 4; i++) {
+            TextView tv = (TextView) layout.findViewById(ICON_NAMES[i]);
+            tv.setText("");
+            ImageView im = (ImageView) layout.findViewById(ICON_IMAGES[i]);
+            im.setImageResource(android.R.color.transparent);
+        }
         for (int i = 0; i < type_list.size(); i++) {
             if (i == 4) {
                 break;
