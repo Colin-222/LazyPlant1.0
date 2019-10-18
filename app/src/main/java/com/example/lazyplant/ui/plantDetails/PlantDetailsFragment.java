@@ -65,12 +65,10 @@ public class PlantDetailsFragment extends Fragment {
         this.plant_details = new ArrayList<>();
 
         ImageButton add = (ImageButton)this.root.findViewById(R.id.plant_details_button_add);
-        ImageButton shopping = (ImageButton)this.root.findViewById(R.id.plant_details_button_shopping);
         //ImageButton notes = (ImageButton)this.root.findViewById(R.id.plant_details_button_notes);
         ImageButton back = (ImageButton)this.root.findViewById(R.id.plant_details_button_back);
 
         add.setOnClickListener(addListener);
-        shopping.setOnClickListener(shoppingListener);
         //notes.setOnClickListener(notesListener);
         back.setOnClickListener(backListener);
 
