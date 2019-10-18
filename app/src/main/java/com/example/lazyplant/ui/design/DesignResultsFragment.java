@@ -40,19 +40,19 @@ public class DesignResultsFragment extends Fragment {
                 Glide.with(getContext()).load(R.drawable.garden_natural).into(im);
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Informal Natural Garden");
                 plants.add("Allocasuarina verticillata ‘Noodles’ – She-Oak");
-                plants.add("Acacia acinacea – Gold Dust Wattle");
+                plants.add("Acacia pycnantha – Golden Wattle");
                 plants.add("Dianella revoluta ‘Petite Marie’ Native Flax");
                 plants.add("Poa labillardieri ‘Eskdale’ – Tussock Grass");
                 plants.add("Indigofera australis – Australian Indigo");
-                plants.add("Callistemon sieberi ‘Sugar Candy’ – Bottlebrush");
-                plants.add("Wahlenbergia capillaris");
+                plants.add("Callistemon citrinus ‘Endeavour’ – Bottlebrush");
+                plants.add("Corymbia ficifolia ‘Wildfire’ Flowering Gum");
                 plants.add("Chrysocephalum apiculatum ‘Desert Flame’ – Yellow Buttons");
                 break;
             case 1:
                 Glide.with(getContext()).load(R.drawable.garden_formal).into(im);
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Formal Style Garden");
                 plants.add("Goodenia ovata ‘Gold Cover’");
-                plants.add("Wahlenbergia capillaris");
+                plants.add("Corymbia ficifolia ‘Wildfire’ Flowering Gum");
                 plants.add("Correa reflexa – Native Fuchsia");
                 plants.add("Grevillea rosmarinifolia ‘Scarlet Sprite’");
                 plants.add("Chrysocephalum apiculatum ‘Desert Flame’ – Yellow Buttons");
@@ -63,17 +63,17 @@ public class DesignResultsFragment extends Fragment {
                 plants.add("Poa labillardieri ‘Eskdale’ – Tussock Grass");
                 plants.add("Themeda triandra ‘Quokka’ – Kangaroo Grass");
                 plants.add("Banksia marginata ‘Minimarg’");
-                plants.add("Correa glabra ‘Ivory Lantern’ – Rock Correa");
+                plants.add("Correa reflexa – Native Fuchsia");
                 break;
             case 3:
                 Glide.with(getContext()).load(R.drawable.garden_cottage).into(im);
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Cottage Garden");
                 plants.add("Chrysocephalum apiculatum ‘Desert Flame’ – Yellow Buttons");
                 plants.add("Dianella revoluta ‘Petite Marie’ Native Flax");
-                plants.add("Wahlenbergia capillaris");
-                plants.add("Brachyscome multifida ‘Break O Day’ Native Daisy");
+                plants.add("Corymbia ficifolia ‘Wildfire’ Flowering Gum");
+                plants.add("Brachyscome ‘Supreme Pink’ – Native Daisy");
                 plants.add("Correa reflexa – Native Fuchsia");
-                plants.add("Correa glabra ‘Ivory Lantern’ – Rock Correa");
+                plants.add("Correa pulchella ‘Remarkable Rocks’ – Native Fuchsia");
                 plants.add("Poa labillardieri ‘Eskdale’ – Tussock Grass");
                 break;
         }
@@ -86,7 +86,8 @@ public class DesignResultsFragment extends Fragment {
             Button button = new Button(getContext());
             PlantInfoEntity pie = databaseAccess.getShortPlantInfo(plant_id);
             final String pid = plant_id;
-            button.setText(String.valueOf(i) + ") " + pie.getCommon_name());
+            String name_text = String.valueOf(i) + ") " + pie.getCommon_name();
+            button.setText(name_text);
             button.setLayoutParams(params);
             ll.addView(button);
             final Fragment f_fragment = this;
