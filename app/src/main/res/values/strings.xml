@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">LazyPlant</string>
+    <string name="title_design">Garden Design</string>
+    <string name="title_home">Home</string>
+    <string name="title_browse">Browse</string>
+    <string name="title_search">Search</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_favourites">Favourites</string>
+    <string name="title_plant_detail">Plant Detail</string>
+    <string name="title_user_plant_detail">User Plant Detail</string>
+    <string name="title_shop_map">Shop Map</string>
+    <string name="title_all_plants">My Plants</string>
+    <string name="title_history">Watering History</string>
+    <string name="title_notes">Notes</string>
+    <string name="title_edible">Edible Plants</string>
+    <string name="title_edible_search">Edible Plants Results</string>
+    <string name="title_habitat">Habitat Gardening</string>
+    <string name="title_habitat_search">Find Plants For Animals</string>
+    <string name="title_reminder">Reminders</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="google_maps_key">AIzaSyBmgWIYl0AC5XpaXMIVRAXqVE_RaL5hF-w</string>
+    <string name="title_activity_plant_details">PlantDetailsActivity</string>
+    <string name="Summer">summer</string>
+    <string name="All">all</string>
+    <string name="year">year</string>
+    <string name="Spring">spring</string>
+    <string name="Winter">winter</string>
+    <string name="Autumn">autumn</string>
+    <string name="search_categories">categories</string>
+    <string name="title_activity_shop_map">Map</string>
+    <string name="title_activity_shops_map">Map</string>
+    <string name="title_activity_share">Map</string>
+</resources>

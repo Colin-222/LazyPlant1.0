@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#08CE08</color>
+    <color name="colorPrimaryDark">#11270B</color>
+    <color name="colorPrimaryLight">#93a3b8</color>
+    <color name="colorAccent">#4AAD52</color>
+    <color name="colorButton">#168E20</color>
+    <color name="colorStandBy">#3C5A14</color>
+    <color name="detailsTitleColor">#11270B</color>
+    <color name="detailsSubtitleColor">#93a3b8</color>
+    <color name="detailsTextColor">#01070B</color>
+    <color name="colorHomeLight">#83FFFFFF</color>
+    <color name="colorLightT">#90FFFFFF</color>
+    <color name="colorLazyGreen">#205E36</color>
+    <color name="darkGreen">#1F5831</color>
+    <color name="brightBlue">#039BE5</color>
+    <color name="bBlue">#4285F4</color>
+    <color name="dGray">#95212128</color>
+    <color name="dividingGrey">#D8D8D8</color>
+    <color name="plantBlue">#7040F0</color>
+    <color name="plantAqua">#009688</color>
+    <color name="progressRed">#BB0000</color>
+    <color name="progressGreen">#55dd55</color>
+    <color name="pureWhite">#FFFFFF</color>
+    <color name="Transparent">#00000000</color>
+    <color name="LazyGreen">#6AB04C</color>
+    <color name="LazyGreenDark">#4C8237</color>
+    <color name="LazyGreenLight">#996AB04C</color>
+    <color name="BgWhite">#FEFEFE</color>
+    <color name="TextBlack">#010501</color>
+    <color name="SubtitleBlack">#9E9AA0</color>
+    <color name="LWhite">#DEDEDE</color>
+    <color name="SecondRed">#D61411</color>
+</resources>

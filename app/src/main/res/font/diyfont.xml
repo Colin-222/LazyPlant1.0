@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/andale_mono" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/american_typewriter_bold" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/highland_gothic_light_flf" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/highland_gothic_elf_bold" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/source_sans_pro_semibold" />
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/source_sans_pro_bold" />
+
+</font-family>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "587064689009",
+    "firebase_url": "https://lazyplant-d942f.firebaseio.com",
+    "project_id": "lazyplant-d942f",
+    "storage_bucket": "lazyplant-d942f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587064689009:android:29c1e20bf4705c708ef6d0",
+        "android_client_info": {
+          "package_name": "com.example.lazyplant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "587064689009-6g82v8afbbk8k1q7pjm2t45b8os6444r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lazyplant",
+            "certificate_hash": "265a7971395af5c504dadf9066c4645a6a0cab14"
+          }
+        },
+        {
+          "client_id": "587064689009-8tmjhd3jlnkji3b3ues78j98kt3m5c0p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKUYMh87V638uNNdACJ8b0PsVTLCswARs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "587064689009-8tmjhd3jlnkji3b3ues78j98kt3m5c0p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

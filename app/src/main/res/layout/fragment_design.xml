@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="56dp"
+    android:background="@drawable/bg_gradient_grey">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/design_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_alignParentTop="true"
+            android:textAlignment="center"
+            android:text="Swipe through the different garden styles to find the one YOU like."
+            android:textSize="22sp"
+            android:textColor="#323232"
+            android:fontFamily="@font/source_sans_pro_bold">
+
+        </TextView>
+
+        <com.synnapps.carouselview.CarouselView
+            android:layout_below="@id/design_title"
+            android:id="@+id/design_carousel"
+            android:layout_width="305dp"
+            android:layout_height="360dp"
+            android:layout_marginTop="8dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="8dp"
+            android:scaleType="fitXY"
+            android:elevation="10dp"
+            app:fillColor="#444444"
+            app:pageColor="#00777777"
+            app:radius="6dp"
+            app:autoPlay="false"
+            app:slideInterval="5000"
+            app:indicatorMarginVertical="2dp"
+            app:pageTransformInterval="200"
+            app:strokeColor="#444444"
+            app:strokeWidth="2dp"
+            app:indicatorMarginHorizontal="10dp"/>
+
+    </RelativeLayout>
+</ScrollView>
