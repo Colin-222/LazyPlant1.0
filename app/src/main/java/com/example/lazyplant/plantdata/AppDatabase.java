@@ -1,12 +1,8 @@
 package com.example.lazyplant.plantdata;
 
-import android.database.sqlite.SQLiteCursor;
-
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-
-import com.example.lazyplant.ui.profile.BackupFragment;
 
 @Database(entities = {Favourite.class, PlantCareRecord.class, GardenPlant.class,
 PlantNotes.class}, version = 8)

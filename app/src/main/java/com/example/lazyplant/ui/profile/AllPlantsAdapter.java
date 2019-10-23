@@ -20,14 +20,7 @@ import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.DbAccess;
 import com.example.lazyplant.plantdata.GardenPlant;
 import com.example.lazyplant.plantdata.PlantInfoEntity;
-import com.example.lazyplant.plantdata.PlantNotes;
-import com.example.lazyplant.ui.plantListDisplayHelper;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class AllPlantsAdapter extends RecyclerView.Adapter<AllPlantsAdapter.ViewHolder> {

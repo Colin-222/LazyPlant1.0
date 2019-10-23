@@ -1,29 +1,19 @@
 package com.example.lazyplant.ui.profile;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewManager;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -39,28 +29,13 @@ import com.example.lazyplant.plantdata.GardenPlantDAO;
 import com.example.lazyplant.plantdata.PlantCareRecord;
 import com.example.lazyplant.plantdata.PlantCareRecordDAO;
 import com.example.lazyplant.plantdata.PlantInfoEntity;
-import com.example.lazyplant.plantdata.PlantNotes;
-import com.example.lazyplant.plantdata.PlantNotesDAO;
 import com.example.lazyplant.ui.PlantSearchViewModel;
 import com.example.lazyplant.ui.plantDetails.OnSwipePlantDetailsListener;
-import com.example.lazyplant.ui.plantDetailsDisplayHelper;
-import com.example.lazyplant.ui.plantListDisplayHelper;
-import com.example.lazyplant.ui.shopmap.ShopsMapActivity;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static android.content.Context.MODE_PRIVATE;
-import static com.example.lazyplant.ui.plantDetails.PlantDetailsActivity.TAG;
 
 public class UserPlantDetailsFragment extends Fragment{
     private View root;

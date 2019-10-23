@@ -31,8 +31,7 @@ import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.DbAccess;
 import com.example.lazyplant.plantdata.PlantInfoEntity;
 import com.example.lazyplant.ui.PlantSearchViewModel;
-import com.example.lazyplant.ui.plantDetailsDisplayHelper;
-import com.example.lazyplant.ui.plantListDisplayHelper;
+import com.example.lazyplant.ui.search.plantListDisplayHelper;
 import com.example.lazyplant.ui.profile.ReminderControl;
 import com.example.lazyplant.ui.shopmap.ShopsMapActivity;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,7 +45,6 @@ import java.util.List;
 import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.example.lazyplant.ui.plantDetails.PlantDetailsActivity.TAG;
 
 public class PlantDetailsFragment extends Fragment {
     private View root;
@@ -55,6 +53,7 @@ public class PlantDetailsFragment extends Fragment {
     private ViewGroup container;
     private PlantSearchViewModel model;
     private List<View> plant_details;
+    private final String TAG = "PlantDetailsActivity";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

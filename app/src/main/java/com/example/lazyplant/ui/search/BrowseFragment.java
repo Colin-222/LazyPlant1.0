@@ -2,7 +2,6 @@ package com.example.lazyplant.ui.search;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -23,12 +22,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lazyplant.Constants;
 import com.example.lazyplant.R;
-import com.example.lazyplant.ResultSpaceItemDecoration;
 import com.example.lazyplant.plantdata.ClimateZoneGetter;
 import com.example.lazyplant.ui.DisplayHelper;
 import com.example.lazyplant.ui.PlantSearchViewModel;

@@ -56,7 +56,6 @@ import java.util.Map;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.content.Context.MODE_PRIVATE;
-import static com.example.lazyplant.ui.plantDetails.PlantDetailsActivity.TAG;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
@@ -65,6 +64,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView popular_view;
     private RecyclerView.Adapter adapter;
     private List<PlantInfoEntity> plant_list;
+    private final String TAG = "PlantDetailsActivity";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -118,7 +118,7 @@ public class HomeFragment extends Fragment {
         adapter = new BrowseAdapter(this.plant_list, this);
         this.popular_view.setAdapter(adapter);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("plantsInfo")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -146,8 +146,16 @@ public class HomeFragment extends Fragment {
                             Log.w(TAG, "Error getting documents.", task.getException());
                         }
                     }
-                });
-
+                });*/
+        List<String> list = new ArrayList<>();
+        list.add("Viola banksii – Native Violet");
+        list.add("Grevillea juniperina hybrid ‘Juniper Rose’");
+        list.add("Callistemon viminalis ‘Wildfire’");
+        list.add("Actinotus helianthi – Flannel Flower");
+        list.add("Acacia spectabilis – Mudgee Wattle");
+        list.add("Melaleuca thymifolia – Honey Myrtle");
+        list.add("Hibbertia scandens – Guinea Flower");
+        updatePopularPlants(list);
         return root;
     }
 

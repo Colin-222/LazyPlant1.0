@@ -1,14 +1,11 @@
 package com.example.lazyplant.ui.search;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,16 +13,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.lazyplant.Constants;
-import com.example.lazyplant.ui.plantDetails.PlantDetailsActivity;
 import com.example.lazyplant.R;
 import com.example.lazyplant.plantdata.DbAccess;
-import com.example.lazyplant.ui.plantDetails.PlantDetailsFragment;
-import com.example.lazyplant.ui.plantListDisplayHelper;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class SearchResultFragment extends Fragment {
 
